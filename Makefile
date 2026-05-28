@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/05/28 07:18:21 by guillsan         ###   ########.fr        #
+#    Updated: 2026/05/28 12:18:54 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,17 @@ NAME = minishell
 
 INC_PATH = inc
 SRC_PATH = src
+UTILS_PATH = src/utils
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -I $(INC_PATH)
 LIBS = -lreadline
 
 SRCS = $(addprefix $(SRC_PATH)/,       \
-		main.c                         \
+		prompt.c                       \
+		main.c)                        \
+		$(addprefix $(UTILS_PATH)/,    \
+		ft_strlen.c                    \
 		)
 
 OBJS = $(SRCS:.c=.o)
