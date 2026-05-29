@@ -6,7 +6,11 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/28 05:31:30 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/29 14:15:11 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+void	lexer(char *line)
+{
+	
+}

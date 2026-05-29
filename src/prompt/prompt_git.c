@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 09:23:14 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/29 13:43:13 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/29 14:06:33 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static int	has_git_dir(char *path)
 
 	ft_strlcpy(test, path, sizeof(test));
 	ft_strlcat(test, "/.git", sizeof(test));
-
 	return (access(test, F_OK) == 0);
 }
 
@@ -121,7 +120,6 @@ int	find_git_root(t_prompt *prompt, char *cwd)
 	int	i;
 
 	ft_strlcpy(prompt->buffer, cwd, sizeof(prompt->buffer));
-
 	while (1)
 	{
 		if (has_git_dir(prompt->buffer))
@@ -129,7 +127,6 @@ int	find_git_root(t_prompt *prompt, char *cwd)
 		if (ft_strcmp(prompt->buffer, "/") == 0)
 			break ;
 		i = ft_strlen(prompt->buffer) - 1;
-
 		while (i > 0 && prompt->buffer[i] != '/')
 			i--;
 		if (i == 0)

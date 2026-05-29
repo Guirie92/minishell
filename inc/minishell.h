@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/29 12:43:58 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/29 14:14:56 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ typedef enum e_retcode
 	E_SUCCESS = 0,
 	E_FAILURE = 1
 }	t_retcode;
+
+/* lexer.c */
+void	lexer(char *line);
 
 /* prompt.c & prompt_utils.c */
 void	generate_prompt(t_prompt *prompt);

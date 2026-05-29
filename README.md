@@ -1,4 +1,4 @@
-# Requirements (posibly not needed)
+# Requirements (possibly not needed)
 
 Linux: 
 `sudo apt install libreadline-dev`
