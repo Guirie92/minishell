@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/29 09:24:51 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/29 11:43:53 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	generate_prompt(t_prompt *prompt)
 {
 	t_prompt	tmp;
 	char		cwd[1024];
-	char		*folder;
+	int			git_root;
 
 	init_prompt(&tmp);
 	if (!getcwd(cwd, sizeof(cwd)))
@@ -76,9 +76,11 @@ void	generate_prompt(t_prompt *prompt)
 		prompt->buffer[1] = '\0';
 		return ;
 	}
-	(void)folder;
-
-	replace_home(&tmp, cwd);
+	git_root = find_git_root(prompt, cwd);
+	if (git_root == E_SUCCESS)
+		write_git_path(&tmp, cwd, prompt->buffer);
+	else
+		replace_home(&tmp, cwd);
 	build_prompt(prompt, &tmp);
 	write(STDIN_FILENO, prompt->buffer, prompt->len);
 }
