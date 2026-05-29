@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/28 12:02:20 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/28 14:28:55 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stddef.h>
+# include <stdlib.h>
 
 # define CLR_GREEN  	"\001\033[32m\002"
 # define CLR_BLUE   	"\001\033[34m\002"
@@ -33,11 +34,16 @@ typedef struct s_data
 typedef struct s_prompt
 {
 	char	buffer[2048];
-	int		len;
-	int		max_len;
+	size_t	len;
+	size_t	max_len;
 }	t_prompt;
 
 /* prompt.c */
 void	generate_prompt(t_prompt *prompt);
+
+/* utils */
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+size_t	ft_strlen(const char *str);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif /* MINISHELL_H */
