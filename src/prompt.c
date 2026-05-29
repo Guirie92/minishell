@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/29 05:55:51 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/29 09:24:51 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,10 @@ static void	build_prompt(t_prompt *prompt, t_prompt *tmp)
 	t_builder	b;
 
 	builder_init(&b, prompt->buffer, prompt->max_len);
-	builder_append(&b, CLR_LIGHT_BLUE "\n");
+	builder_append(&b, CLR_BLUE "\n");
 	builder_append(&b, tmp->buffer);
-	builder_append(&b, "\n");
-	builder_append(&b, CLR_LIGHT_PURPLE);
-	builder_append(&b, "❯ ");
-	builder_append(&b, CLR_RESET);
-
-	// data.line = readline(CLR_LIGHT_BLUE
-	// 			"\n" prompt.buffer "\n" CLR_LIGHT_PURPLE "❯ " CLR_RESET);
+	builder_append(&b, "\n" CLR_PURPLE "❯" CLR_RESET);
+	prompt->len = prompt->max_len - b.remaining;
 }
 
 void	generate_prompt(t_prompt *prompt)
@@ -73,7 +68,6 @@ void	generate_prompt(t_prompt *prompt)
 	t_prompt	tmp;
 	char		cwd[1024];
 	char		*folder;
-	char		*branch;
 
 	init_prompt(&tmp);
 	if (!getcwd(cwd, sizeof(cwd)))
@@ -83,9 +77,8 @@ void	generate_prompt(t_prompt *prompt)
 		return ;
 	}
 	(void)folder;
-	(void)branch;
 
-	printf("path: %s", cwd);
 	replace_home(&tmp, cwd);
 	build_prompt(prompt, &tmp);
+	write(STDIN_FILENO, prompt->buffer, prompt->len);
 }
