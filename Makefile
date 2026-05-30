@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/05/29 10:33:21 by guillsan         ###   ########.fr        #
+#    Updated: 2026/05/30 07:55:41 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ CFLAGS = -Wall -Werror -Wextra -I $(INC_PATH)
 LIBS = -lreadline
 
 SRCS = $(addprefix $(SRC_PATH)/,       \
+		lexer.c                        \
 		main.c)                        \
 		$(addprefix $(UTILS_PATH)/,    \
 		string_builder.c               \

@@ -1,0 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/29 16:33:38 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/30 11:52:36 by guillsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef LEXER_H
+# define LEXER_H
+
+# include <stddef.h>
+
+typedef enum e_lexer_states
+{
+	LEXER_NORMAL,
+	LEXER_SINGLE_QUOTE,
+	LEXER_DOUBLE_QUOTE,
+}	t_lexer_states;
+
+typedef enum e_token_type
+{
+	TOKEN_WORD,
+	TOKEN_PIPE,
+	TOKEN_REDIR_IN,
+	TOKEN_REDIR_OUT,
+	TOKEN_APPEND,
+	TOKEN_HEREDOC
+}	t_token_type;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+}	t_token;
+
+typedef struct s_lexer
+{
+	char			*input;
+	char			*buffer;
+	t_token			*head;
+	t_token			*tail;
+	size_t			pos;
+	size_t			idx;
+	t_lexer_states	state;
+}	t_lexer;
+
+/* lexer.c */
+t_token	*lexer(char *line);
+
+#endif /* LEXER_H */

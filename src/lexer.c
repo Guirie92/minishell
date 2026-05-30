@@ -6,11 +6,43 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/29 14:15:11 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 12:14:15 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	lexer(char *line)
+#include "lexer.h"
+
+static void	init_lexer(t_lexer *lx)
+{
+	lx->head = NULL;
+	lx->tail = NULL;
+	lx->state = LEXER_NORMAL;
+	lx->input = NULL;
+	lx->buffer = NULL;
+	lx->pos = 0;
+	lx->idx = 0;
+}
+
+static void	cleanup_lexer(t_lexer *lx)
+{
+	free(lx->buffer);
+	lx->buffer = NULL;
+}
+
+static void tokenize_input(t_lexer *lx)
 {
 	
+}
+
+t_token	*lexer(char *line)
+{
+	t_lexer lx;
+
+	init_lexer(&lx);
+	
+	tokenize_input(&lx);
+	
+	cleanup_lexer(&lx);
+
+	return (lx.head);
 }
