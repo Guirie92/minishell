@@ -1,21 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_utils.c                                     :+:      :+:    :+:   */
+/*   lexer_tokenize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/29 05:33:32 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 15:01:18 by guillsan         ###   ########.fr       */
+/*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/30 17:13:27 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "prompt/prompt.h"
+#include "lexer/lexer_internal.h"
 
-void	init_prompt(t_prompt *prompt)
+static void	create_token(t_lexer *lx)
 {
-	prompt->buffer[0] = '\0';
-	prompt->len = 0;
-	prompt->max_len = 2048;
+	t_token node;
+	
+	node = 
+	if (lx->head == NULL)
+	{
+		lx->head = node;
+		lx->tail = node;
+	}
+	else
+	{
+		
+	}
+}
+
+void	process_lx_normal(t_lexer *lx)
+{
+	(void)lx;
+	
+}
+
+void	process_lx_single_q(t_lexer *lx)
+{
+	(void)lx;
+}
+
+void	process_lx_double_q(t_lexer *lx)
+{
+	(void)lx;
 }

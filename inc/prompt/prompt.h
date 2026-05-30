@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_utils.c                                     :+:      :+:    :+:   */
+/*   prompt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/29 05:33:32 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 15:01:18 by guillsan         ###   ########.fr       */
+/*   Created: 2026/05/30 14:49:48 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/30 15:07:45 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "prompt/prompt.h"
+#ifndef PROMPT_H
+# define PROMPT_H
 
-void	init_prompt(t_prompt *prompt)
+# include <stddef.h>
+
+typedef struct s_prompt
 {
-	prompt->buffer[0] = '\0';
-	prompt->len = 0;
-	prompt->max_len = 2048;
-}
+	char	buffer[2048];
+	size_t	len;
+	size_t	max_len;
+}	t_prompt;
+
+void	generate_prompt(t_prompt *prompt);
+void	init_prompt(t_prompt *prompt);
+
+#endif /* PROMPT_H */

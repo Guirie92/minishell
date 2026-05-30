@@ -6,13 +6,13 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 11:54:04 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 15:08:09 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "lexer.h"
-#include "string_builder.h" // del
+#include "lexer/lexer.h"
+#include "prompt/prompt.h"
 #include <stdio.h> // del
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -28,6 +28,7 @@ static void	parse_and_execute(t_data *data)
 	t_token	*head;
 	
 	head = lexer(data->line);
+	(void)head;
 }
 
 int	main(void)

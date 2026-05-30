@@ -6,11 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 12:14:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 16:15:29 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "lexer/lexer.h"
+#include "lexer/lexer_internal.h"
 
 static void	init_lexer(t_lexer *lx)
 {
@@ -31,7 +32,16 @@ static void	cleanup_lexer(t_lexer *lx)
 
 static void tokenize_input(t_lexer *lx)
 {
-	
+	while(lx->input[lx->idx])
+	{
+		if (lx->state == LEXER_NORMAL)
+			process_lx_normal(lx);
+		else if (lx->state == LEXER_SINGLE_QUOTE)
+			process_lx_single_q(lx);
+		else if (lx->state == LEXER_DOUBLE_QUOTE)
+			process_lx_double_q(lx);
+		(lx->idx)++;
+	}
 }
 
 t_token	*lexer(char *line)
@@ -39,7 +49,7 @@ t_token	*lexer(char *line)
 	t_lexer lx;
 
 	init_lexer(&lx);
-	
+	lx.input = line;
 	tokenize_input(&lx);
 	
 	cleanup_lexer(&lx);

@@ -6,14 +6,14 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 09:23:14 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/29 14:06:33 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 15:01:33 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "prompt/prompt.h"
 #include "fcntl.h"
 #include "unistd.h"
-#include "stdio.h"
 
 /*
  * opens the file at .git/HEAD, which reports the refernce and it's

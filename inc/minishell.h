@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/29 16:33:23 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 14:53:51 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,11 @@ typedef struct s_data
 	char	*line;
 }	t_data;
 
-typedef struct s_prompt
-{
-	char	buffer[2048];
-	size_t	len;
-	size_t	max_len;
-}	t_prompt;
-
 typedef enum e_retcode
 {
 	E_SUCCESS = 0,
 	E_FAILURE = 1
 }	t_retcode;
-
-/* prompt.c & prompt_utils.c */
-void	generate_prompt(t_prompt *prompt);
-void	init_prompt(t_prompt *prompt);
-//void	scan_git_repo(char *cwd);
-int		find_git_root(t_prompt *prompt, char *cwd);
-void	write_git_path(t_prompt *prompt, const char *cwd, const char *git_root);
-//char	*find_git_root(char *cwd);
 
 /* utils */
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
@@ -65,5 +50,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strrchr(const char *s, int c);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+int		ft_isspace(int c);
 
 #endif /* MINISHELL_H */

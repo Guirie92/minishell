@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_utils.c                                     :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/29 05:33:32 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 15:01:18 by guillsan         ###   ########.fr       */
+/*   Created: 2026/05/30 13:04:01 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/30 13:21:27 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "prompt/prompt.h"
-
-void	init_prompt(t_prompt *prompt)
+int	ft_isspace(int c)
 {
-	prompt->buffer[0] = '\0';
-	prompt->len = 0;
-	prompt->max_len = 2048;
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
 }

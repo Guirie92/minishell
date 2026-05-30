@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/05/30 07:55:41 by guillsan         ###   ########.fr        #
+#    Updated: 2026/05/30 15:14:39 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ INC_PATH = inc
 SRC_PATH = src
 UTILS_PATH = src/utils
 PROMPT_PATH = src/prompt
+LEXER_PATH = src/lexer
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -I $(INC_PATH)
 LIBS = -lreadline
 
 SRCS = $(addprefix $(SRC_PATH)/,       \
-		lexer.c                        \
 		main.c)                        \
 		$(addprefix $(UTILS_PATH)/,    \
 		string_builder.c               \
@@ -32,11 +32,15 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		ft_strrchr.c                   \
 		ft_strlcpy.c                   \
 		ft_strlcat.c                   \
-		ft_strlen.c)                   \
+		ft_strlen.c                    \
+		ft_isspace.c)                  \
 		$(addprefix $(PROMPT_PATH)/,   \
 		prompt_utils.c                 \
 		prompt_git.c                   \
-		prompt.c                       \
+		prompt.c)                      \
+		$(addprefix $(LEXER_PATH)/,    \
+		lexer_tokenize.c               \
+		lexer.c                        \
 		)
 
 OBJS = $(SRCS:.c=.o)

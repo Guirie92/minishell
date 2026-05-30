@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 16:33:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 11:52:36 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 15:09:08 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEXER_H
 
 # include <stddef.h>
+# include <stdlib.h>
 
 typedef enum e_lexer_states
 {

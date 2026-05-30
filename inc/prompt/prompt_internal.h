@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_utils.c                                     :+:      :+:    :+:   */
+/*   prompt_internal.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/29 05:33:32 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 15:01:18 by guillsan         ###   ########.fr       */
+/*   Created: 2026/05/30 14:49:45 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/30 15:07:40 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PROMPT_INTERNAL_H
+# define PROMPT_INTERNAL_H
+
 #include "prompt/prompt.h"
 
-void	init_prompt(t_prompt *prompt)
-{
-	prompt->buffer[0] = '\0';
-	prompt->len = 0;
-	prompt->max_len = 2048;
-}
+int		find_git_root(t_prompt *prompt, char *cwd);
+void	write_git_path(t_prompt *prompt, const char *cwd, const char *git_root);
+
+#endif /* PROMPT_INTERNAL_H */
