@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_utils.c                                     :+:      :+:    :+:   */
+/*   clear_resources.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/29 05:33:32 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 15:01:18 by guillsan         ###   ########.fr       */
+/*   Created: 2026/05/30 18:35:16 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/30 19:10:27 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "prompt/prompt.h"
+#ifndef CLEAR_RESOURCES_H
+# define CLEAR_RESOURCES_H
 
-void	init_prompt(t_prompt *prompt)
-{
-	prompt->buffer[0] = '\0';
-	prompt->len = 0;
-	prompt->max_len = 2048;
-}
+typedef struct s_data	t_data;
+
+void	clear_data(t_data *data);
+
+#endif /* CLEAR_RESOURCES_H */

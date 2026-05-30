@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 14:49:48 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 19:44:02 by guillsan         ###   ########.fr       */
+/*   Created: 2026/05/30 19:25:52 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/30 19:45:05 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#ifndef INIT_H
+# define INIT_H
 
-# include <stddef.h>
+typedef struct s_data	t_data;
+typedef struct s_prompt	t_prompt;
 
-typedef struct s_prompt
-{
-	char	buffer[2048];
-	size_t	len;
-	size_t	max_len;
-}	t_prompt;
+void	init_data(t_data *data);
+void	init_prompt(t_prompt *prompt);
 
-void	generate_prompt(t_prompt *prompt);
-
-#endif /* PROMPT_H */
+#endif /* INIT_H */

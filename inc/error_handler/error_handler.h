@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   error_handler.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 14:49:48 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 19:44:02 by guillsan         ###   ########.fr       */
+/*   Created: 2026/05/30 18:35:58 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/30 19:17:48 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#ifndef ERROR_HANDLER_H
+# define ERROR_HANDLER_H
 
-# include <stddef.h>
-
-typedef struct s_prompt
+typedef enum e_err_type
 {
-	char	buffer[2048];
-	size_t	len;
-	size_t	max_len;
-}	t_prompt;
+	ERR_MALLOC,
+	ERR_CMD_NOT_FOUND,
+	ERR_PERMISSION,
+	ERR_PIPE_FAIL,
+	ERR_COUNT,
+	ERR_NO_MSG
+}	t_err_type;
 
-void	generate_prompt(t_prompt *prompt);
+typedef struct s_data	t_data;
 
-#endif /* PROMPT_H */
+void	exit_with_error(t_data *data, t_err_type err_code);
+
+#endif /* ERROR_HANDLER_H */

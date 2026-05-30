@@ -6,15 +6,14 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 16:33:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 15:09:08 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 17:32:21 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include <stddef.h>
-# include <stdlib.h>
+# include "minishell.h"
 
 typedef enum e_lexer_states
 {
@@ -52,6 +51,6 @@ typedef struct s_lexer
 }	t_lexer;
 
 /* lexer.c */
-t_token	*lexer(char *line);
+t_token	*lexer(t_data *data);
 
 #endif /* LEXER_H */

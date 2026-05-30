@@ -6,13 +6,15 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 14:53:51 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 19:41:55 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "clear_resources/clear_resources.h"
+# include "error_handler/error_handler.h"
 # include <stddef.h>
 # include <stdlib.h>
 
@@ -31,9 +33,15 @@
 # define TEXT_BOLD    "\033[1m"
 # define TEXT_UNBOLD  "\033[22m"
 
+typedef struct s_token	t_token;
+typedef struct s_prompt	t_prompt;
+
 typedef struct s_data
 {
-	char	*line;
+	char		*line;
+	t_token		*tokens;
+	t_prompt	*prompt;
+	int			exit_code;
 }	t_data;
 
 typedef enum e_retcode
@@ -41,6 +49,7 @@ typedef enum e_retcode
 	E_SUCCESS = 0,
 	E_FAILURE = 1
 }	t_retcode;
+
 
 /* utils */
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);

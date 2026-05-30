@@ -6,11 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 15:06:36 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/30 19:44:32 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "init.h"
 #include "prompt/prompt.h"
 #include "prompt/prompt_internal.h"
 #include "string_builder.h"
