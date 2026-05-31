@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 16:33:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 17:32:21 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 10:17:56 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ typedef struct s_lexer
 	char			*buffer;
 	t_token			*head;
 	t_token			*tail;
-	size_t			pos;
-	size_t			idx;
+	size_t			input_idx;
+	size_t			buf_idx;
 	t_lexer_states	state;
 }	t_lexer;
 
 /* lexer.c */
-t_token	*lexer(t_data *data);
+void	lexer(t_data *data);
 
 #endif /* LEXER_H */

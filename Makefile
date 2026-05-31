@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/05/30 19:42:28 by guillsan         ###   ########.fr        #
+#    Updated: 2026/05/31 12:48:59 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		ft_strlcpy.c                   \
 		ft_strlcat.c                   \
 		ft_strlen.c                    \
+		ft_strdup.c                    \
 		ft_isspace.c)                  \
 		$(addprefix $(PROMPT_PATH)/,   \
 		prompt_git.c                   \

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:07 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 08:55:07 by guillsan         ###   ########.fr       */
+/*   Created: 2025/10/08 18:11:47 by guillsan          #+#    #+#             */
+/*   Updated: 2026/05/31 08:42:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "prompt/prompt.h"
 
-void	init_prompt(t_prompt *prompt)
+char	*ft_strdup(const char *s)
 {
-	prompt->buffer[0] = '\0';
-	prompt->len = 0;
-	prompt->max_len = 2048;
-}
+	char	*ptr;
+	size_t	len;
 
-void	init_data(t_data *data)
-{
-	data->line = NULL;
-	data->tokens_head = NULL;
-	init_prompt(data->prompt);
+	len = ft_strlen(s) + 1;
+	ptr = malloc(len * sizeof(char));
+	if (ptr)
+		ft_strlcpy(ptr, s, len);
+	return (ptr);
 }

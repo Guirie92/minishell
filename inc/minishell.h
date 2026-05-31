@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 19:41:55 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 08:55:07 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_prompt	t_prompt;
 typedef struct s_data
 {
 	char		*line;
-	t_token		*tokens;
+	t_token		*tokens_head;
 	t_prompt	*prompt;
 	int			exit_code;
 }	t_data;
@@ -58,6 +58,7 @@ size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strrchr(const char *s, int c);
+char	*ft_strdup(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 int		ft_isspace(int c);
 
