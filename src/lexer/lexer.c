@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 20:10:14 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 20:48:11 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	reset_buffer(t_lexer *lx)
 {
 	lx->buf_idx = 0;
 	lx->buffer[lx->buf_idx] = '\0';
-	lx->b_quoted = FALSE;
 }
 
 static void	init_lexer(t_data *data, t_lexer *lx)
@@ -37,7 +36,6 @@ static void	init_lexer(t_data *data, t_lexer *lx)
 	lx->state = LEXER_NORMAL;
 	lx->input_idx = 0;
 	lx->buf_idx = 0;
-	lx->b_quoted = FALSE;
 	if (!lx->input)
 		exit_lexer_with_error(data, lx);
 	lx->buffer = malloc((ft_strlen(lx->input) + 1) * sizeof(char));
@@ -52,13 +50,13 @@ static void	tokenize_input(t_data *data, t_lexer *lx)
 		if (lx->state == LEXER_NORMAL)
 			process_lx_normal(data, lx);
 		else if (lx->state == LEXER_SINGLE_QUOTE)
-			process_lx_single_q(lx);
+			process_lx_single_q(data, lx);
 		else if (lx->state == LEXER_DOUBLE_QUOTE)
-			process_lx_double_q(lx);
+			process_lx_double_q(data, lx);
 		(lx->input_idx)++;
 	}
-	if(lx->buffer[0] != '\0')
-		add_token(data, lx, TOKEN_WORD);
+	if(lx->buf_idx > 0)
+		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
 }
 
 void	lexer(t_data *data)

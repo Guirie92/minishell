@@ -6,23 +6,21 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 20:12:29 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 20:50:48 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer/lexer_internal.h"
 
-void	add_token(t_data *data, t_lexer *lx, t_token_type token_type)
+void	add_token(t_data *data, t_lexer *lx, t_token_type token_type, 
+	t_token_mode allow_empty)
 {
 	t_token	*token;
 
 	lx->buffer[lx->buf_idx] = '\0';
-	if (lx->buffer[0] == '\0' && token_type == TOKEN_WORD && !lx->b_quoted)
-	{
-		lx->b_quoted = FALSE;	
+	if (lx->buf_idx == 0 && token_type == TOKEN_WORD && !allow_empty)
 		return ;
-	}
 	token = malloc(sizeof(*token));
 	if (!token)
 		exit_lexer_with_error(data, lx);
@@ -50,29 +48,29 @@ static void	process_operator(t_data *data, t_lexer *lx)
 	const int	i = lx->input_idx;
 	
 	if (lx->buf_idx > 0)
-		add_token(data, lx, TOKEN_WORD);
+		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
 	if (lx->input[i] == '|')
-		add_token(data, lx, TOKEN_PIPE);
+		add_token(data, lx, TOKEN_PIPE, TOKEN_DEFAULT);
 	else if (lx->input[i] == '>' && lx->input[i + 1] == '>')
 	{
 		(lx->input_idx)++;
-		add_token(data, lx, TOKEN_APPEND);
+		add_token(data, lx, TOKEN_APPEND, TOKEN_DEFAULT);
 	}
 	else if (lx->input[i] == '<' && lx->input[i + 1] == '<')
 	{
 		(lx->input_idx)++;
-		add_token(data, lx, TOKEN_HEREDOC);
+		add_token(data, lx, TOKEN_HEREDOC, TOKEN_DEFAULT);
 	}
 	else if (lx->input[i] == '>')
-		add_token(data, lx, TOKEN_REDIR_OUT);
+		add_token(data, lx, TOKEN_REDIR_OUT, TOKEN_DEFAULT);
 	else if (lx->input[i] == '<')
-		add_token(data, lx, TOKEN_REDIR_IN);
+		add_token(data, lx, TOKEN_REDIR_IN, TOKEN_DEFAULT);
 }
 
 void	process_lx_normal(t_data *data, t_lexer *lx)
 {
 	if (ft_isspace(lx->input[lx->input_idx]))
-		add_token(data, lx, TOKEN_WORD);
+		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
 	else if (lx->input[lx->input_idx] == '\'')
 		lx->state = LEXER_SINGLE_QUOTE;
 	else if (lx->input[lx->input_idx] == '"')
@@ -86,23 +84,25 @@ void	process_lx_normal(t_data *data, t_lexer *lx)
 	}
 }
 
-void	process_lx_single_q(t_lexer *lx)
+void	process_lx_single_q(t_data *data, t_lexer *lx)
 {
 	if (lx->input[lx->input_idx] == '\'')
 	{
 		lx->state = LEXER_NORMAL;
-		lx->b_quoted = TRUE;
+		if (lx->buf_idx == 0)
+			add_token(data, lx, TOKEN_WORD, TOKEN_ALLOW_EMPTY);
 	}
 	else
 		lx->buffer[lx->buf_idx++] = lx->input[lx->input_idx];
 }
 
-void	process_lx_double_q(t_lexer *lx)
+void	process_lx_double_q(t_data *data, t_lexer *lx)
 {
 	if (lx->input[lx->input_idx] == '"')
 	{
 		lx->state = LEXER_NORMAL;
-		lx->b_quoted = TRUE;
+		if (lx->buf_idx == 0)
+			add_token(data, lx, TOKEN_WORD, TOKEN_ALLOW_EMPTY);
 	}
 	else
 		lx->buffer[lx->buf_idx++] = lx->input[lx->input_idx];
