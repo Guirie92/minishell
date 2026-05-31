@@ -6,25 +6,22 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 13:26:19 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 18:23:15 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer/lexer_internal.h"
 
-static void	reset_buffer(t_lexer *lx)
-{
-	lx->buf_idx = 0;
-	lx->buffer[lx->buf_idx] = '\0';
-}
-static void	add_token(t_data *data, t_lexer *lx, t_token_type token_type)
+void	add_token(t_data *data, t_lexer *lx, t_token_type token_type)
 {
 	t_token	*token;
 
 	lx->buffer[lx->buf_idx] = '\0';
+	if (lx->buffer[0] == '\0' && token_type == TOKEN_WORD)
+		return ;
 	token = malloc(sizeof(*token));
-	if(!token)
+	if (!token)
 		exit_lexer_with_error(data, lx);
 	token->type = token_type;
 	token->value = ft_strdup(lx->buffer);
@@ -45,13 +42,45 @@ static void	add_token(t_data *data, t_lexer *lx, t_token_type token_type)
 	reset_buffer(lx);
 }
 
+static void	process_operator(t_data *data, t_lexer *lx)
+{
+	const int	i = lx->input_idx;
+	
+	if (lx->buf_idx > 0)
+		add_token(data, lx, TOKEN_WORD);
+	if (lx->input[i] == '|')
+		add_token(data, lx, TOKEN_PIPE);
+	else if (lx->input[i] == '>' && lx->input[i + 1] == '>')
+	{
+		(lx->input_idx)++;
+		add_token(data, lx, TOKEN_APPEND);
+	}
+	else if (lx->input[i] == '<' && lx->input[i + 1] == '<')
+	{
+		(lx->input_idx)++;
+		add_token(data, lx, TOKEN_HEREDOC);
+	}
+	else if (lx->input[i] == '>')
+		add_token(data, lx, TOKEN_REDIR_OUT);
+	else if (lx->input[i] == '<')
+		add_token(data, lx, TOKEN_REDIR_IN);
+}
+
 void	process_lx_normal(t_data *data, t_lexer *lx)
 {
-	(void)lx;
-	(void)data;
-	add_token(data, lx, TOKEN_WORD);
-	// TODO
-	
+	if (ft_isspace(lx->input[lx->input_idx]))
+		add_token(data, lx, TOKEN_WORD);
+	else if (lx->input[lx->input_idx] == '\'')
+		lx->state = LEXER_SINGLE_QUOTE;
+	else if (lx->input[lx->input_idx] == '"')
+		lx->state = LEXER_DOUBLE_QUOTE;
+	else if (ft_strrchr(LEXER_OPERATORS, lx->input[lx->input_idx]) != NULL)
+		process_operator(data, lx);
+	else
+	{
+		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
+		(lx->buf_idx)++;	
+	}
 }
 
 void	process_lx_single_q(t_data *data, t_lexer *lx)

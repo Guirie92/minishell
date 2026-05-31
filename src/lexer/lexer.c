@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 13:57:39 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 18:00:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	exit_lexer_with_error(t_data *data, t_lexer *lx)
 		free(lx->buffer);
 	lx->buffer = NULL;
 	exit_with_error(data, ERR_NO_MSG);
+}
+
+void	reset_buffer(t_lexer *lx)
+{
+	lx->buf_idx = 0;
+	lx->buffer[lx->buf_idx] = '\0';
 }
 
 static void	init_lexer(t_data *data, t_lexer *lx)
@@ -49,6 +55,8 @@ static void	tokenize_input(t_data *data, t_lexer *lx)
 			process_lx_double_q(data, lx);
 		(lx->input_idx)++;
 	}
+	if(lx->buffer[0] != '\0')
+		add_token(data, lx, TOKEN_WORD);
 }
 
 void	lexer(t_data *data)
@@ -58,7 +66,6 @@ void	lexer(t_data *data)
 	lx.input = data->line;
 	init_lexer(data, &lx);
 	tokenize_input(data, &lx);
-
 	if (lx.buffer)
 		free(lx.buffer);
 	lx.buffer = NULL;

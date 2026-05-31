@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 08:55:07 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 15:46:10 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define TEXT_BOLD    "\033[1m"
 # define TEXT_UNBOLD  "\033[22m"
 
+# define LEXER_OPERATORS "|><"
+
 typedef struct s_token	t_token;
 typedef struct s_prompt	t_prompt;
 
@@ -49,7 +51,6 @@ typedef enum e_retcode
 	E_SUCCESS = 0,
 	E_FAILURE = 1
 }	t_retcode;
-
 
 /* utils */
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
