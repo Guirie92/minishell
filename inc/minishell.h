@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 15:46:10 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 20:09:54 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define TEXT_UNBOLD  "\033[22m"
 
 # define LEXER_OPERATORS "|><"
+
+# define TRUE  1
+# define FALSE 0
 
 typedef struct s_token	t_token;
 typedef struct s_prompt	t_prompt;

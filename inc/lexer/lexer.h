@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 16:33:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 10:17:56 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 20:05:25 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_lexer
 	t_token			*tail;
 	size_t			input_idx;
 	size_t			buf_idx;
+	int				b_quoted;
 	t_lexer_states	state;
 }	t_lexer;
 

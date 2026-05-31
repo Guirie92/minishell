@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 18:23:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/05/31 20:12:29 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void	add_token(t_data *data, t_lexer *lx, t_token_type token_type)
 	t_token	*token;
 
 	lx->buffer[lx->buf_idx] = '\0';
-	if (lx->buffer[0] == '\0' && token_type == TOKEN_WORD)
+	if (lx->buffer[0] == '\0' && token_type == TOKEN_WORD && !lx->b_quoted)
+	{
+		lx->b_quoted = FALSE;	
 		return ;
+	}
 	token = malloc(sizeof(*token));
 	if (!token)
 		exit_lexer_with_error(data, lx);
@@ -83,16 +86,24 @@ void	process_lx_normal(t_data *data, t_lexer *lx)
 	}
 }
 
-void	process_lx_single_q(t_data *data, t_lexer *lx)
+void	process_lx_single_q(t_lexer *lx)
 {
-	(void)lx;
-	(void)data;
-	// TODO
+	if (lx->input[lx->input_idx] == '\'')
+	{
+		lx->state = LEXER_NORMAL;
+		lx->b_quoted = TRUE;
+	}
+	else
+		lx->buffer[lx->buf_idx++] = lx->input[lx->input_idx];
 }
 
-void	process_lx_double_q(t_data *data, t_lexer *lx)
+void	process_lx_double_q(t_lexer *lx)
 {
-	(void)lx;
-	(void)data;
-	// TODO
+	if (lx->input[lx->input_idx] == '"')
+	{
+		lx->state = LEXER_NORMAL;
+		lx->b_quoted = TRUE;
+	}
+	else
+		lx->buffer[lx->buf_idx++] = lx->input[lx->input_idx];
 }
