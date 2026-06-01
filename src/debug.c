@@ -32,7 +32,7 @@ static void	debug_lexer(t_data *data)
 		else if (token->type == TOKEN_HEREDOC)
 			token_type = "HEREDOC";
 		if (token->type == TOKEN_WORD)
-			printf("%s(\"%s\")\n", token_type, token->value);
+			printf("%s(%s)\n", token_type, token->value);
 		else
 			printf("%s %s\n", token_type, token->value);
 		fflush(stdout);

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/01 15:20:12 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/01 20:01:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	add_token(t_data *data, t_lexer *lx, t_token_type token_type,
 
 static void	process_operator(t_data *data, t_lexer *lx)
 {
-	const int	i = lx->input_idx;
+	const size_t	i = lx->input_idx;
 
 	if (lx->buf_idx > 0)
 		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
@@ -67,18 +67,35 @@ static void	process_operator(t_data *data, t_lexer *lx)
 		add_token(data, lx, TOKEN_REDIR_IN, TOKEN_DEFAULT);
 }
 
+// void	process_lx_normal(t_data *data, t_lexer *lx)
+// {
+// 	if (ft_isspace(lx->input[lx->input_idx]))
+// 		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
+// 	else if (lx->input[lx->input_idx] == '\'')
+// 		lx->state = LEXER_SINGLE_QUOTE;
+// 	else if (lx->input[lx->input_idx] == '"')
+// 		lx->state = LEXER_DOUBLE_QUOTE;
+// 	else if (ft_strrchr(LEXER_OPERATORS, lx->input[lx->input_idx]) != NULL)
+// 		process_operator(data, lx);
+// 	else
+// 	{
+// 		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
+// 		(lx->buf_idx)++;
+// 	}
+// }
+
 void	process_lx_normal(t_data *data, t_lexer *lx)
 {
 	if (ft_isspace(lx->input[lx->input_idx]))
 		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
-	else if (lx->input[lx->input_idx] == '\'')
-		lx->state = LEXER_SINGLE_QUOTE;
-	else if (lx->input[lx->input_idx] == '"')
-		lx->state = LEXER_DOUBLE_QUOTE;
 	else if (ft_strrchr(LEXER_OPERATORS, lx->input[lx->input_idx]) != NULL)
 		process_operator(data, lx);
 	else
 	{
+		if (lx->input[lx->input_idx] == '\'')
+			lx->state = LEXER_SINGLE_QUOTE;
+		else if (lx->input[lx->input_idx] == '"')
+			lx->state = LEXER_DOUBLE_QUOTE;
 		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
 		(lx->buf_idx)++;
 	}
@@ -90,6 +107,8 @@ void	process_lx_single_q(t_data *data, t_lexer *lx)
 
 	if (lx->input[i] == '\'')
 	{
+		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
+		(lx->buf_idx)++;
 		lx->state = LEXER_NORMAL;
 		if (lx->buf_idx == 0
 			&& (ft_isspace(lx->input[i + 1]) || lx->input[i + 1] == '\0'
@@ -106,6 +125,8 @@ void	process_lx_double_q(t_data *data, t_lexer *lx)
 
 	if (lx->input[lx->input_idx] == '"')
 	{
+		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
+		(lx->buf_idx)++;
 		lx->state = LEXER_NORMAL;
 		if (lx->buf_idx == 0
 			&& (ft_isspace(lx->input[i + 1]) || lx->input[i + 1] == '\0'
