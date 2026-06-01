@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 20:48:11 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/01 14:51:20 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	tokenize_input(t_data *data, t_lexer *lx)
 			process_lx_double_q(data, lx);
 		(lx->input_idx)++;
 	}
-	if(lx->buf_idx > 0)
+	if (lx->buf_idx > 0)
 		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
 }
 

@@ -6,14 +6,14 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 20:50:48 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/01 15:20:12 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer/lexer_internal.h"
 
-void	add_token(t_data *data, t_lexer *lx, t_token_type token_type, 
+void	add_token(t_data *data, t_lexer *lx, t_token_type token_type,
 	t_token_mode allow_empty)
 {
 	t_token	*token;
@@ -46,7 +46,7 @@ void	add_token(t_data *data, t_lexer *lx, t_token_type token_type,
 static void	process_operator(t_data *data, t_lexer *lx)
 {
 	const int	i = lx->input_idx;
-	
+
 	if (lx->buf_idx > 0)
 		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
 	if (lx->input[i] == '|')
@@ -80,16 +80,20 @@ void	process_lx_normal(t_data *data, t_lexer *lx)
 	else
 	{
 		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
-		(lx->buf_idx)++;	
+		(lx->buf_idx)++;
 	}
 }
 
 void	process_lx_single_q(t_data *data, t_lexer *lx)
 {
-	if (lx->input[lx->input_idx] == '\'')
+	const size_t	i = lx->input_idx;
+
+	if (lx->input[i] == '\'')
 	{
 		lx->state = LEXER_NORMAL;
-		if (lx->buf_idx == 0)
+		if (lx->buf_idx == 0
+			&& (ft_isspace(lx->input[i + 1]) || lx->input[i + 1] == '\0'
+				|| ft_strrchr(LEXER_OPERATORS, lx->input[i + 1]) != NULL))
 			add_token(data, lx, TOKEN_WORD, TOKEN_ALLOW_EMPTY);
 	}
 	else
@@ -98,10 +102,14 @@ void	process_lx_single_q(t_data *data, t_lexer *lx)
 
 void	process_lx_double_q(t_data *data, t_lexer *lx)
 {
+	const size_t	i = lx->input_idx;
+
 	if (lx->input[lx->input_idx] == '"')
 	{
 		lx->state = LEXER_NORMAL;
-		if (lx->buf_idx == 0)
+		if (lx->buf_idx == 0
+			&& (ft_isspace(lx->input[i + 1]) || lx->input[i + 1] == '\0'
+				|| ft_strrchr(LEXER_OPERATORS, lx->input[i + 1]) != NULL))
 			add_token(data, lx, TOKEN_WORD, TOKEN_ALLOW_EMPTY);
 	}
 	else

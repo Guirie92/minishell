@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/31 20:21:21 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/01 12:40:16 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@
 # define CLR_LIGHT_BLUE    "\001\033[38;2;98;152;230m\002"
 # define CLR_LIGHT_GREY    "\001\033[38;2;156;156;156m\002"
 
-# define TEXT_BOLD    "\033[1m"
-# define TEXT_UNBOLD  "\033[22m"
+# define TEXT_BOLD    "\001\033[1m\002"
+# define TEXT_UNBOLD  "\001\033[22m\002"
+// # define TEXT_BOLD    "\033[1m"
+// # define TEXT_UNBOLD  "\033[22m"
 
 # define LEXER_OPERATORS "|><"
 
@@ -62,5 +64,8 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 int		ft_isspace(int c);
+
+/* DELETE */
+void	debug_and_log(t_data *data);
 
 #endif /* MINISHELL_H */

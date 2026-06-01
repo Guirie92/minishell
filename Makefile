@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/05/31 16:52:27 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/01 11:19:41 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ CFLAGS = -Wall -Werror -Wextra -I $(INC_PATH) -g3
 LIBS = -lreadline
 
 SRCS = $(addprefix $(SRC_PATH)/,       \
+		debug.c                             \
 		init.c                         \
 		main.c)                        \
 		$(addprefix $(CLEANUP_PATH)/,  \
