@@ -13,8 +13,10 @@ static void	debug_lexer(t_data *data)
 	t_token *token;
 
 	token = data->tokens_head;
-	if (token)
-		printf("\n");
+	if (!token)
+		return ;
+	printf("\n");
+	printf("---- LEXER ----\n");
 	while (token)
 	{
 		char *token_type;

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/01 20:01:03 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/01 20:06:09 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,6 @@ static void	process_operator(t_data *data, t_lexer *lx)
 	else if (lx->input[i] == '<')
 		add_token(data, lx, TOKEN_REDIR_IN, TOKEN_DEFAULT);
 }
-
-// void	process_lx_normal(t_data *data, t_lexer *lx)
-// {
-// 	if (ft_isspace(lx->input[lx->input_idx]))
-// 		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
-// 	else if (lx->input[lx->input_idx] == '\'')
-// 		lx->state = LEXER_SINGLE_QUOTE;
-// 	else if (lx->input[lx->input_idx] == '"')
-// 		lx->state = LEXER_DOUBLE_QUOTE;
-// 	else if (ft_strrchr(LEXER_OPERATORS, lx->input[lx->input_idx]) != NULL)
-// 		process_operator(data, lx);
-// 	else
-// 	{
-// 		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
-// 		(lx->buf_idx)++;
-// 	}
-// }
 
 void	process_lx_normal(t_data *data, t_lexer *lx)
 {
