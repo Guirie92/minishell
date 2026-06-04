@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/02 15:40:53 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/04 11:58:46 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,6 @@ void	lexer(t_data *data)
 	if (lx.buffer)
 		free(lx.buffer);
 	lx.buffer = NULL;
+	if (lx.state != LEXER_NORMAL)
+		data->err_type = ERR_UNCLOSED_QUOTES;
 }

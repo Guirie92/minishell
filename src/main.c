@@ -6,27 +6,16 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/01 12:39:24 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:09:35 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "init.h"
-#include "lexer/lexer.h"
 #include "prompt/prompt.h"
 #include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-static void	parse_and_execute(t_data *data)
-{
-	lexer(data);
-
-	//TODO:
-	// parser(tokens)
-	// expander(parsed_cmds)
-	// executor(parsed_cmds)
-}
 
 static void	handle_control_d(t_data *data)
 {
@@ -51,8 +40,12 @@ int	main(void)
 		
 		if (!data.line)
 			handle_control_d(&data);
+		if (data.line[0] == '\0')
+		{
+			add_history(data.line);
+			process_input(&data);
+		}
 
-		parse_and_execute(&data);
 
 		debug_and_log(&data);
 		

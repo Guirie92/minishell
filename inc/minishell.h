@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/01 12:40:16 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:09:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # include <stddef.h>
 # include <stdlib.h>
 
-# define CLR_GREEN  	"\001\033[32m\002"
-# define CLR_BLUE   	"\001\033[34m\002"
-# define CLR_YELLOW 	"\001\033[33m\002"
-# define CLR_CYAN   	"\001\033[36m\002"
+# define CLR_GREEN      "\001\033[32m\002"
+# define CLR_BLUE       "\001\033[34m\002"
+# define CLR_YELLOW     "\001\033[33m\002"
+# define CLR_CYAN       "\001\033[36m\002"
 # define CLR_GREY       "\001\033[90m\002"
 # define CLR_PURPLE     "\001\033[35m\002"
 # define CLR_RESET      "\001\033[0m\002"
@@ -32,20 +32,20 @@
 
 # define TEXT_BOLD    "\001\033[1m\002"
 # define TEXT_UNBOLD  "\001\033[22m\002"
-// # define TEXT_BOLD    "\033[1m"
-// # define TEXT_UNBOLD  "\033[22m"
 
 # define LEXER_OPERATORS "|><"
 
-typedef struct s_token	t_token;
-typedef struct s_prompt	t_prompt;
+typedef struct s_token		t_token;
+typedef struct s_prompt		t_prompt;
+typedef struct s_pipeline	t_pipeline;
 
 typedef struct s_data
 {
 	char		*line;
 	t_token		*tokens_head;
+	t_pipeline	*pipeline;
 	t_prompt	*prompt;
-	int			exit_code;
+	t_err_type	err_type;
 }	t_data;
 
 typedef enum e_retcode
@@ -64,6 +64,9 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 int		ft_isspace(int c);
+
+/* shell_core.c */
+void	process_input(t_data *data);
 
 /* DELETE */
 void	debug_and_log(t_data *data);

@@ -1,49 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/02 17:48:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 17:15:34 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/04 16:46:37 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/04 17:16:38 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
-
 #include "minishell.h"
+#include "parser/parser.h"
 
-typedef enum e_redir_type
+void	parser(t_data *data)
 {
-	REDIR_IN,
-	REDIR_OUT,
-	APPEND,
-	HEREDOC
-}	t_redir_type;
-
-typedef struct s_redir
-{
-	t_redir_type	type;
-	char			*target;
-	int				heredoc_fd;
-}	t_redir;
-
-typedef struct s_cmd
-{
-	char	**argv;
-	int		argc;
-	t_redir	*redirs;
-	int		redirc;
-}	t_cmd;
-
-typedef struct s_pipeline
-{
-	t_cmd		*cmds;
-	int			cmdsc;
-}	t_pipeline;
-
-void	parser(t_data *data);
-
-#endif /* PARSER_H */
+	t_pipeline	pipeline;
+	
+	pipeline.cmds = NULL;
+	pipeline.cmdsc = 0;
+	(void)pipeline;
+	(void)data;
+}

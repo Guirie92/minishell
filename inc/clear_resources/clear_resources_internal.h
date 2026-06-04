@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   clear_resources_internal.h                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:07 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 11:30:33 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/04 13:40:28 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/04 13:42:14 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "prompt/prompt.h"
+#ifndef CLEAR_RESOURCES_INTERNAL_H
+# define CLEAR_RESOURCES_INTERNAL_H
 
-void	reset_data(t_data *data)
-{
-	data->line = NULL;
-	data->tokens_head = NULL;
-	data->pipeline = NULL;
-	data->err_type = ERR_NONE;
-}
+void	free_pipeline(t_data *data);
 
-void	init_prompt(t_prompt *prompt)
-{
-	prompt->buffer[0] = '\0';
-	prompt->len = 0;
-	prompt->max_len = 2048;
-}
-
-void	init_data(t_data *data)
-{
-	reset_data(data);
-	init_prompt(data->prompt);
-}
+#endif /* CLEAR_RESOURCES_INTERNAL_H */
