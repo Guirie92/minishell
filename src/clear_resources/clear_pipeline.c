@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 13:39:59 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 14:45:30 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/05 16:06:15 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,42 @@
 
 static void	free_cmds(t_cmd *cmd)
 {
-	int	i;
+	t_redir	*next;
+	int		i;
 
+	if (!cmd)
+		return ;
 	i = 0;
-	while (i < cmd->argc)
-		free(cmd->argv[i++]);
-	free(cmd->argv);
-	i = 0;
-	while (i < cmd->redirc)
+	if (cmd->argv)
 	{
-		free(cmd->redirs[i].target);
-		if (cmd->redirs[i].type == HEREDOC && cmd->redirs[i].heredoc_fd != -1)
-			close(cmd->redirs[i].heredoc_fd);
-		cmd->redirs[i++].heredoc_fd = -1;
+		while (i < cmd->argc)
+			free(cmd->argv[i++]);
+		free(cmd->argv);
 	}
-	free(cmd->redirs);
+	while (cmd->redirs)
+	{
+		free(cmd->redirs->target);
+		if (cmd->redirs->type == HEREDOC && cmd->redirs->heredoc_fd != -1)
+			close(cmd->redirs->heredoc_fd);
+		next = cmd->redirs->next;
+		free(cmd->redirs);
+		cmd->redirs = next;
+	}
 }
 
 void	free_pipeline(t_data *data)
 {
-	int	i;
+	t_cmd	*next;
 	
-	i = 0;
-	if (!data->pipeline)
+	if (!data || !data->pipeline)
 		return ;
-	while (i < data->pipeline->cmdsc)
-		free_cmds(&data->pipeline->cmds[i]);
-	free(data->pipeline->cmds);
+	while (data->pipeline->cmds)
+	{
+		next = data->pipeline->cmds->next;
+		free_cmds(data->pipeline->cmds);
+		free(data->pipeline->cmds);
+		data->pipeline->cmds = next;
+	}
 	free(data->pipeline);
 	data->pipeline = NULL;
 }

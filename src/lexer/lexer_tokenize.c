@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 12:24:07 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/04 17:32:47 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ static void	process_operator(t_data *data, t_lexer *lx)
 
 void	process_lx_normal(t_data *data, t_lexer *lx)
 {
-	/*if (lx->input[lx->input_idx] == '\n')
-	{
-		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
-		add_token(data, lx, TOKEN_NEWLINE, TOKEN_DEFAULT);
-	}*/
 	if (ft_isspace(lx->input[lx->input_idx]))
 		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
 	else if (ft_strrchr(LEXER_OPERATORS, lx->input[lx->input_idx]) != NULL)
