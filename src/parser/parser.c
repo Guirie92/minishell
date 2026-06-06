@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:46:37 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 18:16:59 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 19:26:15 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	parser(t_data *data)
 	token = data->tokens_head;
 	pipeline = malloc(sizeof(*pipeline));
 	if (!pipeline)
-		exit_with_error(data, ERR_NO_MSG);
+		exit_with_error(data, ERR_SYTEM_MSG);
 	pipeline->cmds = NULL;
 	data->pipeline = pipeline;
 	if (parser_input(data, token) != E_SUCCESS)

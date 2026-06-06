@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/05 17:55:37 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 20:00:14 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define CLR_GREY       "\001\033[90m\002"
 # define CLR_PURPLE     "\001\033[35m\002"
 # define CLR_RESET      "\001\033[0m\002"
+# define CLR_RST        "\033[0m"
 
 # define CLR_LIGHT_PURPLE  "\001\033[38;2;195;121;202m\002"
 # define CLR_LIGHT_BLUE    "\001\033[38;2;98;152;230m\002"

@@ -6,15 +6,15 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:35:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 11:50:43 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 20:17:30 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_HANDLER_H
 # define ERROR_HANDLER_H
 
+# define WARNING_CLR      "\033[33m"
 # define ERROR_CLR        "\033[31m"
-# define ERROR_CLR_RESET  "\033[0m"
 
 typedef enum e_err_type
 {
@@ -29,7 +29,7 @@ typedef enum e_err_type
 	ERR_PERMISSION,
 	ERR_PIPE_FAIL,
 	ERR_COUNT,
-	ERR_NO_MSG
+	ERR_SYTEM_MSG
 }	t_err_type;
 
 typedef struct s_data	t_data;

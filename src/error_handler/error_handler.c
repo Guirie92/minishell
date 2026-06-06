@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 12:03:22 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 20:00:36 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	write_error(char *msg, size_t len)
 {
 	write(STDERR_FILENO, ERROR_CLR, 5);
 	write(STDERR_FILENO, msg, len);
-	write(STDERR_FILENO, ERROR_CLR_RESET, 4);
+	write(STDERR_FILENO, CLR_RST, 4);
 	write(STDERR_FILENO, "\n", 1);
 }
 

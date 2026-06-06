@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/06 18:11:55 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/06 20:55:00 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,11 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		prompt_git.c                   \
 		prompt.c)                      \
 		$(addprefix $(LEXER_PATH)/,    \
-		lexer_tokenize.c               \
+		lexer_utils.c                  \
 		lexer.c)                       \
 		$(addprefix $(PARSER_PATH)/,   \
-		parser_heredoc_collector.c     \
-		parser_args.c                  \
+		heredoc.c                      \
+		parser_utils.c                 \
 		parser.c)                      \
 		$(addprefix $(ERROR_PATH)/,    \
 		error_handler.c                \
