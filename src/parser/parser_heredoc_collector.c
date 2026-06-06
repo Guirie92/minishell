@@ -6,18 +6,22 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 18:09:25 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 18:28:17 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 18:44:40 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser/parser.h"
 
-static void	process_heredoc(t_redir *redir)
+static void	process_heredoc(t_data *data, t_redir *redir)
 {
-	int	fd[2];
+	int		fd[2];
+	char	*line;
 
 	pipe(fd);
+	line = readline("heredoc> ");
+	if (!line)
+		exit_with_error()
 	while ()
 	{
 		// TODO: readline
@@ -36,7 +40,7 @@ void	heredoc_collector(t_data *data)
 		while (redir)
 		{
 			if (redir->type == HEREDOC)
-				process_heredoc(redir);
+				process_heredoc(data, redir);
 			redir = redir->next;
 		}
 		cmd = cmd->next;
