@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/06 21:53:21 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/07 00:31:52 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ UTILS_PATH = src/utils
 PROMPT_PATH = src/prompt
 LEXER_PATH = src/lexer
 PARSER_PATH = src/parser
-ERROR_PATH = src/error_handler
+ERROR_PATH = src/error
 CLEANUP_PATH = src/clear_resources
 
 PRINTF_PATH = ./ft_printf
@@ -60,7 +60,8 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		parser_utils.c                 \
 		parser.c)                      \
 		$(addprefix $(ERROR_PATH)/,    \
-		error_handler.c                \
+		warning.c                      \
+		error.c                        \
 		)
 
 OBJS = $(SRCS:.c=.o)

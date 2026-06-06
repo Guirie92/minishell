@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 20:00:14 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 22:43:42 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "clear_resources/clear_resources.h"
-# include "error_handler/error_handler.h"
+# include "error/error.h"
 # include <stddef.h>
 # include <stdlib.h>
 
@@ -46,7 +46,6 @@ typedef struct s_data
 	t_token		*tokens_head;
 	t_pipeline	*pipeline;
 	t_prompt	*prompt;
-	t_err_type	err_type;
 }	t_data;
 
 typedef enum e_retcode

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 16:54:05 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 20:56:07 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 23:26:00 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_cmd	*init_cmd(t_data *data)
 
 	cmd = malloc(sizeof(*cmd));
 	if (!cmd)
-		exit_with_error(data, ERR_SYTEM_MSG);
+		exit_with_error(data);
 	cmd->argv = NULL;
 	cmd->argc = 0;
 	cmd->redirs = NULL;
@@ -35,7 +35,7 @@ t_redir	*init_redir(t_data *data)
 
 	redir = malloc(sizeof(*redir));
 	if (!redir)
-		exit_with_error(data, ERR_SYTEM_MSG);
+		exit_with_error(data);
 	redir->type = 0;
 	redir->target = NULL;
 	redir->heredoc_fd = -1;
@@ -70,7 +70,7 @@ void	add_redir(t_data *data, t_cmd *cmd, t_redir *redir, t_token *token)
 	set_redir_type(&cmd->redir_tail->type, token);
 	redir->target = ft_strdup(token->next->value);
 	if (!redir->target)
-		exit_with_error(data, ERR_SYTEM_MSG);
+		exit_with_error(data);
 }
 
 void	add_arg(t_data *data, t_cmd *cmd, const char *s)
@@ -84,12 +84,12 @@ void	add_arg(t_data *data, t_cmd *cmd, const char *s)
 	new_size = (cmd->argc + 2) * sizeof(char *);
 	tmp = ft_realloc(cmd->argv, old_size, new_size);
 	if (!tmp)
-		exit_with_error(data, ERR_SYTEM_MSG);
+		exit_with_error(data);
 	(cmd->argc)++;
 	cmd->argv = tmp;
 	str = ft_strdup(s);
 	if (!str)
-		exit_with_error(data, ERR_SYTEM_MSG);
+		exit_with_error(data);
 	cmd->argv[cmd->argc - 1] = str;
 	cmd->argv[cmd->argc] = NULL;
 }

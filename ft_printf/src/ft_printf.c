@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 21:00:02 by guillsan          #+#    #+#             */
-/*   Updated: 2025/12/02 06:11:27 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 23:04:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_printf(char const *fmt, ...)
 	return (res);
 }
 
-int	ft_printf_fd(int fd, char const *fmt, ...)
+int	ft_dprintf(int fd, char const *fmt, ...)
 {
 	t_pf_data	data;
 	va_list		args;

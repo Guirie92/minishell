@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 19:25:07 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 11:30:33 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 23:43:58 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@ void	reset_data(t_data *data)
 	data->line = NULL;
 	data->tokens_head = NULL;
 	data->pipeline = NULL;
-	data->err_type = ERR_NONE;
-}
-
-void	init_prompt(t_prompt *prompt)
-{
-	prompt->buffer[0] = '\0';
-	prompt->len = 0;
-	prompt->max_len = 2048;
 }
 
 void	init_data(t_data *data)

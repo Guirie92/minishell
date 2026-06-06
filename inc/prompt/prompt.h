@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 14:49:48 by guillsan          #+#    #+#             */
-/*   Updated: 2026/05/30 19:44:02 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 00:12:53 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_prompt
 	size_t	max_len;
 }	t_prompt;
 
+void	init_prompt(t_prompt *prompt);
 void	generate_prompt(t_prompt *prompt);
 
 #endif /* PROMPT_H */

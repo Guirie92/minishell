@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 20:53:07 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 21:40:40 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 23:04:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef enum e_pf_base
 }	t_pf_base;
 
 int		ft_printf(char const *fmt, ...);
-int		ft_printf_fd(int fd, char const *fmt, ...);
+int		ft_dprintf(int fd, char const *fmt, ...);
 void	ft_init(t_pf_data *data);
 int		ft_calclen_write(t_pf_data *data, const char *str);
 void	ft_write_buffer(t_pf_data *data, int c);

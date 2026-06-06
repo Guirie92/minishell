@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/05 18:47:48 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 23:43:46 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 #include "string_builder.h"
 #include <stdio.h>
 #include <unistd.h>
+
+void	init_prompt(t_prompt *prompt)
+{
+	prompt->buffer[0] = '\0';
+	prompt->len = 0;
+	prompt->max_len = 2048;
+}
 
 static void	write_cwd(t_prompt *prompt, const char *cwd, const size_t cwd_len)
 {
@@ -57,12 +64,12 @@ static void	replace_home(t_prompt *prompt, const char *cwd)
 
 static void	build_prompt(t_prompt *prompt, t_prompt *tmp)
 {
-	t_builder	b;
+	t_builder	sb;
 
-	builder_init(&b, prompt->buffer, prompt->max_len);
-	builder_append(&b, CLR_BLUE "\n");
-	builder_append(&b, tmp->buffer);
-	prompt->len = prompt->max_len - b.remaining;
+	builder_init(&sb, prompt->buffer, prompt->max_len);
+	builder_append(&sb, CLR_BLUE "\n");
+	builder_append(&sb, tmp->buffer);
+	prompt->len = prompt->max_len - sb.remaining;
 }
 
 void	generate_prompt(t_prompt *prompt)

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 19:26:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 23:24:55 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	handle_control_d(t_data *data)
 static void	handle_null_line(t_data *data)
 {
 	if (errno == ENOMEM)
-		exit_with_error(data, ERR_SYTEM_MSG);
+		exit_with_error(data);
 	else
 		handle_control_d(data);
 }

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 19:26:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 00:16:32 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exit_lexer_with_error(t_data *data, t_lexer *lx)
 	if (lx->buffer)
 		free(lx->buffer);
 	lx->buffer = NULL;
-	exit_with_error(data, ERR_SYTEM_MSG);
+	exit_with_error(data);
 }
 
 void	reset_buffer(t_lexer *lx)
@@ -74,7 +74,7 @@ int	lexer(t_data *data)
 	lx.buffer = NULL;
 	if (lx.state != LEXER_NORMAL)
 	{
-		custom_error_msg(ERR_UNCLOSED_QUOTES);
+		print_error(ERR_UNCLOSED_QUOTES);
 		return (E_FAILURE);
 	}
 	return (E_SUCCESS);
