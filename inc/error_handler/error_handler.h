@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:35:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 11:52:48 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 11:50:43 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ typedef enum e_err_type
 {
 	ERR_NONE,
 	ERR_UNCLOSED_QUOTES,
+	ERR_INVALID_REDIR,
+	ERR_LEADING_PIPE,
+	ERR_TRAILING_PIPE,
+	ERR_MULTIPLE_PIPES,
 	ERR_MALLOC,
 	ERR_CMD_NOT_FOUND,
 	ERR_PERMISSION,

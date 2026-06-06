@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 12:05:47 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 12:03:22 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void	custom_error_msg(t_err_type err_code)
 {
 	const char	*err_msg[] = {
 	[ERR_NONE] = "",
-    [ERR_UNCLOSED_QUOTES] = "syntax error: unclosed quote",
+	[ERR_UNCLOSED_QUOTES] = "syntax error: unclosed quote",
+	[ERR_INVALID_REDIR] = "syntax error: invalid redirection",
+	[ERR_LEADING_PIPE] = "syntax error near unexpected token '|'",
+	[ERR_TRAILING_PIPE] = "syntax error near unexpected token '|'",
+	[ERR_MULTIPLE_PIPES] = "syntax error near unexpected token '|'",
 	[ERR_MALLOC] = "Memory allocation failed",
 	[ERR_CMD_NOT_FOUND] = "Command not found",
 	[ERR_PERMISSION] = "Permission denied",
@@ -43,7 +47,7 @@ void	exit_with_error(t_data *data, t_err_type err_code)
 {
 	const int	saved_errno = errno;
 	char		*sys_err;
-	
+
 	custom_error_msg(err_code);
 	if (saved_errno != 0)
 	{

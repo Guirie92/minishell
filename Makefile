@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/04 17:16:25 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/06 18:11:55 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		clear_resources.c)             \
 		$(addprefix $(UTILS_PATH)/,    \
 		string_builder.c               \
+		ft_realloc.c                   \
 		ft_memcpy.c                    \
 		ft_strncmp.c                   \
 		ft_strcmp.c                    \
@@ -51,6 +52,8 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		lexer_tokenize.c               \
 		lexer.c)                       \
 		$(addprefix $(PARSER_PATH)/,   \
+		parser_heredoc_collector.c     \
+		parser_args.c                  \
 		parser.c)                      \
 		$(addprefix $(ERROR_PATH)/,    \
 		error_handler.c                \

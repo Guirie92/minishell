@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 16:33:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/05 15:37:02 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 10:17:46 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef enum e_token_type
 	TOKEN_REDIR_OUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC
-	// TOKEN_NEWLINE
 }	t_token_type;
 
 typedef struct s_token
@@ -48,11 +47,10 @@ typedef struct s_lexer
 	t_token			*tail;
 	size_t			input_idx;
 	size_t			buf_idx;
-	int				b_quoted;
 	t_lexer_states	state;
 }	t_lexer;
 
 /* lexer.c */
-void	lexer(t_data *data);
+int	lexer(t_data *data);
 
 #endif /* LEXER_H */

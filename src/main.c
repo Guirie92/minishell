@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 17:09:35 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 12:23:09 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(void)
 		
 		if (!data.line)
 			handle_control_d(&data);
-		if (data.line[0] == '\0')
+		if (data.line[0] != '\0')
 		{
 			add_history(data.line);
 			process_input(&data);

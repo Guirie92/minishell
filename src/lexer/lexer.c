@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:31:29 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/05 12:30:02 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 10:17:08 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,22 @@ void	reset_buffer(t_lexer *lx)
 	lx->buffer[lx->buf_idx] = '\0';
 }
 
-static void	init_lexer(t_data *data, t_lexer *lx)
+static int	init_lexer(t_data *data, t_lexer *lx)
 {
+	lx->input = data->line;
+	lx->buffer = NULL;
 	lx->head = NULL;
 	lx->tail = NULL;
-	lx->buffer = NULL;
 	lx->state = LEXER_NORMAL;
 	lx->input_idx = 0;
 	lx->buf_idx = 0;
+	lx->state = LEXER_NORMAL;
 	if (!lx->input)
-		exit_lexer_with_error(data, lx);
+		return (E_FAILURE);
 	lx->buffer = malloc((ft_strlen(lx->input) + 1) * sizeof(char));
 	if (!lx->buffer)
 		exit_lexer_with_error(data, lx);
+	return (E_SUCCESS);
 }
 
 static void	tokenize_input(t_data *data, t_lexer *lx)
@@ -59,16 +62,20 @@ static void	tokenize_input(t_data *data, t_lexer *lx)
 		add_token(data, lx, TOKEN_WORD, TOKEN_DEFAULT);
 }
 
-void	lexer(t_data *data)
+int	lexer(t_data *data)
 {
 	t_lexer	lx;
 
-	lx.input = data->line;
-	init_lexer(data, &lx);
+	if (init_lexer(data, &lx) != E_SUCCESS)
+		return (E_FAILURE);
 	tokenize_input(data, &lx);
 	if (lx.buffer)
 		free(lx.buffer);
 	lx.buffer = NULL;
 	if (lx.state != LEXER_NORMAL)
-		data->err_type = ERR_UNCLOSED_QUOTES;
+	{
+		custom_error_msg(ERR_UNCLOSED_QUOTES);
+		return (E_FAILURE);
+	}
+	return (E_SUCCESS);
 }

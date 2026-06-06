@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 13:39:59 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/05 16:06:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 16:41:49 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	free_cmds(t_cmd *cmd)
 			free(cmd->argv[i++]);
 		free(cmd->argv);
 	}
+	free(cmd->path);
 	while (cmd->redirs)
 	{
 		free(cmd->redirs->target);
@@ -42,7 +43,7 @@ static void	free_cmds(t_cmd *cmd)
 void	free_pipeline(t_data *data)
 {
 	t_cmd	*next;
-	
+
 	if (!data || !data->pipeline)
 		return ;
 	while (data->pipeline->cmds)

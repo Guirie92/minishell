@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 17:35:53 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 15:45:46 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 12:25:16 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ void	free_tokens(t_data *data)
 
 void	clear_data(t_data *data)
 {
-
 	if (data->line)
 		free(data->line);
 	data->line = NULL;
 	free_tokens(data);
-	//free_pipeline(data);
+	free_pipeline(data);
 	reset_data(data);
 }

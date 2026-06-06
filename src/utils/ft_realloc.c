@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_core.c                                       :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 17:07:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 18:08:47 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/05 17:52:20 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/05 17:58:10 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "lexer/lexer.h"
-#include "parser/parser.h"
 
-void	process_input(t_data *data)
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 {
-	if (lexer(data) != E_SUCCESS)
-		return ;
-	if (parser(data) != E_SUCCESS)
-		return ;
-	
-	//TODO:
-	// expander(parsed_cmds)
-	// executor(parsed_cmds)
+	void	*new_ptr;
+
+	if (!ptr)
+		return (malloc(new_size));
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	new_ptr = malloc(new_size);
+	if (!new_ptr)
+		return (NULL);
+	if (old_size < new_size)
+		ft_memcpy(new_ptr, ptr, old_size);
+	else
+		ft_memcpy(new_ptr, ptr, new_size);
+	free(ptr);
+	return (new_ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/01 12:36:16 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/05 18:47:48 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	build_prompt(t_prompt *prompt, t_prompt *tmp)
 	builder_init(&b, prompt->buffer, prompt->max_len);
 	builder_append(&b, CLR_BLUE "\n");
 	builder_append(&b, tmp->buffer);
-	// builder_append(&b, CLR_PURPLE "\n> " CLR_RESET);
 	prompt->len = prompt->max_len - b.remaining;
 }
 

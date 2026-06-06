@@ -1,27 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_core.c                                       :+:      :+:    :+:   */
+/*   parser_heredoc_collector.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 17:07:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 18:08:47 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/06 18:09:25 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/06 18:28:17 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "lexer/lexer.h"
 #include "parser/parser.h"
 
-void	process_input(t_data *data)
+static void	process_heredoc(t_redir *redir)
 {
-	if (lexer(data) != E_SUCCESS)
-		return ;
-	if (parser(data) != E_SUCCESS)
-		return ;
+	int	fd[2];
+
+	pipe(fd);
+	while ()
+	{
+		// TODO: readline
+	}
+}
+
+void	heredoc_collector(t_data *data)
+{
+	t_cmd	*cmd;
+	t_redir	*redir;
 	
-	//TODO:
-	// expander(parsed_cmds)
-	// executor(parsed_cmds)
+	cmd = data->pipeline->cmds;
+	redir = cmd->redirs;
+	while (cmd)
+	{
+		while (redir)
+		{
+			if (redir->type == HEREDOC)
+				process_heredoc(redir);
+			redir = redir->next;
+		}
+		cmd = cmd->next;
+	}
 }
