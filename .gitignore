@@ -3,5 +3,6 @@
 *.out
 *.vscode
 .normignore
+.idea
 out.txt
 minishell

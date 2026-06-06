@@ -6,11 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 20:00:36 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/06 21:59:44 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "ft_printf.h"
 #include "clear_resources/clear_resources.h"
 #include <string.h>
 #include <errno.h>
@@ -18,10 +19,13 @@
 
 static void	write_error(char *msg, size_t len)
 {
-	write(STDERR_FILENO, ERROR_CLR, 5);
-	write(STDERR_FILENO, msg, len);
-	write(STDERR_FILENO, CLR_RST, 4);
-	write(STDERR_FILENO, "\n", 1);
+	// write(STDERR_FILENO, ERROR_CLR, 5);
+	// write(STDERR_FILENO, msg, len);
+	// write(STDERR_FILENO, CLR_RST, 4);
+	// write(STDERR_FILENO, "\n", 1);
+	(void)msg;
+	(void)len;
+	ft_printf_fd(STDERR_FILENO, ERROR_CLR "%s\n" CLR_RST, msg);
 }
 
 void	custom_error_msg(t_err_type err_code)
