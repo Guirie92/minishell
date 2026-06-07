@@ -63,6 +63,34 @@ static void	debug_lexer(t_data *data)
 	}
 }
 
+// static void print_heredoc_content(t_redir *redir)
+// {
+// 	char	buffer[2048];
+// 	char	line[1024];
+// 	int		line_idx = 0;
+// 	ssize_t	bytes_read;
+// 	int		i;
+
+// 	while ((bytes_read = read(redir->heredoc_fd, buffer, 2048)) > 0)
+// 	{
+// 		i = 0;
+// 		while (i < bytes_read)
+// 		{
+// 			if (buffer[i] == '\n')
+// 			{
+// 				line[line_idx] = '\0';
+// 				printf("%14s -> %s\n", " ", line);
+// 				line_idx = 0;
+// 			}
+// 			else if (line_idx < (int)sizeof(line) - 1)
+// 			{
+// 				line[line_idx++] = buffer[i];
+// 			}
+// 			i++;
+// 		}
+// 	}
+// }
+
 // static void debug_parser(t_data *data)
 // {
 // 	t_cmd		*cmd;
@@ -75,60 +103,100 @@ static void	debug_lexer(t_data *data)
 // 	if (!pipeline || !pipeline->cmds)
 // 		return;
 
-//     printf(CLR_PURPLE "\n----- PARSER ----\n" CLR_RESET);
+//     printf(CLR_YELLOW "\n----- PARSER ----\n" CLR_RESET);
 //     cmd = pipeline->cmds;
 //     while (cmd)
 //     {
 // 		printf("cmd[%d]\n", c_idx);
 				
 // 		// Arguments
-// 		printf(" ├── argv\n");
+// 		printf(CLR_GREEN " ├── " CLR_RESET);
+// 		printf("argv\n");
 // 		i = 0;
 // 		while (i < cmd->argc)
 // 		{
-// 			printf(" │    ├── argv[%d]: %s\n", i, cmd->argv[i]);
+// 			printf(CLR_GREEN " │    " CLR_PURPLE "├── " CLR_RESET);
+// 			printf("argv[%d]: %s\n", i, cmd->argv[i]);
 // 			i++;
 // 		}
 
 // 		// Redirections
 // 		if (!cmd->next)
 // 		{
-// 			printf(" └── redir\n");
+// 			printf(CLR_GREEN " └── " CLR_RESET);
+// 			printf("redir\n");
 // 			redir = cmd->redirs;
 // 			if (!redir)
-// 				printf("      └── (NULL)\n");
+// 			{
+// 				printf(CLR_GREEN "      " CLR_PURPLE "└── " CLR_RESET);
+// 				printf("(NULL)\n");
+// 			}
 // 			while (redir)
 // 			{
 // 				if (redir->next)
 // 				{
-// 					printf("      ├── %s: %s\n", get_redir_name(redir->type), redir->target);
-// 					printf("      │    └── (heredoc_fd: %d)\n", redir->heredoc_fd);
+// 					printf(CLR_GREEN "      " CLR_PURPLE "├── " CLR_RESET);
+// 					printf("%s: %s\n", get_redir_name(redir->type), redir->target);
+// 					printf(CLR_GREEN "      " CLR_PURPLE "│    " CLR_CYAN "└── " CLR_RESET);
+// 					printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
 // 				}
 // 				else
 // 				{
-// 					printf("      └── %s: %s\n", get_redir_name(redir->type), redir->target);
-// 					printf("           └── (heredoc_fd: %d)\n", redir->heredoc_fd);
+// 					printf(CLR_GREEN "      " CLR_PURPLE "└── " CLR_RESET);
+// 					printf("%s: %s\n", get_redir_name(redir->type), redir->target);
+// 					if (redir->type != HEREDOC)
+// 					{
+// 						printf(CLR_GREEN "           " CLR_CYAN "└── " CLR_RESET);
+// 						printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
+// 					}
+// 					else
+// 					{
+// 						printf(CLR_GREEN "           " CLR_CYAN "├── " CLR_RESET);
+// 						printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
+// 						printf(CLR_GREEN "           " CLR_CYAN "└── " CLR_RESET);
+// 						printf("content:\n");
+// 						print_heredoc_content(redir);
+// 					}
 // 				}
 // 				redir = redir->next;
 // 			}
 // 		}
 // 		else
 // 		{
-// 			printf(" ├── redir\n");
+// 			printf(CLR_GREEN " ├── " CLR_RESET);
+// 			printf("redir\n");
 // 			redir = cmd->redirs;
 // 			if (!redir)
-// 				printf(" │    └── (NULL)\n");
+// 			{
+// 				printf(CLR_GREEN " │    " CLR_PURPLE "└── " CLR_RESET);
+// 				printf("(NULL)\n");
+// 			}
 // 			while (redir)
 // 			{
 // 				if (!redir->next)
 // 				{
-// 					printf(" │    └── %s: %s\n", get_redir_name(redir->type), redir->target);
-// 					printf(" │         └── (heredoc_fd: %d)\n", redir->heredoc_fd);
+// 					printf(CLR_GREEN " │    " CLR_PURPLE "└── " CLR_RESET);
+// 					printf("%s: %s\n", get_redir_name(redir->type), redir->target);
+// 					printf(CLR_GREEN " │         " CLR_CYAN "└── " CLR_RESET);
+// 					printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
 // 				}
 // 				else
 // 				{
-// 					printf(" │    ├── %s: %s\n", get_redir_name(redir->type), redir->target);
-// 					printf(" │    │    └── (heredoc_fd: %d)\n", redir->heredoc_fd);
+// 					printf(CLR_GREEN " │    " CLR_PURPLE "├── " CLR_RESET);
+// 					printf("%s: %s\n", get_redir_name(redir->type), redir->target);
+// 					if (redir->type != HEREDOC)
+// 					{
+// 						printf(CLR_GREEN " │    " CLR_PURPLE "│    " CLR_CYAN "└── " CLR_RESET);
+// 						printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
+// 					}
+// 					else
+// 					{
+// 						printf(CLR_GREEN " │    " CLR_PURPLE "│    " CLR_CYAN "├── " CLR_RESET);
+// 						printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
+// 						printf(CLR_GREEN " │    " CLR_PURPLE "│    " CLR_CYAN "└── " CLR_RESET);
+// 						printf("content:\n");
+// 						print_heredoc_content(redir);
+// 					}
 // 				}
 // 				redir = redir->next;
 // 			}
@@ -137,10 +205,86 @@ static void	debug_lexer(t_data *data)
 // 		cmd = cmd->next;
 // 		c_idx++;
 // 		if (cmd)
-// 			printf(" │\n");
+// 			printf(CLR_GREEN " │\n" CLR_RESET);
 // 	}
 // 	fflush(stdout);
 // }
+
+/*
+ * G = GREEN
+ * P = PURPLE
+ * C = CYAN
+ * 
+ * V = VERTICAL (│)
+ * B = BRANCH   (├)
+ * L = LAST     (└)
+ * E = EMPTY    ( )
+ */
+/* GREEN */
+#define PREFFIX_GV CLR_GREEN " │   " CLR_RESET
+#define PREFFIX_GB CLR_GREEN " ├── " CLR_RESET
+#define PREFFIX_GL CLR_GREEN " └── " CLR_RESET
+#define PREFFIX_GE CLR_GREEN "     " CLR_RESET
+
+/* PURPLE */
+#define PREFFIX_GE_PV PREFFIX_GE CLR_PURPLE " │   " CLR_RESET
+#define PREFFIX_GE_PB PREFFIX_GE CLR_PURPLE " ├── " CLR_RESET
+#define PREFFIX_GE_PL PREFFIX_GE CLR_PURPLE " └── " CLR_RESET
+#define PREFFIX_GE_PE PREFFIX_GE CLR_PURPLE "     " CLR_RESET
+
+#define PREFFIX_GV_PV PREFFIX_GV CLR_PURPLE " │   " CLR_RESET
+#define PREFFIX_GV_PB PREFFIX_GV CLR_PURPLE " ├── " CLR_RESET
+#define PREFFIX_GV_PL PREFFIX_GV CLR_PURPLE " └── " CLR_RESET
+#define PREFFIX_GV_PE PREFFIX_GV CLR_PURPLE "     " CLR_RESET
+
+/* CYAN */
+#define PREFFIX_GE_PE_CV PREFFIX_GE_PE CLR_CYAN " │   " CLR_RESET
+#define PREFFIX_GE_PE_CB PREFFIX_GE_PE CLR_CYAN " ├── " CLR_RESET
+#define PREFFIX_GE_PE_CL PREFFIX_GE_PE CLR_CYAN " └── " CLR_RESET
+#define PREFFIX_GE_PE_CE PREFFIX_GE_PE CLR_CYAN "     " CLR_RESET
+
+#define PREFFIX_GE_PV_CV PREFFIX_GE_PV CLR_CYAN " │   " CLR_RESET
+#define PREFFIX_GE_PV_CB PREFFIX_GE_PV CLR_CYAN " ├── " CLR_RESET
+#define PREFFIX_GE_PV_CL PREFFIX_GE_PV CLR_CYAN " └── " CLR_RESET
+#define PREFFIX_GE_PV_CE PREFFIX_GE_PV CLR_CYAN "     " CLR_RESET
+
+#define PREFFIX_GV_PE_CV PREFFIX_GV_PE CLR_CYAN " │   " CLR_RESET
+#define PREFFIX_GV_PE_CB PREFFIX_GV_PE CLR_CYAN " ├── " CLR_RESET
+#define PREFFIX_GV_PE_CL PREFFIX_GV_PE CLR_CYAN " └── " CLR_RESET
+#define PREFFIX_GV_PE_CE PREFFIX_GV_PE CLR_CYAN "     " CLR_RESET
+
+#define PREFFIX_GV_PV_CV PREFFIX_GV_PV CLR_CYAN " │   " CLR_RESET
+#define PREFFIX_GV_PV_CB PREFFIX_GV_PV CLR_CYAN " ├── " CLR_RESET
+#define PREFFIX_GV_PV_CL PREFFIX_GV_PV CLR_CYAN " └── " CLR_RESET
+#define PREFFIX_GV_PV_CE PREFFIX_GV_PV CLR_CYAN "     " CLR_RESET
+
+static void print_heredoc_content(t_redir *redir)
+{
+	char	buffer[2048];
+	char	line[1024];
+	int		line_idx = 0;
+	ssize_t	bytes_read;
+	int		i;
+
+	while ((bytes_read = read(redir->heredoc_fd, buffer, 2048)) > 0)
+	{
+		i = 0;
+		while (i < bytes_read)
+		{
+			if (buffer[i] == '\n')
+			{
+				line[line_idx] = '\0';
+				printf("%14s -> %s\n", " ", line);
+				line_idx = 0;
+			}
+			else if (line_idx < (int)sizeof(line) - 1)
+				line[line_idx++] = buffer[i];
+			i++;
+		}
+	}
+}
+
+int debug_counter = 0;
 static void debug_parser(t_data *data)
 {
 	t_cmd		*cmd;
@@ -160,71 +304,67 @@ static void debug_parser(t_data *data)
 		printf("cmd[%d]\n", c_idx);
 				
 		// Arguments
-		printf(CLR_GREEN " ├── " CLR_RESET);
-		printf("argv\n");
+		printf(PREFFIX_GB "argv\n");
 		i = 0;
 		while (i < cmd->argc)
 		{
-			printf(CLR_GREEN " │    " CLR_PURPLE "├── " CLR_RESET);
-			printf("argv[%d]: %s\n", i, cmd->argv[i]);
+			printf(PREFFIX_GV_PB "argv[%d]: %s\n", i, cmd->argv[i]);
 			i++;
 		}
 
 		// Redirections
 		if (!cmd->next)
 		{
-			printf(CLR_GREEN " └── " CLR_RESET);
-			printf("redir\n");
+			printf(PREFFIX_GL "redir\n");
 			redir = cmd->redirs;
 			if (!redir)
-			{
-				printf(CLR_GREEN "      " CLR_PURPLE "└── " CLR_RESET);
-				printf("(NULL)\n");
-			}
+				printf(PREFFIX_GE_PL "(NULL)\n");
 			while (redir)
 			{
 				if (redir->next)
 				{
-					printf(CLR_GREEN "      " CLR_PURPLE "├── " CLR_RESET);
-					printf("%s: %s\n", get_redir_name(redir->type), redir->target);
-					printf(CLR_GREEN "      " CLR_PURPLE "│    " CLR_CYAN "└── " CLR_RESET);
-					printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
+					printf(PREFFIX_GE_PB "%s: %s\n", get_redir_name(redir->type), redir->target);
+					printf(PREFFIX_GE_PV_CL "(heredoc_fd: %d)\n", redir->heredoc_fd);
 				}
 				else
 				{
-					printf(CLR_GREEN "      " CLR_PURPLE "└── " CLR_RESET);
-					printf("%s: %s\n", get_redir_name(redir->type), redir->target);
-					printf(CLR_GREEN "           " CLR_CYAN "└── " CLR_RESET);
-					printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
+					printf(PREFFIX_GE_PL "%s: %s\n", get_redir_name(redir->type), redir->target);
+					if (redir->type != HEREDOC)
+						printf(PREFFIX_GE_PE_CL "(heredoc_fd: %d)\n", redir->heredoc_fd);
+					else
+					{
+						printf(PREFFIX_GE_PE_CB "(heredoc_fd: %d)\n", redir->heredoc_fd);
+						printf(PREFFIX_GE_PE_CL "content:\n");
+						print_heredoc_content(redir);
+					}
 				}
 				redir = redir->next;
 			}
 		}
 		else
 		{
-			printf(CLR_GREEN " ├── " CLR_RESET);
-			printf("redir\n");
+			printf(PREFFIX_GB "redir\n");
 			redir = cmd->redirs;
 			if (!redir)
-			{
-				printf(CLR_GREEN " │    " CLR_PURPLE "└── " CLR_RESET);
-				printf("(NULL)\n");
-			}
+				printf(PREFFIX_GV_PL "(NULL)\n");
 			while (redir)
 			{
 				if (!redir->next)
 				{
-					printf(CLR_GREEN " │    " CLR_PURPLE "└── " CLR_RESET);
-					printf("%s: %s\n", get_redir_name(redir->type), redir->target);
-					printf(CLR_GREEN " │         " CLR_CYAN "└── " CLR_RESET);
-					printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
+					printf(PREFFIX_GV_PL "%s: %s\n", get_redir_name(redir->type), redir->target);
+					printf(PREFFIX_GV_PE_CL "(heredoc_fd: %d)\n", redir->heredoc_fd);
 				}
 				else
 				{
-					printf(CLR_GREEN " │    " CLR_PURPLE "├── " CLR_RESET);
-					printf("%s: %s\n", get_redir_name(redir->type), redir->target);
-					printf(CLR_GREEN " │    " CLR_PURPLE "│    " CLR_CYAN "└── " CLR_RESET);
-					printf("(heredoc_fd: %d)\n", redir->heredoc_fd);
+					printf(PREFFIX_GV_PB "%s: %s\n", get_redir_name(redir->type), redir->target);
+					if (redir->type != HEREDOC)
+						printf(PREFFIX_GV_PV_CL "(heredoc_fd: %d)\n", redir->heredoc_fd);
+					else
+					{
+						printf(PREFFIX_GV_PV_CB "(heredoc_fd: %d)\n", redir->heredoc_fd);
+						printf(PREFFIX_GV_PV_CL "content:\n");
+						print_heredoc_content(redir);
+					}
 				}
 				redir = redir->next;
 			}
@@ -235,9 +375,11 @@ static void debug_parser(t_data *data)
 		if (cmd)
 			printf(CLR_GREEN " │\n" CLR_RESET);
 	}
+	printf("COUNTER: %d\n", debug_counter);
 	fflush(stdout);
 }
 // cat a > out < in | grep x | aa
+// << EOF1 << EOF2 | << EOF3 <<EOF4
 
 void	debug_and_log(t_data *data)
 {

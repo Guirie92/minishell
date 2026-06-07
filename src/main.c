@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 23:24:55 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 18:09:14 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	main(void)
 		}
 
 
-		debug_and_log(&data);
+		//debug_and_log(&data);
 		
 		clear_data(&data);
 	}

@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_core.c                                       :+:      :+:    :+:   */
+/*   executor_internal.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 17:07:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 18:16:49 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/07 16:27:21 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/07 17:47:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "lexer/lexer.h"
-#include "parser/parser.h"
-#include "executor/executor.h"
+#ifndef EXECUTOR_INTERNAL_H
+# define EXECUTOR_INTERNAL_H
 
-void	process_input(t_data *data)
+# include "minishell.h"
+
+typedef enum e_heredoc_status
 {
-	if (lexer(data) != E_SUCCESS)
-		return ;
-	if (parser(data) != E_SUCCESS)
-		return ;
-	if (heredoc_collector(data) != E_SUCCESS)
-		return ;
-	
-	//TODO:
-	// expander(parsed_cmds)
-	// executor(parsed_cmds)
-}
+	HD_SUCCESS,
+	HD_EOF,
+	HD_FAILURE
+}	t_heredoc_status;
+
+#endif /* EXECUTOR_INTERNAL_H */

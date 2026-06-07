@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/07 00:31:52 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/07 16:28:52 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,14 @@ NAME = minishell
 
 INC_PATH = inc
 SRC_PATH = src
-UTILS_PATH = src/utils
-PROMPT_PATH = src/prompt
-LEXER_PATH = src/lexer
-PARSER_PATH = src/parser
-ERROR_PATH = src/error
-CLEANUP_PATH = src/clear_resources
+UTILS_PATH = $(SRC_PATH)/utils
+PROMPT_PATH = $(SRC_PATH)/prompt
+LEXER_PATH = $(SRC_PATH)/lexer
+PARSER_PATH = $(SRC_PATH)/parser
+EXECUTOR_PATH = $(SRC_PATH)/executor
+ERROR_PATH = $(SRC_PATH)/error
+SB_PATH = $(SRC_PATH)/string_builder
+CLEANUP_PATH = $(SRC_PATH)/clear_resources
 
 PRINTF_PATH = ./ft_printf
 PRINTF_LIB = $(PRINTF_PATH)/libftprintf.a
@@ -34,11 +36,13 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		init.c                         \
 		shell_core.c                   \
 		main.c)                        \
+		$(addprefix $(SB_PATH)/,       \
+		sb_utils.c                     \
+		sb.c)                          \
 		$(addprefix $(CLEANUP_PATH)/,  \
 		clear_pipeline.c               \
 		clear_resources.c)             \
 		$(addprefix $(UTILS_PATH)/,    \
-		string_builder.c               \
 		ft_realloc.c                   \
 		ft_memcpy.c                    \
 		ft_strncmp.c                   \
@@ -56,9 +60,10 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		lexer_utils.c                  \
 		lexer.c)                       \
 		$(addprefix $(PARSER_PATH)/,   \
-		heredoc.c                      \
 		parser_utils.c                 \
 		parser.c)                      \
+		$(addprefix $(EXECUTOR_PATH)/, \
+		heredoc.c)                     \
 		$(addprefix $(ERROR_PATH)/,    \
 		warning.c                      \
 		error.c                        \

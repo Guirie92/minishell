@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:46:37 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 00:29:07 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 16:33:50 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,5 @@ int	parser(t_data *data)
 	data->pipeline = pipeline;
 	if (parser_input(data, token) != E_SUCCESS)
 		return (E_FAILURE);
-	heredoc_collector(data);
 	return (E_SUCCESS);
 }

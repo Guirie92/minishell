@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 23:43:46 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 13:37:35 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "init.h"
 #include "prompt/prompt.h"
 #include "prompt/prompt_internal.h"
-#include "string_builder.h"
+#include "string_builder/string_builder.h"
 #include <stdio.h>
 #include <unistd.h>
 
@@ -64,12 +64,9 @@ static void	replace_home(t_prompt *prompt, const char *cwd)
 
 static void	build_prompt(t_prompt *prompt, t_prompt *tmp)
 {
-	t_builder	sb;
-
-	builder_init(&sb, prompt->buffer, prompt->max_len);
-	builder_append(&sb, CLR_BLUE "\n");
-	builder_append(&sb, tmp->buffer);
-	prompt->len = prompt->max_len - sb.remaining;
+	ft_strlcpy(prompt->buffer, CLR_BLUE "\n", prompt->max_len);
+	ft_strlcat(prompt->buffer, tmp->buffer, prompt->max_len);
+	prompt->len = ft_strlen(prompt->buffer);
 }
 
 void	generate_prompt(t_prompt *prompt)

@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_core.c                                       :+:      :+:    :+:   */
+/*   sb_internal.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 17:07:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 18:16:49 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/07 12:51:31 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/07 13:00:24 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "lexer/lexer.h"
-#include "parser/parser.h"
-#include "executor/executor.h"
+#ifndef SB_INTERNAL_H
+# define SB_INTERNAL_H
 
-void	process_input(t_data *data)
-{
-	if (lexer(data) != E_SUCCESS)
-		return ;
-	if (parser(data) != E_SUCCESS)
-		return ;
-	if (heredoc_collector(data) != E_SUCCESS)
-		return ;
-	
-	//TODO:
-	// expander(parsed_cmds)
-	// executor(parsed_cmds)
-}
+# include "minishell.h"
+
+int		ft_itostr(int n, char *buf);
+size_t	count_digits(int n);
+
+#endif /* SB_INTERNAL_H */

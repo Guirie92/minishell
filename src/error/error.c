@@ -6,13 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 00:35:45 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 13:19:32 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "ft_printf.h"
-#include "string_builder.h"
 #include "clear_resources/clear_resources.h"
 #include <string.h>
 #include <errno.h>
@@ -32,11 +31,6 @@ const char	*errmsg(t_err_type id)
 	if (id < 0 || id >= ERR_COUNT)
 		return ("Unknown error");
 	return (err_msg[id]);
-}
-
-static void	print_sys_err(char *msg)
-{
-	ft_dprintf(STDERR_FILENO, ERROR_CLR "%s\n" CLR_RST, msg);
 }
 
 void	print_error(t_err_type err)
@@ -64,7 +58,7 @@ void	exit_with_error(t_data *data)
 	if (saved_errno != 0)
 	{
 		sys_err = strerror(saved_errno);
-		print_sys_err(sys_err);
+		ft_dprintf(STDERR_FILENO, ERROR_CLR "%s\n" CLR_RST, sys_err);
 	}
 	clear_data(data);
 	exit(EXIT_FAILURE);
