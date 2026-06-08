@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 17:35:53 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 18:17:29 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/07 19:45:19 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,8 @@ void	free_tokens(t_data *data)
 	data->tokens_head = NULL;
 }
 
-#include <stdio.h>
 void	clear_data(t_data *data)
 {
-	printf("\n\nFREE PIPELINE\n\n");
-	
 	if (data->line)
 		free(data->line);
 	data->line = NULL;

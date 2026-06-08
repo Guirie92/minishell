@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/07 16:28:52 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/08 12:59:18 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ LEXER_PATH = $(SRC_PATH)/lexer
 PARSER_PATH = $(SRC_PATH)/parser
 EXECUTOR_PATH = $(SRC_PATH)/executor
 ERROR_PATH = $(SRC_PATH)/error
+SIGNAL_PATH = $(SRC_PATH)/signal
 SB_PATH = $(SRC_PATH)/string_builder
 CLEANUP_PATH = $(SRC_PATH)/clear_resources
 
@@ -60,13 +61,17 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		lexer_utils.c                  \
 		lexer.c)                       \
 		$(addprefix $(PARSER_PATH)/,   \
+		parser_hc.c                    \
 		parser_utils.c                 \
 		parser.c)                      \
 		$(addprefix $(EXECUTOR_PATH)/, \
+		hc_utils.c                     \
 		heredoc.c)                     \
 		$(addprefix $(ERROR_PATH)/,    \
 		warning.c                      \
-		error.c                        \
+		error.c)                       \
+		$(addprefix $(SIGNAL_PATH)/,   \
+		signal.c                       \
 		)
 
 OBJS = $(SRCS:.c=.o)

@@ -6,11 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 16:54:05 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 23:26:00 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:02:06 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser/parser.h"
+#include "parser/parser_internal.h"
 #include "lexer/lexer.h"
 
 t_cmd	*init_cmd(t_data *data)
@@ -68,9 +69,14 @@ void	add_redir(t_data *data, t_cmd *cmd, t_redir *redir, t_token *token)
 		cmd->redir_tail = redir;
 	}
 	set_redir_type(&cmd->redir_tail->type, token);
-	redir->target = ft_strdup(token->next->value);
-	if (!redir->target)
-		exit_with_error(data);
+	if (redir->type != HEREDOC)
+	{
+		redir->target = ft_strdup(token->next->value);
+		if (!redir->target)
+			exit_with_error(data);
+	}
+	else
+		parse_heredoc_delimiter(data, redir, token->next->value);
 }
 
 void	add_arg(t_data *data, t_cmd *cmd, const char *s)

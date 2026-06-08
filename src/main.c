@@ -6,17 +6,15 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 18:09:14 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/08 12:59:45 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "init.h"
 #include "prompt/prompt.h"
-#include <unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <errno.h>
 
 static void	handle_control_d(t_data *data)
 {
@@ -39,6 +37,7 @@ int	main(void)
 
 	data.prompt = &prompt;
 	init_data(&data);
+	init_signals();
 	while (1)
 	{
 		generate_prompt(&prompt);
@@ -53,7 +52,7 @@ int	main(void)
 			process_input(&data);
 		}
 
-
+		g_signal = 0;
 		//debug_and_log(&data);
 		
 		clear_data(&data);

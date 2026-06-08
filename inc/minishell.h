@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 22:43:42 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/08 15:28:55 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 # include "error/error.h"
 # include <stddef.h>
 # include <stdlib.h>
+# include <signal.h>
+# include <errno.h>
+# include <unistd.h>
+
+extern int	g_signal;
 
 # define CLR_GREEN      "\001\033[32m\002"
 # define CLR_BLUE       "\001\033[34m\002"
@@ -36,9 +41,9 @@
 
 # define LEXER_OPERATORS "|><"
 
+typedef struct s_pipeline	t_pipeline;
 typedef struct s_token		t_token;
 typedef struct s_prompt		t_prompt;
-typedef struct s_pipeline	t_pipeline;
 
 typedef struct s_data
 {
@@ -54,6 +59,14 @@ typedef enum e_retcode
 	E_FAILURE = 1
 }	t_retcode;
 
+typedef enum e_signal
+{
+	S_DEFAULT,
+	S_HD,
+	S_HD_EOF,
+	S_SIGINT
+}	t_signal;
+
 /* utils */
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
@@ -68,6 +81,9 @@ int		ft_isspace(int c);
 
 /* shell_core.c */
 void	process_input(t_data *data);
+
+/* signal.c */
+void	init_signals(void);
 
 /* DELETE */
 void	debug_and_log(t_data *data);
