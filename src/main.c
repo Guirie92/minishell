@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/09 11:35:52 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 18:39:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(void)
 {
 	t_data		data;
 	t_prompt	prompt;
-
+	
 	data.prompt = &prompt;
 	init_data(&data);
 	init_signals();
@@ -43,10 +43,14 @@ int	main(void)
 	{
 		generate_prompt(&prompt);
 
-		data.line = readline(CLR_PURPLE TEXT_BOLD "\n> " TEXT_UNBOLD CLR_RESET);
+		//data.line = readline(CLR_PURPLE TEXT_BOLD "\n> " TEXT_UNBOLD CLR_RESET);
+		data.line = readline(prompt.buffer);
+		
+		check_sigint(&data);
 		
 		if (!data.line)
 			handle_null_line(&data);
+
 		if (data.line[0] != '\0')
 		{
 			add_history(data.line);

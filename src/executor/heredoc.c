@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 18:09:25 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/09 11:34:58 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 14:04:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ static int	process_heredoc(t_data *data, t_redir *redir, char *prompt)
 	redir->heredoc_fd = fd[0];
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
-	update_exit_status(status);
+	signal(SIGINT, sigint_handler);
+	update_exit_status(data, status);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		return (E_FAILURE);
 	if (check_hd_exit_status(data, status) != HD_SUCCESS)

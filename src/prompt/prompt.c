@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 13:37:35 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:03:30 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,8 @@ void	generate_prompt(t_prompt *prompt)
 	else
 		replace_home(&tmp, cwd);
 	build_prompt(prompt, &tmp);
-	write(STDIN_FILENO, prompt->buffer, prompt->len);
+	//write(STDIN_FILENO, prompt->buffer, prompt->len);
+	ft_strlcat(prompt->buffer, CLR_PURPLE TEXT_BOLD "\n> " 
+		TEXT_UNBOLD CLR_RESET, prompt->max_len);
+    prompt->len = ft_strlen(prompt->buffer);
 }

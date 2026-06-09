@@ -253,6 +253,8 @@ void	debug_and_log(t_data *data)
 	if (!g_is_debug)
 		return ;
 
+	printf("\ndata->exit_status: %d\n", data->exit_status);
+
 	debug_raw_input(data);
 	debug_lexer(data);
 	debug_parser(data);

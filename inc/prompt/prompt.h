@@ -6,18 +6,21 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 14:49:48 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 00:12:53 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:44:42 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROMPT_H
 # define PROMPT_H
 
+# include "minishell.h"
 # include <stddef.h>
+
+# define PROMPT_SIZE BUFFER_SIZE
 
 typedef struct s_prompt
 {
-	char	buffer[2048];
+	char	buffer[PROMPT_SIZE];
 	size_t	len;
 	size_t	max_len;
 }	t_prompt;

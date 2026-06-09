@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/08 12:59:18 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/09 13:38:18 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,13 @@ SIGNAL_PATH = $(SRC_PATH)/signal
 SB_PATH = $(SRC_PATH)/string_builder
 CLEANUP_PATH = $(SRC_PATH)/clear_resources
 
-PRINTF_PATH = ./ft_printf
-PRINTF_LIB = $(PRINTF_PATH)/libftprintf.a
-PRINTF_INC_PATH = ./ft_printf/inc
+LIBFT_PATH = ./libft
+LIBFT_LIB = $(LIBFT_PATH)/libftprintf.a
+# LIBFT_INC_PATH = ./libft/inc
+LIBFT_INC_PATH = $(LIBFT_PATH)/inc
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -I $(INC_PATH) -I $(PRINTF_INC_PATH) -g3
+CFLAGS = -Wall -Werror -Wextra -I $(INC_PATH) -I $(LIBFT_INC_PATH) -g3
 LIBS = -lreadline
 
 SRCS = $(addprefix $(SRC_PATH)/,       \
@@ -78,21 +79,21 @@ OBJS = $(SRCS:.c=.o)
 	
 all: $(NAME)
 
-$(NAME): $(PRINTF_LIB) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(PRINTF_LIB) $(LIBS) -o $(NAME)
+$(NAME): $(LIBFT_LIB) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(LIBS) -o $(NAME)
 
-$(PRINTF_LIB):
-	@make -C $(PRINTF_PATH)
+$(LIBFT_LIB):
+	@make -C $(LIBFT_PATH)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@make clean -C $(PRINTF_PATH)
+	@make clean -C $(LIBFT_PATH)
 	rm -f $(OBJS)
 
 fclean: clean
-	@make fclean -C $(PRINTF_PATH)
+	@make fclean -C $(LIBFT_PATH)
 	rm -f $(NAME) *.out
 
 re: fclean all

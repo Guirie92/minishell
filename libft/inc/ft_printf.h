@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 20:53:07 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 23:04:59 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:55:05 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@
 # define ADDR_PREFIX   "0x"
 
 # define FD            1
-# define BUFFER_SIZE   1024
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE   1024
+# endif
+
 # define TEMP_BUF_SIZE 64
 # define TRUE          1
 # define FALSE         0

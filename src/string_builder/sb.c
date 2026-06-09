@@ -6,17 +6,18 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 05:08:51 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 13:44:27 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:45:16 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "string_builder/string_builder.h"
 #include "string_builder/sb_internal.h"
 
 void	builder_init(t_builder *b)
 {
 	b->ptr = b->buf;
-	b->size = 2048;
+	b->size = BUFFER_SIZE;
 	b->remaining = b->size;
 	*(b->ptr) = '\0';
 }

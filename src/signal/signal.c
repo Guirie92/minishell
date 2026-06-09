@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 22:16:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/09 12:09:09 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 18:39:21 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,111 +16,65 @@
 #include "ft_printf.h"
 #include <readline/readline.h>
 
-volatile sig_atomic_t	g_exit_status;
+volatile sig_atomic_t	g_signal;
 
-// static void	sigint_handler(int sig)
-// {
-// 	t_prompt	prompt;
-
-// 	(void)sig;
-// 	write(1, "\n", 1);
-// 	init_prompt(&prompt);
-// 	generate_prompt(&prompt);
-// 	ft_dprintf(STDOUT_FILENO, CLR_PURPLE TEXT_BOLD "\n> "
-// 		TEXT_UNBOLD CLR_RESET);
-// 	rl_replace_line("", 0);
-// 	rl_redisplay();
-// 	g_exit_status = 130;
-// }
-
-static void sigint_handler(int sig)
+static void	redisplay_prompt()
 {
-	(void)sig;
+	char	*nl;
+	int		i;
+	int		idx;
+	char	prompt[PROMPT_SIZE];
 
-	g_exit_status = 130;
-
-	write(1, "\n", 1);
-
+	idx = 0;
+	prompt[idx++] = '\n';
+	if (rl_prompt)
+	{
+		nl = ft_strrchr(rl_prompt, '\n');
+		if (nl)
+		{
+			i = 0;
+			while (&rl_prompt[i] <= nl && idx < PROMPT_SIZE - 1)
+			{
+				if (rl_prompt[i] != '\001' && rl_prompt[i] != '\002')
+					prompt[idx++] = rl_prompt[i];
+				i++;
+			}
+		}
+	}
+	write(STDOUT_FILENO, prompt, idx);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-
-// static void	check_sig_status(int status)
-// {
-// 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-// 	{
-// 		g_exit_status = S_SIGINT;	
-// 		write(1, "\n", 1); 
-// 	}
-// 	else
-// 		g_exit_status = S_DEFAULT;
-// }
+void	sigint_handler(int sig)
+{
+    g_signal = sig;
+	redisplay_prompt();
+}
 
 void	init_signals(void)
 {
+	g_signal = 0;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	reset_signals(int status)
-{
-	(void)status;
-	init_signals();
-	//check_sig_status(status);
-}
-
-void	update_exit_status(int status)
+void	update_exit_status(t_data *data, int status)
 {
 	if (WIFEXITED(status))
-		g_exit_status = WEXITSTATUS(status);
+		data->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_exit_status = 128 + WTERMSIG(status);
+		data->exit_status = 128 + WTERMSIG(status);
+	if (data->exit_status == 128 + SIGINT)
+		write(1, "\n", 1);
 }
 
-// ------------------------------------------------- //
-
-// static void	sigint_handler(int sig)
-// {
-// 	t_prompt	prompt;
-
-// 	(void)sig;
-// 	if (g_exit_status == S_DEFAULT || g_exit_status == S_SIGINT)
-// 	{
-// 		write(1, "\n", 1);
-// 		init_prompt(&prompt);
-// 		generate_prompt(&prompt);
-// 		ft_dprintf(STDOUT_FILENO, CLR_PURPLE TEXT_BOLD "\n> "
-// 			TEXT_UNBOLD CLR_RESET);
-// 		rl_replace_line("", 0);
-// 		rl_redisplay();
-// 		g_exit_status = S_SIGINT;
-// 	}
-// 	else if (g_exit_status == S_HD)
-// 		g_exit_status = S_SIGINT;
-// }
-
-// static void	check_sig_status(int status)
-// {
-// 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-// 	{
-// 		g_exit_status = S_SIGINT;	
-// 		write(1, "\n", 1); 
-// 	}
-// 	else
-// 		g_exit_status = S_DEFAULT;
-// }
-
-// void	init_signals(void)
-// {
-// 	g_exit_status = S_DEFAULT;
-// 	signal(SIGINT, sigint_handler);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
-
-// void	reset_signals(int status)
-// {
-// 	init_signals();
-// 	check_sig_status(status);
-// }
+void	check_sigint(t_data *data)
+{
+	if (g_signal != 0)
+	{
+		data->exit_status = 128 + g_signal;
+		g_signal = 0;
+	}
+}

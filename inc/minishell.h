@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/09 11:35:36 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 18:40:16 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 # include <unistd.h>
 # include <signal.h>
 
-extern volatile sig_atomic_t	g_exit_status;
+extern volatile sig_atomic_t	g_signal;
+
+# define BUFFER_SIZE 2048
 
 # define CLR_GREEN      "\001\033[32m\002"
 # define CLR_BLUE       "\001\033[34m\002"
@@ -39,8 +41,6 @@ extern volatile sig_atomic_t	g_exit_status;
 # define TEXT_BOLD    "\001\033[1m\002"
 # define TEXT_UNBOLD  "\001\033[22m\002"
 
-# define LEXER_OPERATORS "|><"
-
 typedef struct s_pipeline	t_pipeline;
 typedef struct s_token		t_token;
 typedef struct s_prompt		t_prompt;
@@ -51,6 +51,7 @@ typedef struct s_data
 	t_token		*tokens_head;
 	t_pipeline	*pipeline;
 	t_prompt	*prompt;
+	int			exit_status;
 }	t_data;
 
 typedef enum e_retcode
@@ -75,9 +76,10 @@ int		ft_isspace(int c);
 void	process_input(t_data *data);
 
 /* signal.c */
+void	sigint_handler(int sig);
 void	init_signals(void);
-void	reset_signals(int status);
-void	update_exit_status(int status);
+void	update_exit_status(t_data *data, int status);
+void	check_sigint(t_data *data);
 
 /* DELETE */
 void	debug_and_log(t_data *data);

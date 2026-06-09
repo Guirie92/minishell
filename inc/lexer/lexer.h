@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 16:33:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 10:17:46 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 18:40:22 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LEXER_H
 
 # include "minishell.h"
+
+# define LEXER_OPERATORS "|><"
 
 typedef enum e_lexer_states
 {

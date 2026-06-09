@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 05:05:01 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 13:38:04 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 15:45:31 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 typedef struct s_builder
 {
-	char	buf[2048];
+	char	buf[BUFFER_SIZE];
 	char	*ptr;
 	size_t	size;
 	size_t	remaining;
