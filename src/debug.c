@@ -9,9 +9,9 @@
 #include <stdio.h>
 #include <readline/readline.h>
 
-#define DEBUG_CODE "minishell_toggle_debug"
+#define DEBUG_CODE "minishell_debug"
 
-static int	g_is_debug = 1;
+static int	g_is_debug = 0;
 
 static const char	*get_redir_name(t_redir_type type)
 {
@@ -112,7 +112,7 @@ static void	debug_lexer(t_data *data)
 #define PREFFIX_GV_PV_CL PREFFIX_GV_PV CLR_CYAN " └── " CLR_RESET
 #define PREFFIX_GV_PV_CE PREFFIX_GV_PV CLR_CYAN "     " CLR_RESET
 
-static void	print_heredoc_content(t_redir *redir)
+static void	print_heredoc_content(char *preffix, t_redir *redir)
 {
 	char	buffer[2048];
 	char	line[1024];
@@ -128,7 +128,9 @@ static void	print_heredoc_content(t_redir *redir)
 			if (buffer[i] == '\n')
 			{
 				line[line_idx] = '\0';
-				printf("%14s -> %s\n", " ", line);
+				printf("%s", preffix);
+				printf("-> %s\n", line);
+				// printf("%14s -> %s\n", " ", line);
 				line_idx = 0;
 			}
 			else if (line_idx < (int)sizeof(line) - 1)
@@ -138,7 +140,6 @@ static void	print_heredoc_content(t_redir *redir)
 	}
 }
 
-int debug_counter = 0;
 static void debug_parser(t_data *data)
 {
 	t_cmd		*cmd;
@@ -157,7 +158,6 @@ static void debug_parser(t_data *data)
 	{
 		printf("cmd[%d]\n", c_idx);
 
-		// Arguments
 		printf(PREFFIX_GB "argv\n");
 		i = 0;
 		while (i < cmd->argc)
@@ -166,7 +166,6 @@ static void debug_parser(t_data *data)
 			i++;
 		}
 
-		// Redirections
 		if (!cmd->next)
 		{
 			printf(PREFFIX_GL "redir\n");
@@ -178,7 +177,14 @@ static void debug_parser(t_data *data)
 				if (redir->next)
 				{
 					printf(PREFFIX_GE_PB "%s: %s\n", get_redir_name(redir->type), redir->target);
-					printf(PREFFIX_GE_PV_CL "(heredoc_fd: %d)\n", redir->heredoc_fd);
+					if (redir->type != HEREDOC)
+						printf(PREFFIX_GE_PV_CL "(heredoc_fd: %d)\n", redir->heredoc_fd);
+					else
+					{
+						printf(PREFFIX_GE_PV_CB "(heredoc_fd: %d)\n", redir->heredoc_fd);
+						printf(PREFFIX_GE_PV_CL "content:\n");
+						print_heredoc_content(PREFFIX_GE_PV_CE, redir);
+					}
 				}
 				else
 				{
@@ -189,7 +195,7 @@ static void debug_parser(t_data *data)
 					{
 						printf(PREFFIX_GE_PE_CB "(heredoc_fd: %d)\n", redir->heredoc_fd);
 						printf(PREFFIX_GE_PE_CL "content:\n");
-						print_heredoc_content(redir);
+						print_heredoc_content(PREFFIX_GE_PE_CE, redir);
 					}
 				}
 				redir = redir->next;
@@ -206,7 +212,14 @@ static void debug_parser(t_data *data)
 				if (!redir->next)
 				{
 					printf(PREFFIX_GV_PL "%s: %s\n", get_redir_name(redir->type), redir->target);
-					printf(PREFFIX_GV_PE_CL "(heredoc_fd: %d)\n", redir->heredoc_fd);
+					if (redir->type != HEREDOC)
+						printf(PREFFIX_GV_PE_CL "(heredoc_fd: %d)\n", redir->heredoc_fd);
+					else
+					{
+						printf(PREFFIX_GV_PE_CB "(heredoc_fd: %d)\n", redir->heredoc_fd);
+						printf(PREFFIX_GV_PE_CL "content:\n");
+						print_heredoc_content(PREFFIX_GV_PE_CE, redir);
+					}
 				}
 				else
 				{
@@ -217,7 +230,7 @@ static void debug_parser(t_data *data)
 					{
 						printf(PREFFIX_GV_PV_CB "(heredoc_fd: %d)\n", redir->heredoc_fd);
 						printf(PREFFIX_GV_PV_CL "content:\n");
-						print_heredoc_content(redir);
+						print_heredoc_content(PREFFIX_GV_PV_CE, redir);
 					}
 				}
 				redir = redir->next;
@@ -229,7 +242,6 @@ static void debug_parser(t_data *data)
 		if (cmd)
 			printf(CLR_GREEN " │\n" CLR_RESET);
 	}
-	printf("COUNTER: %d\n", debug_counter);
 	fflush(stdout);
 }
 

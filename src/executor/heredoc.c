@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 18:09:25 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/08 15:25:12 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 11:34:58 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <signal.h>
 
 static void	heredoc_loop(t_data *data, t_redir *redir, int fd[2], char *prompt)
 {
@@ -63,13 +62,16 @@ static int	process_heredoc(t_data *data, t_redir *redir, char *prompt)
 	pid = fork();
 	if (pid == -1)
 		exit_with_error(data);
-	g_signal = S_HD;
 	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
 		heredoc_loop(data, redir, fd, prompt);
+	}
 	close(fd[1]);
 	redir->heredoc_fd = fd[0];
+	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
-	g_signal = S_DEFAULT;
+	update_exit_status(status);
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		return (E_FAILURE);
 	if (check_hd_exit_status(data, status) != HD_SUCCESS)

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/08 12:59:45 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 11:35:52 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	handle_control_d(t_data *data)
 	clear_data(data);
 	exit(EXIT_SUCCESS);
 }
+
 static void	handle_null_line(t_data *data)
 {
 	if (errno == ENOMEM)
@@ -52,8 +53,7 @@ int	main(void)
 			process_input(&data);
 		}
 
-		g_signal = 0;
-		//debug_and_log(&data);
+		debug_and_log(&data);
 		
 		clear_data(&data);
 	}

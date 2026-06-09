@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/08 15:28:55 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/09 11:35:36 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include "error/error.h"
 # include <stddef.h>
 # include <stdlib.h>
-# include <signal.h>
 # include <errno.h>
 # include <unistd.h>
+# include <signal.h>
 
-extern int	g_signal;
+extern volatile sig_atomic_t	g_exit_status;
 
 # define CLR_GREEN      "\001\033[32m\002"
 # define CLR_BLUE       "\001\033[34m\002"
@@ -59,14 +59,6 @@ typedef enum e_retcode
 	E_FAILURE = 1
 }	t_retcode;
 
-typedef enum e_signal
-{
-	S_DEFAULT,
-	S_HD,
-	S_HD_EOF,
-	S_SIGINT
-}	t_signal;
-
 /* utils */
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
@@ -84,6 +76,8 @@ void	process_input(t_data *data);
 
 /* signal.c */
 void	init_signals(void);
+void	reset_signals(int status);
+void	update_exit_status(int status);
 
 /* DELETE */
 void	debug_and_log(t_data *data);
