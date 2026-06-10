@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:46:37 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 16:33:50 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:41:40 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	is_redir(t_token *token)
 
 static int	validate_current_cmd(t_data *data, t_token *token)
 {
-	if (data->tokens_head->type == TOKEN_PIPE)
+	if (data->tokens->type == TOKEN_PIPE)
 	{
 		print_error_arg(ERR_UNEXPECTED_TOKEN, "|");
 		return (E_FAILURE);
@@ -92,7 +92,7 @@ int	parser(t_data *data)
 	t_pipeline	*pipeline;
 	t_token		*token;
 
-	token = data->tokens_head;
+	token = data->tokens;
 	pipeline = malloc(sizeof(*pipeline));
 	if (!pipeline)
 		exit_with_error(data);

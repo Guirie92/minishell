@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 17:35:53 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 19:45:19 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:02:21 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	free_tokens(t_data *data)
 {
 	t_token	*tmp;
 
-	if (data->tokens_head)
+	if (data->tokens)
 	{
-		while (data->tokens_head)
+		while (data->tokens)
 		{
-			tmp = data->tokens_head->next;
-			free(data->tokens_head->value);
-			free(data->tokens_head);
-			data->tokens_head = tmp;
+			tmp = data->tokens->next;
+			free(data->tokens->value);
+			free(data->tokens);
+			data->tokens = tmp;
 		}
 	}
-	data->tokens_head = NULL;
+	data->tokens = NULL;
 }
 
 void	clear_data(t_data *data)
@@ -39,4 +39,12 @@ void	clear_data(t_data *data)
 	free_tokens(data);
 	free_pipeline(data);
 	reset_data(data);
+
+	// TODO: needs to clean up t_env env too
+}
+
+void	reset_command_state(t_data *data)
+{
+	// TODO: this is basically "clear_data" as is rn (without env)
+	(void)data;
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_tokenize.c                                   :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/04 17:32:47 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:41:40 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	add_token(t_data *data, t_lexer *lx, t_token_type token_type,
 	if (lx->head == NULL)
 	{
 		lx->head = token;
-		data->tokens_head = token;
+		data->tokens = token;
 	}
 	else
 		lx->tail->next = token;

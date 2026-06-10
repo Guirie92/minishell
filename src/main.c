@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/09 18:39:39 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/10 17:03:22 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,16 @@ static void	handle_null_line(t_data *data)
 		handle_control_d(data);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data		data;
 	t_prompt	prompt;
+	
+	(void)argc;
+	(void)argv;
+	
+	// TODO: envp (build it into our structure)
+	(void)envp;
 	
 	data.prompt = &prompt;
 	init_data(&data);
@@ -43,7 +49,6 @@ int	main(void)
 	{
 		generate_prompt(&prompt);
 
-		//data.line = readline(CLR_PURPLE TEXT_BOLD "\n> " TEXT_UNBOLD CLR_RESET);
 		data.line = readline(prompt.buffer);
 		
 		check_sigint(&data);
@@ -59,6 +64,7 @@ int	main(void)
 
 		debug_and_log(&data);
 		
+		// TODO: replace clear_data below with "reset_command_state" when rdy
 		clear_data(&data);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/09 18:40:16 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/10 16:41:40 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,20 @@ typedef struct s_pipeline	t_pipeline;
 typedef struct s_token		t_token;
 typedef struct s_prompt		t_prompt;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_data
 {
 	char		*line;
-	t_token		*tokens_head;
+	t_token		*tokens;
 	t_pipeline	*pipeline;
 	t_prompt	*prompt;
+	t_env		*env;
 	int			exit_status;
 }	t_data;
 

@@ -37,7 +37,7 @@ static void	debug_lexer(t_data *data)
 	t_token	*token;
 	char	*token_type;
 
-	token = data->tokens_head;
+	token = data->tokens;
 	if (!token)
 		return ;
 	printf(CLR_YELLOW "\n----- LEXER -----\n" CLR_RESET);
