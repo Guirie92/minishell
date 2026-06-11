@@ -1,22 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:52 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 13:31:37 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/11 14:14:03 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/11 14:31:00 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
-
-typedef struct s_data	t_data;
-typedef struct s_prompt	t_prompt;
-
-void	init_data(t_data *data, char **envp);
-void	init_prompt(t_prompt *prompt);
-
-#endif /* INIT_H */
+#include "minishell.h"

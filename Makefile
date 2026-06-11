@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/09 13:38:18 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/11 21:01:37 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 INC_PATH = inc
 SRC_PATH = src
-UTILS_PATH = $(SRC_PATH)/utils
+ENV_PATH = $(SRC_PATH)/env
 PROMPT_PATH = $(SRC_PATH)/prompt
 LEXER_PATH = $(SRC_PATH)/lexer
 PARSER_PATH = $(SRC_PATH)/parser
@@ -25,8 +25,7 @@ SB_PATH = $(SRC_PATH)/string_builder
 CLEANUP_PATH = $(SRC_PATH)/clear_resources
 
 LIBFT_PATH = ./libft
-LIBFT_LIB = $(LIBFT_PATH)/libftprintf.a
-# LIBFT_INC_PATH = ./libft/inc
+LIBFT_LIB = $(LIBFT_PATH)/libft.a
 LIBFT_INC_PATH = $(LIBFT_PATH)/inc
 
 CC = cc
@@ -38,23 +37,15 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		init.c                         \
 		shell_core.c                   \
 		main.c)                        \
+		$(addprefix $(ENV_PATH)/,      \
+		env.c                          \
+		env_utils.c)                   \
 		$(addprefix $(SB_PATH)/,       \
 		sb_utils.c                     \
 		sb.c)                          \
 		$(addprefix $(CLEANUP_PATH)/,  \
 		clear_pipeline.c               \
 		clear_resources.c)             \
-		$(addprefix $(UTILS_PATH)/,    \
-		ft_realloc.c                   \
-		ft_memcpy.c                    \
-		ft_strncmp.c                   \
-		ft_strcmp.c                    \
-		ft_strrchr.c                   \
-		ft_strlcpy.c                   \
-		ft_strlcat.c                   \
-		ft_strlen.c                    \
-		ft_strdup.c                    \
-		ft_isspace.c)                  \
 		$(addprefix $(PROMPT_PATH)/,   \
 		prompt_git.c                   \
 		prompt.c)                      \

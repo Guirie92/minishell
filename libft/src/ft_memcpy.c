@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:52 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 13:31:37 by guillsan         ###   ########.fr       */
+/*   Created: 2025/10/01 13:39:17 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/11 21:02:18 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "libft.h"
 
-typedef struct s_data	t_data;
-typedef struct s_prompt	t_prompt;
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	const unsigned char	*s;
+	unsigned char		*d;
 
-void	init_data(t_data *data, char **envp);
-void	init_prompt(t_prompt *prompt);
-
-#endif /* INIT_H */
+	if (n == 0 || (!dest && !src))
+		return (dest);
+	s = (const unsigned char *)src;
+	d = (unsigned char *)dest;
+	while (n--)
+		*d++ = *s++;
+	return (dest);
+}

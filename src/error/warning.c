@@ -6,12 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 00:32:09 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 13:19:24 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/11 21:21:22 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "ft_printf.h"
+#include "libft.h"
 #include "clear_resources/clear_resources.h"
 #include <string.h>
 #include <errno.h>

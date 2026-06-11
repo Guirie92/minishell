@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:52 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 13:31:37 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/11 13:51:26 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/11 21:03:33 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "libft.h"
 
-typedef struct s_data	t_data;
-typedef struct s_prompt	t_prompt;
+char	*ft_strndup(const char *s, size_t n)
+{
+	char	*ptr;
+	size_t	len;
 
-void	init_data(t_data *data, char **envp);
-void	init_prompt(t_prompt *prompt);
-
-#endif /* INIT_H */
+	len = 0;
+	while (s[len] && len < n)
+		len++;
+	ptr = malloc((len + 1) * sizeof(char));
+	if (ptr)
+		ft_strlcpy(ptr, s, len + 1);
+	return (ptr);
+}

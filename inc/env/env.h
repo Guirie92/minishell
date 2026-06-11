@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:52 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 13:31:37 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/11 14:14:24 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/11 20:46:43 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef ENV_H
+# define ENV_H
 
 typedef struct s_data	t_data;
-typedef struct s_prompt	t_prompt;
 
-void	init_data(t_data *data, char **envp);
-void	init_prompt(t_prompt *prompt);
+void	envp_to_env(t_data *data, char **envp);
 
-#endif /* INIT_H */
+#endif /* ENV_H */

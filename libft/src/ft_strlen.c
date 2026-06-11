@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:52 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 13:31:37 by guillsan         ###   ########.fr       */
+/*   Created: 2025/09/30 16:30:38 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/11 21:03:29 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "libft.h"
 
-typedef struct s_data	t_data;
-typedef struct s_prompt	t_prompt;
+size_t	ft_strlen(const char *str)
+{
+	size_t	n;
 
-void	init_data(t_data *data, char **envp);
-void	init_prompt(t_prompt *prompt);
-
-#endif /* INIT_H */
+	n = 0;
+	while (*str++)
+		n++;
+	return (n);
+}

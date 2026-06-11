@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:52 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 13:31:37 by guillsan         ###   ########.fr       */
+/*   Created: 2025/10/01 13:15:40 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/11 21:08:14 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "libft.h"
 
-typedef struct s_data	t_data;
-typedef struct s_prompt	t_prompt;
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*p;
 
-void	init_data(t_data *data, char **envp);
-void	init_prompt(t_prompt *prompt);
-
-#endif /* INIT_H */
+	p = (unsigned char *) s;
+	while (n--)
+		*(p++) = 0;
+}

@@ -6,14 +6,14 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 22:16:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/10 12:56:17 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/11 21:21:00 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 #include "signal.h"
 #include "prompt/prompt.h"
-#include "ft_printf.h"
 #include <readline/readline.h>
 
 volatile sig_atomic_t	g_signal;

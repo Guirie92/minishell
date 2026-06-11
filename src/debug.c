@@ -1,6 +1,7 @@
 /* DELETE FILE - only for debugging purposes */
 
 #include "minishell.h"
+#include "libft.h"
 #include "init.h"
 #include "lexer/lexer.h"
 #include "parser/parser.h"
