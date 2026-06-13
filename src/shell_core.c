@@ -6,13 +6,14 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 17:07:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/08 15:36:14 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 21:16:38 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer/lexer.h"
 #include "parser/parser.h"
+#include "expander/expander.h"
 #include "executor/executor.h"
 
 void	process_input(t_data *data)
@@ -23,8 +24,8 @@ void	process_input(t_data *data)
 		return ;
 	if (heredoc_collector(data) != E_SUCCESS)
 		return ;
-
+	expand_env(data);
+	
 	//TODO:
-	// expander(parsed_cmds)
 	// executor(parsed_cmds)
 }

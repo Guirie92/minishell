@@ -6,31 +6,53 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 16:08:10 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 20:30:45 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 22:48:00 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "lexer/lexer.h"
+#include "expander/expander.h"
 
-void	expand_env(t_data *data)
+static void	process_state_normal(t_data *data, char **s, size_t *len,
+	t_quote_states *state)
 {
-	t_token	*token;
-	char	*src;
-	char	*dst;
-
-	token = data->tokens;
-	while (token)
+	if (**s == '$')
 	{
-		src = token->value;
-		calculate_token_len(data, src);
-		
-		
+		calc_env_from_d_sign(data, s, len);
+		return ;
 	}
+	if (**s == '\'')
+		*state = QUOTE_CONTEXT_SINGLE;
+	else if (**s == '"')
+		*state = QUOTE_CONTEXT_DOUBLE;
+	(*len)++;
+	(*s)++;
 }
 
+static void	process_state_single_q(char **s, size_t *len, t_quote_states *state)
+{
+	if (**s == '\'')
+		*state = QUOTE_CONTEXT_NORMAL;
+	(*s)++;
+	(*len)++;
+}
 
-void	calculate_token_len(t_data *data, char *src)
+static void	process_state_double_q(t_data *data, char **s, size_t *len,
+	t_quote_states *state)
+{
+	if (**s == '$')
+	{
+		calc_env_from_d_sign(data, s, len);
+		return ;
+	}
+	if (**s == '"')
+		*state = QUOTE_CONTEXT_NORMAL;
+	(*len)++;
+	(*s)++;
+}
+
+size_t	calculate_token_len(t_data *data, char *src)
 {
 	t_quote_states	state;
 	size_t			len;
@@ -40,50 +62,46 @@ void	calculate_token_len(t_data *data, char *src)
 	while (*src)
 	{
 		if (state == QUOTE_CONTEXT_NORMAL)
-			process_state_normal(&src, &len, &state);
+			process_state_normal(data, &src, &len, &state);
 		else if (state == QUOTE_CONTEXT_SINGLE)
 			process_state_single_q(&src, &len, &state);
 		else if (state == QUOTE_CONTEXT_DOUBLE)
-			process_state_double_q(&src, &len, &state);
-		src++;
+			process_state_double_q(data, &src, &len, &state);
 	}
+	return (len);
 }
-
-static void	process_state_normal(char *s, size_t *len, t_quote_states *state)
+#include <stdio.h>
+#include "libft.h"
+void	expand_env(t_data *data)
 {
-	if (*s == '\'')
-	{
-		*state = QUOTE_CONTEXT_SINGLE;
-		(*len)++;
-	}
-	else if (*s == '"')
-	{
-		*state = QUOTE_CONTEXT_DOUBLE;
-		(*len)++;
-	}
-	else if ()
-	{
-		
-	}
-	else
-	{
-		
-	}
-}
+	t_token	*token;
+	char	*src;
+	//char	*dst;
+	size_t	len;
 
-static void	process_state_single_q(char *s, size_t *len, t_quote_states *state)
-{
-	if (*s == '\'')
-		*state = QUOTE_CONTEXT_NORMAL;
-	(*len)++;
-}
-
-static void	process_state_double_q(char *s, size_t *len, t_quote_states *state)
-{
-	if (*s == '"')
-		*state = QUOTE_CONTEXT_NORMAL;
-	else
+	token = data->tokens;
+	while (token)
 	{
-		
+		src = token->value;
+		len = calculate_token_len(data, src);
+
+		char	*token_type;
+		if (token->type == TOKEN_WORD)
+			token_type = "WORD";
+		else if (token->type == TOKEN_PIPE)
+			token_type = "PIPE";
+		else if (token->type == TOKEN_REDIR_IN)
+			token_type = "REDIR_IN";
+		else if (token->type == TOKEN_REDIR_OUT)
+			token_type = "REDIR_OUT";
+		else if (token->type == TOKEN_APPEND)
+			token_type = "APPEND";
+		else if (token->type == TOKEN_HEREDOC)
+			token_type = "HEREDOC";
+		if (token->type == TOKEN_WORD)
+			printf("%s(n: %ld | e: %ld)\n", token_type, ft_strlen(token->value), len);
+		fflush(stdout);
+
+		token = token->next;
 	}
 }

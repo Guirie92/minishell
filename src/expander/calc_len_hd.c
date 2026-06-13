@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 16:08:10 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 22:40:46 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 21:29:07 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@
 #include "libft.h"
 #include "parser/parser.h"
 
-size_t	get_key_len(char *line, char **str, size_t *i)
+size_t	get_key_len(char **line, char **str)
 {
 	size_t	var_len;
 
 	var_len = 0;
-	if (ft_isdigit(line[*i]))
+	if (ft_isdigit(**line))
 	{
-		(*i)++;
+		(*line)++;
 		return (0);
 	}
-	*str = &line[*i];
-	while (ft_isalnum(line[*i]) || line[*i] == '_')
+	*str = *line;
+	while (ft_isalnum(**line) || **line == '_')
 	{
 		var_len++;
-		(*i)++;
+		(*line)++;
 	}
 	return (var_len);
 }
 
-static void	handle_dollar_sign(t_data *data, char *line, size_t *len, size_t *i)
+void	calc_env_from_d_sign(t_data *data, char **line, size_t *len)
 {
 	size_t	var_len;
 	char	*str;
@@ -44,16 +44,16 @@ static void	handle_dollar_sign(t_data *data, char *line, size_t *len, size_t *i)
 	var_len = 0;
 	env_node = NULL;
 	str = NULL;
-	(*i)++;
-	if (validate_env_key(line[*i]))
+	(*line)++;
+	if (validate_env_key(**line))
 	{
-		if (line[*i] == '?')
+		if (**line == '?')
 		{
 			*len += ft_count_digits(data->exit_status);
-			(*i)++;
+			(*line)++;
 		}
 		else
-			var_len = get_key_len(line, &str, i);
+			var_len = get_key_len(line, &str);
 	}
 	else
 		(*len)++;
@@ -65,21 +65,19 @@ static void	handle_dollar_sign(t_data *data, char *line, size_t *len, size_t *i)
 
 size_t	calculate_expanded_len(t_data *data, char *line, int *b_has_expanded)
 {
-	size_t	i;
 	size_t	len;
 
-	i = 0;
 	len = 0;
-	while (line[i])
+	while (*line)
 	{
-		if (line[i] == '$')
+		if (*line == '$')
 		{
 			*b_has_expanded = 1;
-			handle_dollar_sign(data, line, &len, &i);
+			calc_env_from_d_sign(data, &line, &len);
 		}
 		else
 		{
-			i++;
+			line++;
 			len++;
 		}
 	}
