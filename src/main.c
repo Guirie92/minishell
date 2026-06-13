@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 20:47:08 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 16:10:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	handle_null_line(t_data *data)
 		handle_control_d(data);
 }
 
-static void	shell_loop(t_data *data, t_prompt *prompt)
+static void	shell_loop(t_data *data)
 {
 	while (1)
 	{
-		generate_prompt(prompt);
-		data->line = readline(prompt->buffer);
+		generate_prompt(data->prompt);
+		data->line = readline(data->prompt->buffer);
 		check_sigint(data);
 		if (!data->line)
 			handle_null_line(data);
@@ -60,14 +60,11 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	// TODO: envp (build it into our structure)
-	(void)envp;
-
 	data.prompt = &prompt;
 	init_data(&data, envp);
 	init_signals();
 
-	shell_loop(&data, &prompt);
+	shell_loop(&data);
 
 	return (0);
 }

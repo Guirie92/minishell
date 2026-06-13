@@ -6,12 +6,28 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:03 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:23:37 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 17:26:44 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "env/env.h"
 #include "libft.h"
+
+t_env	*find_env(t_data *data, char *entry, size_t len)
+{
+	t_env	*node;
+
+	node = data->env;
+	while (node)
+	{
+		if (ft_strlen(node->key) == len
+			&& ft_strncmp(node->key, entry, len) == 0)
+			return (node);
+		node = node->next;
+	}
+	return (NULL);
+}
 
 static t_env *create_env_node(t_data *data, char *entry)
 {

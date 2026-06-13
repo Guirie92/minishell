@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 18:09:25 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:26:35 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 14:09:27 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "string_builder/string_builder.h"
 #include "parser/parser.h"
+#include "expander/expander.h"
 #include "executor/executor_internal.h"
 #include "clear_resources/clear_resources.h"
 #include "errno.h"
@@ -22,6 +23,34 @@
 #include <readline/history.h>
 #include <unistd.h>
 #include <sys/wait.h>
+
+static void	write_line_fd(char *line, int fd[2])
+{
+	write(fd[1], line, ft_strlen(line));
+	write(fd[1], "\n", 1);
+}
+
+static char	*handle_expansion(t_data *data, t_redir *redir, char *line)
+{
+	size_t	len;
+	char	*expanded_line;
+	int		b_has_expanded;
+
+	if (!redir->should_expand_hd)
+		return (line);
+	b_has_expanded = 0;
+	len = calculate_expanded_len(data, line, &b_has_expanded);
+	if (!b_has_expanded)
+		return (line);
+	expanded_line = malloc((len + 1) * sizeof(char));
+	if (!expanded_line)
+	{
+		free(line);
+		exit_with_error(data);
+	}
+	fill_expanded_line(data, line, expanded_line);
+	return (expanded_line);
+}
 
 static void	heredoc_loop(t_data *data, t_redir *redir, int fd[2], char *prompt)
 {
@@ -42,8 +71,8 @@ static void	heredoc_loop(t_data *data, t_redir *redir, int fd[2], char *prompt)
 			free(line);
 			break ;
 		}
-		write(fd[1], line, ft_strlen(line));
-		write(fd[1], "\n", 1);
+		line = handle_expansion(data, redir, line);
+		write_line_fd(line, fd);
 		free(line);
 	}
 	close(fd[0]);

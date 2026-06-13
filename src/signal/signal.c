@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 22:16:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:21:00 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 11:35:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 volatile sig_atomic_t	g_signal;
 
-static void	redisplay_prompt()
+static void	redisplay_prompt(void)
 {
 	char	*nl;
 	int		i;
@@ -49,7 +49,7 @@ static void	redisplay_prompt()
 
 void	sigint_handler(int sig)
 {
-    g_signal = sig;
+	g_signal = sig;
 	redisplay_prompt();
 }
 

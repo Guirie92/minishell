@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_internal.h                                :+:      :+:    :+:   */
+/*   ft_count_digits.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/07 16:27:21 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 18:14:13 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/12 17:07:18 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/12 17:16:21 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_INTERNAL_H
-# define EXECUTOR_INTERNAL_H
+#include "libft.h"
 
-# include "minishell.h"
-
-typedef enum e_heredoc_status
+size_t	ft_count_digits(size_t n)
 {
-	HD_SUCCESS,
-	HD_EOF,
-	HD_FAILURE
-}	t_heredoc_status;
+	size_t	dgts;
 
-void	build_hd_prompt(t_builder *sb, int heredoc_idx);
-void	heredoc_exit(t_data *data, int fd[2], t_heredoc_status retcode);
-int		check_hd_exit_status(t_data *data, int status);
-
-#endif /* EXECUTOR_INTERNAL_H */
+	dgts = 1;
+	while (n >= 10)
+	{
+		n /= 10;
+		dgts++;
+	}
+	return (dgts);
+}

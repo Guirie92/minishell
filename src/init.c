@@ -6,12 +6,11 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 19:25:07 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 20:46:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 15:40:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "prompt/prompt.h"
 #include "env/env.h"
 
 void	reset_data(t_data *data)
@@ -29,6 +28,5 @@ void	init_data(t_data *data, char **envp)
 	data->pipeline = NULL;
 	data->env = NULL;
 	data->exit_status = 0;
-	init_prompt(data->prompt);
 	envp_to_env(data, envp);
 }

@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 20:50:11 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/11 21:11:30 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/12 19:16:40 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ INC_PATH = inc
 
 SRCS = 	$(addprefix $(SRC_PATH)/,           \
 		ft_bzero.c                          \
+		ft_itoa_buffer.c                    \
+		ft_isalpha.c                        \
+		ft_isalnum.c                        \
 		ft_isdigit.c                        \
 		ft_realloc.c                        \
 		ft_memcpy.c                         \
@@ -37,6 +40,7 @@ SRCS = 	$(addprefix $(SRC_PATH)/,           \
 		ft_strlen.c                         \
 		ft_strdup.c                         \
 		ft_strndup.c                        \
+		ft_count_digits.c                   \
 		ft_isspace.c)                       \
 		$(addprefix $(SRC_PF_PATH)/,        \
 		ft_char_ptr_handler.c               \

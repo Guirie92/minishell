@@ -6,11 +6,13 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 12:34:18 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/08 15:29:59 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 17:34:49 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
+#include "env/env.h"
 #include "string_builder/string_builder.h"
 #include "executor/executor_internal.h"
 

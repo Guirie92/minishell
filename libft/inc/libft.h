@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:01:31 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:18:25 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 20:08:57 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdint.h>
+
+# define INT_MAX_LEN 12
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -60,5 +62,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strchr_pos(const char *s, int c);
 char	*ft_strndup(const char *s, size_t n);
 int		ft_isspace(int c);
+size_t	ft_count_digits(size_t n);
+size_t	ft_itoa_buffer(int n, char *buf, size_t cap);
 
 #endif /* LIBFT_H */

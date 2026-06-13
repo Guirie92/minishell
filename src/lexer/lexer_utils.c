@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:09:50 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:24:17 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 12:30:46 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	process_lx_normal(t_data *data, t_lexer *lx)
 	else
 	{
 		if (lx->input[lx->input_idx] == '\'')
-			lx->state = LEXER_SINGLE_QUOTE;
+			lx->state = QUOTE_CONTEXT_SINGLE;
 		else if (lx->input[lx->input_idx] == '"')
-			lx->state = LEXER_DOUBLE_QUOTE;
+			lx->state = QUOTE_CONTEXT_DOUBLE;
 		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
 		(lx->buf_idx)++;
 	}
@@ -93,7 +93,7 @@ void	process_lx_single_q(t_data *data, t_lexer *lx)
 	{
 		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
 		(lx->buf_idx)++;
-		lx->state = LEXER_NORMAL;
+		lx->state = QUOTE_CONTEXT_NORMAL;
 		if (lx->buf_idx == 0
 			&& (ft_isspace(lx->input[i + 1]) || lx->input[i + 1] == '\0'
 				|| ft_strrchr(LEXER_OPERATORS, lx->input[i + 1]) != NULL))
@@ -111,7 +111,7 @@ void	process_lx_double_q(t_data *data, t_lexer *lx)
 	{
 		lx->buffer[lx->buf_idx] = lx->input[lx->input_idx];
 		(lx->buf_idx)++;
-		lx->state = LEXER_NORMAL;
+		lx->state = QUOTE_CONTEXT_NORMAL;
 		if (lx->buf_idx == 0
 			&& (ft_isspace(lx->input[i + 1]) || lx->input[i + 1] == '\0'
 				|| ft_strrchr(LEXER_OPERATORS, lx->input[i + 1]) != NULL))

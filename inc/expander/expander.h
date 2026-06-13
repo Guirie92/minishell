@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_internal.h                                :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/07 16:27:21 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 18:14:13 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/12 18:13:55 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/12 22:23:37 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_INTERNAL_H
-# define EXECUTOR_INTERNAL_H
+#ifndef EXPANDER_H
+# define EXPANDER_H
 
 # include "minishell.h"
 
-typedef enum e_heredoc_status
-{
-	HD_SUCCESS,
-	HD_EOF,
-	HD_FAILURE
-}	t_heredoc_status;
+size_t	validate_env_key(unsigned char c);
+size_t	get_key_len(char *line, char **str, size_t *i);
+size_t	calculate_expanded_len(t_data *data, char *line, int *b_has_expanded);
+void	fill_expanded_line(t_data *data, char *line, char *expanded_line);
 
-void	build_hd_prompt(t_builder *sb, int heredoc_idx);
-void	heredoc_exit(t_data *data, int fd[2], t_heredoc_status retcode);
-int		check_hd_exit_status(t_data *data, int status);
-
-#endif /* EXECUTOR_INTERNAL_H */
+#endif /* EXPANDER_H */

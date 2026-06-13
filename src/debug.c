@@ -1,6 +1,7 @@
 /* DELETE FILE - only for debugging purposes */
 
 #include "minishell.h"
+#include "env/env.h"
 #include "libft.h"
 #include "init.h"
 #include "lexer/lexer.h"
@@ -16,8 +17,26 @@ static int	g_is_debug = 0;
 
 static const char	*get_redir_name(t_redir_type type)
 {
-    static const char *names[] = {"REDIR_IN", "REDIR_OUT", "APPEND", "HEREDOC"};
-    return (type >= 0 && type <= 3) ? names[type] : "UNKNOWN";
+	static const char *names[] = {"REDIR_IN", "REDIR_OUT", "APPEND", "HEREDOC"};
+	return ((type >= 0 && type <= 3) ? names[type] : "UNKNOWN");
+}
+
+static void	debug_env(t_data *data)
+{
+	t_env	*node;
+
+	printf(CLR_YELLOW "\n--- ENV ---\n" CLR_RESET);
+	fflush(stdout);
+	node = data->env;
+	while (node)
+	{
+		if(node->value)
+			printf("%s=%s\n", node->key, node->value);
+		else
+			printf("%s\n", node->key);
+		node = node->next;
+	}
+	printf("\n");
 }
 
 static void	debug_raw_input(t_data *data)
@@ -116,26 +135,23 @@ static void	debug_lexer(t_data *data)
 static void	print_heredoc_content(char *preffix, t_redir *redir)
 {
 	char	buffer[2048];
-	char	line[1024];
-	int		line_idx = 0;
 	ssize_t	bytes_read;
 	int		i;
+	int		b_line_start = 1;
 
-	while ((bytes_read = read(redir->heredoc_fd, buffer, 2048)) > 0)
+	while ((bytes_read = read(redir->heredoc_fd, buffer, sizeof(buffer))) > 0)
 	{
 		i = 0;
 		while (i < bytes_read)
 		{
-			if (buffer[i] == '\n')
+			if (b_line_start)
 			{
-				line[line_idx] = '\0';
-				printf("%s", preffix);
-				printf("-> %s\n", line);
-				// printf("%14s -> %s\n", " ", line);
-				line_idx = 0;
+				printf("%s-> ", preffix);
+				b_line_start = 0;
 			}
-			else if (line_idx < (int)sizeof(line) - 1)
-				line[line_idx++] = buffer[i];
+			putchar(buffer[i]);
+			if (buffer[i] == '\n')
+				b_line_start = 1;
 			i++;
 		}
 	}
@@ -254,7 +270,10 @@ void	debug_and_log(t_data *data)
 	if (!g_is_debug)
 		return ;
 
-	printf("\ndata->exit_status: %d\n", data->exit_status);
+	printf("\ndata->exit_status: %ld\n", data->exit_status);
+
+	if (ft_strcmp(data->line, "env") == 0)
+		debug_env(data);
 
 	debug_raw_input(data);
 	debug_lexer(data);

@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/11 21:01:37 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/12 19:57:38 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ ENV_PATH = $(SRC_PATH)/env
 PROMPT_PATH = $(SRC_PATH)/prompt
 LEXER_PATH = $(SRC_PATH)/lexer
 PARSER_PATH = $(SRC_PATH)/parser
+EXPANDER_PATH = $(SRC_PATH)/expander
 EXECUTOR_PATH = $(SRC_PATH)/executor
 ERROR_PATH = $(SRC_PATH)/error
 SIGNAL_PATH = $(SRC_PATH)/signal
@@ -56,6 +57,9 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		parser_hc.c                    \
 		parser_utils.c                 \
 		parser.c)                      \
+		$(addprefix $(EXPANDER_PATH)/, \
+		calc_len_hd.c                  \
+		expander.c)                    \
 		$(addprefix $(EXECUTOR_PATH)/, \
 		hc_utils.c                     \
 		heredoc.c)                     \

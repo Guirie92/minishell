@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 14:49:48 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/09 15:44:42 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 15:26:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,19 @@
 
 # define PROMPT_SIZE BUFFER_SIZE
 
+# ifndef PATH_MAX
+#  define PATH_MAX 1024
+# endif
+
 typedef struct s_prompt
 {
 	char	buffer[PROMPT_SIZE];
+	char	*prefix;
+	char	*suffix;
 	size_t	len;
 	size_t	max_len;
+	size_t	reserved_len;
+	size_t	usable_len;
 }	t_prompt;
 
 void	init_prompt(t_prompt *prompt);

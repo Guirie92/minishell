@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:30:51 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:24:34 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:37:41 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,39 +15,48 @@
 #include "parser/parser.h"
 #include "lexer/lexer.h"
 
-static void	process_state_normal(char **dst, char *s, t_lexer_states *state);
-static void	process_state_single_q(char **dst, char *s, t_lexer_states *state);
-static void	process_state_double_q(char **dst, char *s, t_lexer_states *state);
+static void	process_state_normal(char **dst, char *s, t_redir *redir,
+	t_quote_states *state);
+static void	process_state_single_q(char **dst, char *s, t_quote_states *state);
+static void	process_state_double_q(char **dst, char *s, t_quote_states *state);
 
 void	parse_heredoc_delimiter(t_data *data, t_redir *redir, char *delimiter)
 {
-	t_lexer_states	state;
+	t_quote_states	state;
 	char			*str;
 
-	state = LEXER_NORMAL;
+	state = QUOTE_CONTEXT_NORMAL;
 	redir->target = malloc((ft_strlen(delimiter) + 1) * sizeof(char));
 	if (!redir->target)
 		exit_with_error(data);
 	str = redir->target;
+	redir->should_expand_hd = 1;
 	while (*delimiter)
 	{
-		if (state == LEXER_NORMAL)
-			process_state_normal(&str, delimiter, &state);
-		else if (state == LEXER_SINGLE_QUOTE)
+		if (state == QUOTE_CONTEXT_NORMAL)
+			process_state_normal(&str, delimiter, redir, &state);
+		else if (state == QUOTE_CONTEXT_SINGLE)
 			process_state_single_q(&str, delimiter, &state);
-		else if (state == LEXER_DOUBLE_QUOTE)
+		else if (state == QUOTE_CONTEXT_DOUBLE)
 			process_state_double_q(&str, delimiter, &state);
 		delimiter++;
 	}
 	*str = '\0';
 }
 
-static void	process_state_normal(char **dst, char *s, t_lexer_states *state)
+static void	process_state_normal(char **dst, char *s, t_redir *redir,
+	t_quote_states *state)
 {
 	if (*s == '\'')
-		*state = LEXER_SINGLE_QUOTE;
+	{
+		*state = QUOTE_CONTEXT_SINGLE;
+		redir->should_expand_hd = 0;
+	}
 	else if (*s == '"')
-		*state = LEXER_DOUBLE_QUOTE;
+	{
+		*state = QUOTE_CONTEXT_DOUBLE;
+		redir->should_expand_hd = 0;
+	}
 	else
 	{
 		**dst = *s;
@@ -55,10 +64,10 @@ static void	process_state_normal(char **dst, char *s, t_lexer_states *state)
 	}
 }
 
-static void	process_state_single_q(char **dst, char *s, t_lexer_states *state)
+static void	process_state_single_q(char **dst, char *s, t_quote_states *state)
 {
 	if (*s == '\'')
-		*state = LEXER_NORMAL;
+		*state = QUOTE_CONTEXT_NORMAL;
 	else
 	{
 		**dst = *s;
@@ -66,10 +75,10 @@ static void	process_state_single_q(char **dst, char *s, t_lexer_states *state)
 	}
 }
 
-static void	process_state_double_q(char **dst, char *s, t_lexer_states *state)
+static void	process_state_double_q(char **dst, char *s, t_quote_states *state)
 {
 	if (*s == '"')
-		*state = LEXER_NORMAL;
+		*state = QUOTE_CONTEXT_NORMAL;
 	else
 	{
 		**dst = *s;

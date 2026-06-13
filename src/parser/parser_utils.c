@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 16:54:05 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:24:45 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:37:48 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_redir	*init_redir(t_data *data)
 	redir->type = 0;
 	redir->target = NULL;
 	redir->heredoc_fd = -1;
+	redir->should_expand_hd = 0;
 	redir->next = NULL;
 	return (redir);
 }

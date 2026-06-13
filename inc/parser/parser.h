@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 17:48:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 16:37:32 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 15:33:42 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_redir
 	t_redir_type	type;
 	char			*target;
 	int				heredoc_fd;
+	int				should_expand_hd;
 	struct s_redir	*next;
 }	t_redir;
 

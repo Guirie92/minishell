@@ -6,11 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 17:35:53 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 13:24:08 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 10:29:53 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "env/env.h"
 #include "lexer/lexer.h"
 #include "clear_resources/clear_resources_internal.h"
 
@@ -54,8 +55,6 @@ void	clear_data(t_data *data)
 	free_pipeline(data);
 	free_env(data);
 	reset_data(data);
-
-	// TODO: needs to clean up t_env env too
 }
 
 void	reset_command_state(t_data *data)

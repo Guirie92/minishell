@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 16:33:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/09 18:40:22 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 12:31:15 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 # define LEXER_OPERATORS "|><"
 
-typedef enum e_lexer_states
+typedef enum e_quote_states
 {
-	LEXER_NORMAL,
-	LEXER_SINGLE_QUOTE,
-	LEXER_DOUBLE_QUOTE,
-}	t_lexer_states;
+	QUOTE_CONTEXT_NORMAL,
+	QUOTE_CONTEXT_SINGLE,
+	QUOTE_CONTEXT_DOUBLE,
+}	t_quote_states;
 
 typedef enum e_token_type
 {
@@ -49,7 +49,7 @@ typedef struct s_lexer
 	t_token			*tail;
 	size_t			input_idx;
 	size_t			buf_idx;
-	t_lexer_states	state;
+	t_quote_states	state;
 }	t_lexer;
 
 /* lexer.c */

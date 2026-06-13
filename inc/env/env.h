@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 20:46:43 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/12 16:19:16 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 typedef struct s_data	t_data;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+t_env	*find_env(t_data *data, char *entry, size_t len);
 void	envp_to_env(t_data *data, char **envp);
 
 #endif /* ENV_H */
