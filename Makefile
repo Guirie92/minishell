@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/12 19:57:38 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/13 17:40:54 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		parser.c)                      \
 		$(addprefix $(EXPANDER_PATH)/, \
 		calc_len_hd.c                  \
+		exp_env_hd.c                   \
 		expander.c)                    \
 		$(addprefix $(EXECUTOR_PATH)/, \
 		hc_utils.c                     \

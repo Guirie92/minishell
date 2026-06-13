@@ -6,17 +6,15 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 16:01:02 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 17:12:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-#include "init.h"
 #include "prompt/prompt.h"
 #include "prompt/prompt_internal.h"
 #include "string_builder/string_builder.h"
-#include <stdio.h>
 #include <unistd.h>
 
 void	init_prompt(t_prompt *prompt)

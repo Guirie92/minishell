@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 18:09:25 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 14:09:27 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 17:06:12 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static char	*handle_expansion(t_data *data, t_redir *redir, char *line)
 		exit_with_error(data);
 	}
 	fill_expanded_line(data, line, expanded_line);
+	free(line);
 	return (expanded_line);
 }
 

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:03 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 17:26:44 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 17:04:53 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env	*find_env(t_data *data, char *entry, size_t len)
 	return (NULL);
 }
 
-static t_env *create_env_node(t_data *data, char *entry)
+static t_env	*create_env_node(t_data *data, char *entry)
 {
 	t_env	*node;
 	int		equal_pos;
@@ -38,7 +38,7 @@ static t_env *create_env_node(t_data *data, char *entry)
 	if (!node)
 		exit_with_error(data);
 	equal_pos = ft_strchr_pos(entry, '=');
-	if(equal_pos != -1)
+	if (equal_pos != -1)
 	{
 		node->key = ft_strndup(entry, equal_pos);
 		if (!node->key)

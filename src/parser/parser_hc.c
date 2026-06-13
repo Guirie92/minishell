@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 11:30:51 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 15:37:41 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/13 17:13:07 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "lexer/lexer.h"
 
 static void	process_state_normal(char **dst, char *s, t_redir *redir,
-	t_quote_states *state);
+				t_quote_states *state);
 static void	process_state_single_q(char **dst, char *s, t_quote_states *state);
 static void	process_state_double_q(char **dst, char *s, t_quote_states *state);
 
