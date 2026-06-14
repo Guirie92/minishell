@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 12:39:54 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/14 13:12:02 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/14 13:59:42 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,18 @@ static void	process_state_double_q(t_data *data, char **s, size_t *len,
 	(*s)++;
 }
 
-size_t	calculate_token_len(t_data *data, char *src)
+size_t	calculate_token_len(t_data *data, char *src, int *b_has_quotes)
 {
 	t_quote_states	state;
 	size_t			len;
 
 	len = 0;
+	*b_has_quotes = 0;
 	state = QUOTE_CONTEXT_NORMAL;
 	while (*src)
 	{
+		if (*src == '\'' || *src == '"')
+			*b_has_quotes = 1;
 		if (state == QUOTE_CONTEXT_NORMAL)
 			process_state_normal(data, &src, &len, &state);
 		else if (state == QUOTE_CONTEXT_SINGLE)
