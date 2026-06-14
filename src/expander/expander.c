@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 16:08:10 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 22:48:00 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/14 13:31:31 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,94 +14,98 @@
 #include "lexer/lexer.h"
 #include "expander/expander.h"
 
-static void	process_state_normal(t_data *data, char **s, size_t *len,
-	t_quote_states *state)
+/*
+ * It calculates the expansion in a heredoc line, one at a time
+ * (doesn't need quote context)
+ */
+size_t	calculate_expanded_len(t_data *data, char *line, int *b_has_expanded)
 {
-	if (**s == '$')
-	{
-		calc_env_from_d_sign(data, s, len);
-		return ;
-	}
-	if (**s == '\'')
-		*state = QUOTE_CONTEXT_SINGLE;
-	else if (**s == '"')
-		*state = QUOTE_CONTEXT_DOUBLE;
-	(*len)++;
-	(*s)++;
-}
-
-static void	process_state_single_q(char **s, size_t *len, t_quote_states *state)
-{
-	if (**s == '\'')
-		*state = QUOTE_CONTEXT_NORMAL;
-	(*s)++;
-	(*len)++;
-}
-
-static void	process_state_double_q(t_data *data, char **s, size_t *len,
-	t_quote_states *state)
-{
-	if (**s == '$')
-	{
-		calc_env_from_d_sign(data, s, len);
-		return ;
-	}
-	if (**s == '"')
-		*state = QUOTE_CONTEXT_NORMAL;
-	(*len)++;
-	(*s)++;
-}
-
-size_t	calculate_token_len(t_data *data, char *src)
-{
-	t_quote_states	state;
-	size_t			len;
+	size_t	len;
 
 	len = 0;
-	state = QUOTE_CONTEXT_NORMAL;
-	while (*src)
+	while (*line)
 	{
-		if (state == QUOTE_CONTEXT_NORMAL)
-			process_state_normal(data, &src, &len, &state);
-		else if (state == QUOTE_CONTEXT_SINGLE)
-			process_state_single_q(&src, &len, &state);
-		else if (state == QUOTE_CONTEXT_DOUBLE)
-			process_state_double_q(data, &src, &len, &state);
+		if (*line == '$')
+		{
+			*b_has_expanded = 1;
+			calculate_env_len(data, &line, &len);
+		}
+		else
+		{
+			line++;
+			len++;
+		}
 	}
 	return (len);
 }
+
+/*
+ * It expands the heredoc line, one at a time (doesn't need quote context)
+ */
+void	fill_expanded_line(t_data *data, char *line, char *expanded_line)
+{
+	char	*src;
+	char	*dst;
+
+	src = line;
+	dst = expanded_line;
+	while (*src)
+	{
+		if (*src == '$')
+			fill_env_key(data, &src, &dst);
+		else
+			*dst++ = *src++;
+	}
+	*dst = '\0';
+}
+
+/*
+ * It performs 2 steps: it expands env variables and strip quotes
+ * 
+ * - It calculates the new len, taking into account (1) quote removal
+ *   and (2) expansion (env key into env value)
+ * 
+ * - allocates the new length
+ * 
+ * - and writes directly into the new buffer, without quotes, and with env
+ *   values expanded
+ */
 #include <stdio.h>
 #include "libft.h"
-void	expand_env(t_data *data)
+void	resolve_tokens(t_data *data)
 {
 	t_token	*token;
-	char	*src;
-	//char	*dst;
+	char	*dst;
 	size_t	len;
 
 	token = data->tokens;
 	while (token)
 	{
-		src = token->value;
-		len = calculate_token_len(data, src);
+		if (token->type != TOKEN_WORD)
+		{
+			token = token->next;
+			continue ;
+		}
+		len = calculate_token_len(data, token->value);
 
-		char	*token_type;
-		if (token->type == TOKEN_WORD)
-			token_type = "WORD";
-		else if (token->type == TOKEN_PIPE)
-			token_type = "PIPE";
-		else if (token->type == TOKEN_REDIR_IN)
-			token_type = "REDIR_IN";
-		else if (token->type == TOKEN_REDIR_OUT)
-			token_type = "REDIR_OUT";
-		else if (token->type == TOKEN_APPEND)
-			token_type = "APPEND";
-		else if (token->type == TOKEN_HEREDOC)
-			token_type = "HEREDOC";
-		if (token->type == TOKEN_WORD)
-			printf("%s(n: %ld | e: %ld)\n", token_type, ft_strlen(token->value), len);
+		// ---- DEBUG ---- // 
+		printf("WORD (n: %ld | e: %ld)\n", ft_strlen(token->value), len);
 		fflush(stdout);
+		// ---- DEBUG ---- // 
 
+		dst = malloc((len + 1) * sizeof(char));
+		if (!dst)
+			exit_with_error(data);
+		process_token_string(data, token->value, dst);
+
+		// ---- DEBUG ---- // 
+		printf("tok val: %s\n", token->value);
+		printf("exp val: %s\n\n", dst);
+		fflush(stdout);
+		// ---- DEBUG ---- // 
+		
+		free(token->value);
+		token->value = dst;
 		token = token->next;
 	}
 }

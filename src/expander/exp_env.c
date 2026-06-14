@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exp_env_hd.c                                       :+:      :+:    :+:   */
+/*   exp_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/13 17:39:21 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 20:47:52 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/14 13:07:11 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/14 13:24:46 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 #include "env/env.h"
+#include "expander/expander.h"
 
 size_t	validate_env_key(unsigned char c)
 {
@@ -46,7 +47,7 @@ static void	parse_env_key(t_data *data, char **src, char **dst)
 	}
 }
 
-static void	fill_dollar_sign(t_data *data, char **src, char **dst)
+void	fill_env_key(t_data *data, char **src, char **dst)
 {
 	(*src)++;
 	if (!validate_env_key(**src))
@@ -61,21 +62,4 @@ static void	fill_dollar_sign(t_data *data, char **src, char **dst)
 		return ;
 	}
 	parse_env_key(data, src, dst);
-}
-
-void	fill_expanded_line(t_data *data, char *line, char *expanded_line)
-{
-	char	*src;
-	char	*dst;
-
-	src = line;
-	dst = expanded_line;
-	while (*src)
-	{
-		if (*src == '$')
-			fill_dollar_sign(data, &src, &dst);
-		else
-			*dst++ = *src++;
-	}
-	*dst = '\0';
 }

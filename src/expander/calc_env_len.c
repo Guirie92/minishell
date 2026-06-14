@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calc_len_hd.c                                      :+:      :+:    :+:   */
+/*   calc_env_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/12 16:08:10 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 21:29:07 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/14 13:06:15 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/14 13:17:35 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 #include "env/env.h"
 #include "expander/expander.h"
-#include "libft.h"
-#include "parser/parser.h"
 
 size_t	get_key_len(char **line, char **str)
 {
@@ -35,7 +34,7 @@ size_t	get_key_len(char **line, char **str)
 	return (var_len);
 }
 
-void	calc_env_from_d_sign(t_data *data, char **line, size_t *len)
+void	calculate_env_len(t_data *data, char **line, size_t *len)
 {
 	size_t	var_len;
 	char	*str;
@@ -51,6 +50,7 @@ void	calc_env_from_d_sign(t_data *data, char **line, size_t *len)
 		{
 			*len += ft_count_digits(data->exit_status);
 			(*line)++;
+			return ;
 		}
 		else
 			var_len = get_key_len(line, &str);
@@ -61,25 +61,4 @@ void	calc_env_from_d_sign(t_data *data, char **line, size_t *len)
 		env_node = find_env(data, str, var_len);
 	if (env_node)
 		*len += ft_strlen(env_node->value);
-}
-
-size_t	calculate_expanded_len(t_data *data, char *line, int *b_has_expanded)
-{
-	size_t	len;
-
-	len = 0;
-	while (*line)
-	{
-		if (*line == '$')
-		{
-			*b_has_expanded = 1;
-			calc_env_from_d_sign(data, &line, &len);
-		}
-		else
-		{
-			line++;
-			len++;
-		}
-	}
-	return (len);
 }

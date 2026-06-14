@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 18:09:25 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 22:34:12 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/14 11:00:00 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@
 #include "parser/parser.h"
 #include "expander/expander.h"
 #include "executor/executor_internal.h"
-#include "clear_resources/clear_resources.h"
 #include "errno.h"
 #include "error/error.h"
 #include <readline/readline.h>
-#include <readline/history.h>
 #include <unistd.h>
 #include <sys/wait.h>
 
