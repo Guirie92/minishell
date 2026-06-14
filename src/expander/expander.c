@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 16:08:10 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/14 17:25:43 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/14 20:42:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,10 @@ static void	arrange_argv_array(t_cmd *cmd)
 	int	rd_i;
 	int	wr_i;
 
-	rd_i = 1;
-	wr_i = 1;
+	rd_i = 0;
+	wr_i = 0;
+	if (cmd->argc < 1)
+		return ;
 	while (rd_i < cmd->argc)
 	{
 		if (cmd->argv[rd_i] != NULL)
