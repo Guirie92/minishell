@@ -30,11 +30,7 @@ static void	handle_null_line(t_data *data)
 	else
 		handle_control_d(data);
 }
-void execution_sigint(int sig)
-{
-    g_signal = sig;
-    write(1, "\n", 1); // Keeps the terminal clean when a child dies
-}
+
 static void	shell_loop(t_data *data)
 {
 	while (1)
