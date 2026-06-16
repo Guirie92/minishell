@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 20:50:11 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/16 12:43:48 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/16 17:04:57 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS = 	$(addprefix $(SRC_PATH)/,           \
 		ft_strdup.c                         \
 		ft_strndup.c                        \
 		ft_count_digits.c                   \
+		ft_split.c                          \
 		ft_isspace.c)                       \
 		$(addprefix $(SRC_PF_PATH)/,        \
 		ft_char_ptr_handler.c               \

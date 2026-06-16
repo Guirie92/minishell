@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/16 13:18:06 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/16 16:26:14 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+void	free_envp(char **envp);
 t_env	*find_env(t_data *data, char *entry, size_t len);
 void	envp_to_env(t_data *data, char **envp);
 char	**env_to_envp(t_data *data);

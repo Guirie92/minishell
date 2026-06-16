@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:03 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/16 14:04:50 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/16 16:25:37 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 #include "env/env.h"
 #include "env/env_internal.h"
 #include "libft.h"
+
+void	free_envp(char **envp)
+{
+	size_t	i;
+
+	if (!envp)
+		return ;
+	i = 0;
+	while (envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
+}
 
 t_env	*find_env(t_data *data, char *entry, size_t len)
 {
