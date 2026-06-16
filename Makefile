@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/14 13:16:04 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/16 13:33:06 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		shell_core.c                   \
 		main.c)                        \
 		$(addprefix $(ENV_PATH)/,      \
+		env_utils.c                    \
 		env.c)                         \
 		$(addprefix $(SB_PATH)/,       \
 		sb_utils.c                     \
@@ -63,6 +64,7 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		exp_env_token.c                \
 		expander.c)                    \
 		$(addprefix $(EXECUTOR_PATH)/, \
+		executor.c                     \
 		hc_utils.c                     \
 		heredoc.c)                     \
 		$(addprefix $(ERROR_PATH)/,    \

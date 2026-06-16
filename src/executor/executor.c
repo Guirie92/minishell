@@ -1,32 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_core.c                                       :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 17:07:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/16 12:32:31 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/16 14:51:11 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "lexer/lexer.h"
+#include "libft.h"
 #include "parser/parser.h"
-#include "expander/expander.h"
-#include "executor/executor.h"
+#include "env/env.h"
 
-void	process_input(t_data *data)
+#include <stdio.h>
+void	execute(t_data *data)
 {
-	if (lexer(data) != E_SUCCESS)
-		return ;
-	if (parser(data) != E_SUCCESS)
-		return ;
-	if (heredoc_collector(data) != E_SUCCESS)
-		return ;
-	resolve_pipeline(data);
-	execute(data);
+	t_cmd	*cmd;
+	char	**envp;
+
+	cmd = data->pipeline->cmds;
+	envp = env_to_envp(data);
 	
-	//TODO:
-	// executor(parsed_cmds)
+	// DEBUG
+	int i = 0;
+	printf("\n---- ENV_TO_ENVP ----\n");
+	if (envp)
+	{
+		while (envp[i])
+		{
+			printf("%s\n", envp[i]);
+			i++;
+		}
+	}
+	// DEBUG END
+	
+	if (ft_strchr(cmd->argv[0], '/'))
+	{
+		execve(cmd->argv[0], cmd->argv, envp);
+	}
+	else
+	{
+		//execve()
+	}
 }

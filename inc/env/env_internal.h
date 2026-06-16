@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   env_internal.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/11 14:14:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/16 13:18:06 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/16 13:30:43 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/16 13:37:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef ENV_INTERNAL_H
+# define ENV_INTERNAL_H
+
+# include <stddef.h>
 
 typedef struct s_data	t_data;
+ 
+void	fill_envp(t_data *data, char **envp, size_t size);
 
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
-t_env	*find_env(t_data *data, char *entry, size_t len);
-void	envp_to_env(t_data *data, char **envp);
-char	**env_to_envp(t_data *data);
-
-#endif /* ENV_H */
+#endif /* ENV_INTERNAL_H */

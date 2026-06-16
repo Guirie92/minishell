@@ -6,12 +6,13 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:03 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 17:04:53 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/16 14:04:50 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env/env.h"
+#include "env/env_internal.h"
 #include "libft.h"
 
 t_env	*find_env(t_data *data, char *entry, size_t len)
@@ -73,4 +74,24 @@ void	envp_to_env(t_data *data, char **envp)
 		tail = tail->next;
 		envp++;
 	}
+}
+
+char	**env_to_envp(t_data *data)
+{
+	char	**envp;
+	t_env	*env;
+	size_t	size;
+
+	env = data->env;
+	size = 0;
+	while (env)
+	{
+		size++;
+		env = env->next;
+	}
+	envp = malloc((size + 1) * sizeof(*envp));
+	if (!envp)
+		exit_with_error(data);
+	fill_envp(data, envp, size);
+	return (envp);
 }

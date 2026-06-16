@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 16:08:10 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/14 20:42:59 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/14 21:29:11 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ size_t	calculate_expanded_len(t_data *data, char *line, int *b_has_expanded)
  * #3 - and writes directly into the new buffer, without quotes, and with env
  *      values expanded
  */
-void	expand_strip_redirs(t_data *data, t_redir *redir)
+static void	expand_strip_redirs(t_data *data, t_redir *redir)
 {
 	char	*dst;
 	size_t	len;
