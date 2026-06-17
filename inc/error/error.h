@@ -6,18 +6,18 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:35:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/07 00:33:58 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/17 17:47:04 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
 
-# define WARNING_CLR      "\033[33m"
-# define ERROR_CLR        "\033[31m"
+# define WARNING_CLR "\033[33m"
+# define ERROR_CLR   "\033[31m"
 
-# define ERR_MINISHELL_PREFFIX "minishell: "
-# define WARNING_PREFFIX       "warning: "
+# define ERR_MINISHELL_PREFIX "minishell: "
+# define WARNING_PREFIX       "warning: "
 
 typedef enum e_err_type
 {
@@ -26,6 +26,8 @@ typedef enum e_err_type
 	ERR_UNEXPECTED_TOKEN,
 	ERR_HEREDOC_EOF,
 	ERR_CMD_NOT_FOUND,
+	ERR_PIPE,
+	ERR_FORK,
 	ERR_COUNT
 }	t_err_type;
 

@@ -6,11 +6,11 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 13:39:59 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/06 16:41:49 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/17 15:17:41 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "minishell.h"
 #include "parser/parser.h"
 #include "clear_resources/clear_resources.h"
 

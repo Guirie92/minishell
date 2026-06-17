@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 00:32:09 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:21:22 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/17 16:58:58 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_warning(t_err_type err)
 {
 	const char	*err_msg = errmsg(err);
 
-	ft_dprintf(STDERR_FILENO, WARNING_CLR ERR_MINISHELL_PREFFIX
+	ft_dprintf(STDERR_FILENO, WARNING_CLR ERR_MINISHELL_PREFIX
 		"%s\n" CLR_RST, err_msg);
 }
 
@@ -29,7 +29,7 @@ void	print_warning_arg(t_err_type err, char *arg)
 {
 	const char	*err_msg = errmsg(err);
 
-	ft_dprintf(STDERR_FILENO, WARNING_CLR ERR_MINISHELL_PREFFIX);
+	ft_dprintf(STDERR_FILENO, WARNING_CLR ERR_MINISHELL_PREFIX);
 	ft_dprintf(STDERR_FILENO, err_msg, arg);
 	ft_dprintf(STDERR_FILENO, "\n" CLR_RST);
 }

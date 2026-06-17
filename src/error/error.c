@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 11:34:45 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/17 17:01:55 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ const char	*errmsg(t_err_type id)
 	[ERR_UNEXPECTED_TOKEN] = "syntax error near unexpected token '%s'",
 	[ERR_HEREDOC_EOF] = ("warning: here-document at line 1 delimited by "
 			"end-of-file (wanted '%s')"),
-	[ERR_CMD_NOT_FOUND] = "Command not found",
+	[ERR_CMD_NOT_FOUND] = "command not found",
+	[ERR_PIPE] = "pipe failed",
+	[ERR_FORK] = "fork failed",
 	};
 
 	if (id < 0 || id >= ERR_COUNT)
-		return ("Unknown error");
+		return ("unknown error");
 	return (err_msg[id]);
 }
 
@@ -37,7 +39,7 @@ void	print_error(t_err_type err)
 {
 	const char	*err_msg = errmsg(err);
 
-	ft_dprintf(STDERR_FILENO, ERROR_CLR ERR_MINISHELL_PREFFIX
+	ft_dprintf(STDERR_FILENO, ERROR_CLR ERR_MINISHELL_PREFIX
 		"%s\n" CLR_RST, err_msg);
 }
 
@@ -45,7 +47,7 @@ void	print_error_arg(t_err_type err, char *arg)
 {
 	const char	*err_msg = errmsg(err);
 
-	ft_dprintf(STDERR_FILENO, ERROR_CLR ERR_MINISHELL_PREFFIX);
+	ft_dprintf(STDERR_FILENO, ERROR_CLR ERR_MINISHELL_PREFIX);
 	ft_dprintf(STDERR_FILENO, err_msg, arg);
 	ft_dprintf(STDERR_FILENO, "\n" CLR_RST);
 }

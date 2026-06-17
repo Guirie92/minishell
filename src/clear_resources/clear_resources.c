@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 17:35:53 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/14 14:15:33 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/17 14:43:37 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,21 @@ static void	free_tokens(t_data *data)
 		data->tokens = tmp;
 	}
 	data->tokens = NULL;
+}
+
+void	free_str_arr(char **str_arr)
+{
+	char	**ptr;
+
+	if (!str_arr)
+		return ;
+	ptr = str_arr;
+	while (*ptr)
+	{
+		free(*ptr);
+		ptr++;
+	}
+	free(str_arr);
 }
 
 void	free_env(t_data *data)

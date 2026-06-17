@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 17:48:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 15:33:42 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/16 21:12:17 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "minishell.h"
+# include <sys/wait.h>
 
 typedef enum e_redir_type
 {
@@ -38,6 +39,7 @@ typedef struct s_cmd
 	int				argc;
 	t_redir			*redirs;
 	t_redir			*redir_tail;
+	pid_t			pid;
 	struct s_cmd	*next;
 	char			*path;
 }	t_cmd;

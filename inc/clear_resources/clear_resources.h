@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:35:16 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 13:18:35 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/17 14:38:38 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 typedef struct s_data	t_data;
 
+void	free_str_arr(char **str_arr);
 void	reset_data(t_data *data);
 void	clear_data(t_data *data);
 void	reset_command_state(t_data *data);

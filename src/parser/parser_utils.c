@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/05 16:54:05 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 15:37:48 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/16 21:18:22 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cmd	*init_cmd(t_data *data)
 	cmd->argc = 0;
 	cmd->redirs = NULL;
 	cmd->redir_tail = NULL;
+	cmd->pid = -1;
 	cmd->next = NULL;
 	cmd->path = NULL;
 	return (cmd);
