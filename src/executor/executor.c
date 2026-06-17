@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/17 19:27:28 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/17 22:27:21 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static int fork_child_process(t_cmd *cmd, int input_fd, int next_fd[2])
 			close(next_fd[0]);
 		if (next_fd[1] != -1)
 			close(next_fd[1]);
-		(void)input_fd;
+		if (input_fd != STDIN_FILENO)
+			close(input_fd);
 		return (E_FAILURE);
 	}
 	return (E_SUCCESS);
@@ -70,9 +71,14 @@ static void	process_command(t_data *data, t_cmd *cmd)
 	set_path(data, cmd);
 	if (!cmd->path)
 	{
-		print_error(ERR_CMD_NOT_FOUND);
+		if (!cmd->argv)
+			print_error(ERR_CMD_NOT_FOUND);
+		else if (ft_strchr(cmd->argv[0], '/'))
+			print_error_arg(ERR_NO_FILE_OR_DIR, cmd->argv[0]);
+		else
+			print_error_arg(ERR_CMD_NOT_FOUND_ARG, cmd->argv[0]);
 		clear_data(data);
-		exit(EXIT_FAILURE);
+		exit(EXIT_CMD_NOT_FOUND);
 	}
 	envp = env_to_envp(data);
 	execve(cmd->path, cmd->argv, envp);
@@ -82,7 +88,8 @@ static void	process_command(t_data *data, t_cmd *cmd)
 static void process_cmd_in_child(t_data *data, t_cmd *cmd, int input_fd,
 	int next_fd[2])
 {
-	if (input_fd != -1)
+	//if (input_fd != -1)
+	if (input_fd != STDIN_FILENO)
 	{
 		dup2(input_fd, STDIN_FILENO);
 		close(input_fd);
@@ -111,20 +118,21 @@ void	execute(t_data *data)
 	while (cmd)
 	{
 		if (cmd->next)
-		{
 			if (create_pipe(next_pipe) != E_SUCCESS)
 				break ;
-			close(next_pipe[1]);
-			input_fd = next_pipe[0];
-		}
-		else
-			input_fd = STDIN_FILENO;
 		if (fork_child_process(cmd, input_fd, next_pipe) != E_SUCCESS)
 			break ;
 
-		printf("pid: %d\n", cmd->pid);
+		//printf("pid: %d\n", cmd->pid);
 		if (cmd->pid == 0)
 			process_cmd_in_child(data, cmd, input_fd, next_pipe);
+		if (input_fd != STDIN_FILENO)
+			close(input_fd);
+		if (cmd->next)
+		{
+			close(next_pipe[1]);
+			input_fd = next_pipe[0];
+		}
 		cmd = cmd->next;
 	}
 	wait_for_child_processes(data);

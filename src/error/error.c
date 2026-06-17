@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/17 17:01:55 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/17 22:22:26 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ const char	*errmsg(t_err_type id)
 	[ERR_HEREDOC_EOF] = ("warning: here-document at line 1 delimited by "
 			"end-of-file (wanted '%s')"),
 	[ERR_CMD_NOT_FOUND] = "command not found",
+	[ERR_CMD_NOT_FOUND_ARG] = "command not found: %s",
+	[ERR_NO_FILE_OR_DIR] = "no such file or directory: %s",
 	[ERR_PIPE] = "pipe failed",
 	[ERR_FORK] = "fork failed",
 	};
