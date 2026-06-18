@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 13:23:40 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 18:00:45 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,28 @@ static void	wait_for_child_processes(t_data *data)
 {
 	t_cmd	*cmd;
 	int		status;
+	int		b_signaled;
 
 	cmd = data->pipeline->cmds;
+	b_signaled = 0;
 	while (cmd)
 	{
 		if (cmd->pid > 0)
 		{
 			waitpid(cmd->pid, &status, 0);
-			if (WIFEXITED(status))
-				data->exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				data->exit_status = 128 + WTERMSIG(status);
+			if (WIFSIGNALED(status))
+			{
+				if (WTERMSIG(status) == SIGINT || WTERMSIG(status) == SIGQUIT)
+					b_signaled = 1;
+			}
+			if (!cmd->next)
+				update_exit_status(data, status);
 			cmd->pid = -1;
 		}
 		cmd = cmd->next;
 	}
+	if (b_signaled)
+		write(1, "\n", 1);
 }
 
 static int create_pipe(int fd[2])
@@ -64,19 +71,26 @@ static int fork_child_process(t_cmd *cmd, int read_fd, int next_fd[2])
 	return (E_SUCCESS);
 }
 
+/*
+ * If there's no argv[0], or if it's an empty string, such as in only
+ * redirections, it just exits without calling execve
+ */
 static void	execute_command(t_data *data, t_cmd *cmd)
 {
 	char	**envp;
 
+	if (!cmd->argv || !cmd->argv[0])
+	{
+		clear_data(data);
+		exit(EXIT_SUCCESS);
+	}
 	set_path(data, cmd);
 	if (!cmd->path)
 	{
-		if (!cmd->argv)
-			print_error(ERR_CMD_NOT_FOUND);
-		else if (ft_strchr(cmd->argv[0], '/'))
+		if (ft_strchr(cmd->argv[0], '/'))
 			print_error_arg(ERR_NO_FILE_OR_DIR, cmd->argv[0]);
 		else
-			print_error_arg(ERR_CMD_NOT_FOUND_ARG, cmd->argv[0]);
+			print_error_arg(ERR_CMD_NOT_FOUND, cmd->argv[0]);
 		clear_data(data);
 		exit(EXIT_CMD_NOT_FOUND);
 	}
@@ -88,6 +102,8 @@ static void	execute_command(t_data *data, t_cmd *cmd)
 static void process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
 	int next_fd[2])
 {
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (read_fd != STDIN_FILENO)
 	{
 		dup2(read_fd, STDIN_FILENO);
@@ -153,5 +169,7 @@ void	execute(t_data *data)
 	next_pipe[0] = -1;
 	next_pipe[1] = -1;
 	process_commands(data, cmd, next_pipe);
+	signal(SIGINT, SIG_IGN);
 	wait_for_child_processes(data);
+	signal(SIGINT, sigint_handler);
 }

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 16:27:21 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/17 13:20:58 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 17:19:45 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum e_heredoc_status
 
 void	set_path(t_data *data, t_cmd *cmd);
 void	build_hd_prompt(t_builder *sb, int heredoc_idx);
+void	hd_exit_status_handler(t_data *data, int status);
 void	heredoc_exit(t_data *data, int fd[2], t_heredoc_status retcode);
 int		check_hd_exit_status(t_data *data, int status);
 

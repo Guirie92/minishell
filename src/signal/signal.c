@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 22:16:38 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 11:35:03 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 17:20:09 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,7 @@ void	update_exit_status(t_data *data, int status)
 	if (WIFEXITED(status))
 		data->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-	{
 		data->exit_status = 128 + WTERMSIG(status);
-		if (WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
-	}
 }
 
 void	check_sigint(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 12:34:18 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 17:34:49 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 17:33:56 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "env/env.h"
 #include "string_builder/string_builder.h"
 #include "executor/executor_internal.h"
+
+void	hd_exit_status_handler(t_data *data, int status)
+{
+	update_exit_status(data, status);
+	if (data->exit_status == 128 + SIGINT)
+		write(1, "\n", 1);
+}
 
 void	build_hd_prompt(t_builder *sb, int heredoc_idx)
 {
