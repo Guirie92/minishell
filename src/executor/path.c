@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 13:11:04 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 11:27:36 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 11:29:50 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	set_path(t_data *data, t_cmd *cmd)
 			exit_with_error(data);
 		return ;
 	}
-
 	path_res = find_env(data, "PATH", 4);
 	if (!path_res || !path_res->value)
 	{

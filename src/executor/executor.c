@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 11:12:54 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 13:23:40 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int create_pipe(int fd[2])
 	return (E_SUCCESS);
 }
 
-static int fork_child_process(t_cmd *cmd, int input_fd, int next_fd[2])
+static int fork_child_process(t_cmd *cmd, int read_fd, int next_fd[2])
 {
 	cmd->pid = fork();
 	if (cmd->pid == -1)
@@ -57,14 +57,14 @@ static int fork_child_process(t_cmd *cmd, int input_fd, int next_fd[2])
 			close(next_fd[0]);
 		if (next_fd[1] != -1)
 			close(next_fd[1]);
-		if (input_fd != STDIN_FILENO)
-			close(input_fd);
+		if (read_fd != STDIN_FILENO)
+			close(read_fd);
 		return (E_FAILURE);
 	}
 	return (E_SUCCESS);
 }
 
-static void	process_command(t_data *data, t_cmd *cmd)
+static void	execute_command(t_data *data, t_cmd *cmd)
 {
 	char	**envp;
 
@@ -85,13 +85,13 @@ static void	process_command(t_data *data, t_cmd *cmd)
 	free_envp(envp);
 }
 
-static void process_cmd_in_child(t_data *data, t_cmd *cmd, int input_fd,
+static void process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
 	int next_fd[2])
 {
-	if (input_fd != STDIN_FILENO)
+	if (read_fd != STDIN_FILENO)
 	{
-		dup2(input_fd, STDIN_FILENO);
-		close(input_fd);
+		dup2(read_fd, STDIN_FILENO);
+		close(read_fd);
 	}
 	if (cmd->next)
 	{
@@ -99,7 +99,7 @@ static void process_cmd_in_child(t_data *data, t_cmd *cmd, int input_fd,
 		dup2(next_fd[1], STDOUT_FILENO);
 		close(next_fd[1]);
 	}
-	process_command(data, cmd);
+	execute_command(data, cmd);
 	if (errno == EACCES)
 	{
 		print_error_arg(ERR_PERMISSION_DENIED, cmd->argv[0]);
@@ -112,35 +112,46 @@ static void process_cmd_in_child(t_data *data, t_cmd *cmd, int input_fd,
 	exit(EXIT_CMD_NOT_FOUND);
 }
 
-void	execute(t_data *data)
+static void	handle_pipes(t_cmd *cmd, int *read_fd, int next_pipe[2])
 {
-	t_cmd	*cmd;
-	int		input_fd;
-	int		next_pipe[2];
+	if (*read_fd != STDIN_FILENO)
+		close(*read_fd);
+	if (cmd->next)
+	{
+		close(next_pipe[1]);
+		*read_fd = next_pipe[0];
+	}
+}
 
-	cmd = data->pipeline->cmds;
-	input_fd = STDIN_FILENO;
-	next_pipe[0] = -1;
-	next_pipe[1] = -1;
+static void process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])
+{
+	int	read_fd;
+
+	read_fd = STDIN_FILENO;
 	while (cmd)
 	{
 		if (cmd->next)
 			if (create_pipe(next_pipe) != E_SUCCESS)
 				break ;
-		if (fork_child_process(cmd, input_fd, next_pipe) != E_SUCCESS)
+		if (fork_child_process(cmd, read_fd, next_pipe) != E_SUCCESS)
 			break ;
 
 		//printf("pid: %d\n", cmd->pid);
 		if (cmd->pid == 0)
-			process_cmd_in_child(data, cmd, input_fd, next_pipe);
-		if (input_fd != STDIN_FILENO)
-			close(input_fd);
-		if (cmd->next)
-		{
-			close(next_pipe[1]);
-			input_fd = next_pipe[0];
-		}
+			process_cmd_in_child(data, cmd, read_fd, next_pipe);
+		handle_pipes(cmd, &read_fd, next_pipe);
 		cmd = cmd->next;
 	}
+}
+
+void	execute(t_data *data)
+{
+	t_cmd	*cmd;
+	int		next_pipe[2];
+
+	cmd = data->pipeline->cmds;
+	next_pipe[0] = -1;
+	next_pipe[1] = -1;
+	process_commands(data, cmd, next_pipe);
 	wait_for_child_processes(data);
 }
