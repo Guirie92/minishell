@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:35:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/17 22:21:34 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 11:10:44 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_err_type
 	ERR_CMD_NOT_FOUND,
 	ERR_CMD_NOT_FOUND_ARG,
 	ERR_NO_FILE_OR_DIR,
+	ERR_PERMISSION_DENIED,
 	ERR_PIPE,
 	ERR_FORK,
 	ERR_COUNT
@@ -35,6 +36,7 @@ typedef enum e_err_type
 
 typedef enum e_exit_code
 {
+	EXIT_PERMISSION_DENIED = 126,
 	EXIT_CMD_NOT_FOUND = 127
 }	t_exit_code;
 

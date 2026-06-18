@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/17 22:27:21 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 11:12:54 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ static void	process_command(t_data *data, t_cmd *cmd)
 static void process_cmd_in_child(t_data *data, t_cmd *cmd, int input_fd,
 	int next_fd[2])
 {
-	//if (input_fd != -1)
 	if (input_fd != STDIN_FILENO)
 	{
 		dup2(input_fd, STDIN_FILENO);
@@ -101,8 +100,16 @@ static void process_cmd_in_child(t_data *data, t_cmd *cmd, int input_fd,
 		close(next_fd[1]);
 	}
 	process_command(data, cmd);
-	perror("execve");
-	exit(EXIT_FAILURE);
+	if (errno == EACCES)
+	{
+		print_error_arg(ERR_PERMISSION_DENIED, cmd->argv[0]);
+		exit(EXIT_PERMISSION_DENIED);
+	}
+	else if (errno == ENOENT)
+		print_error_arg(ERR_NO_FILE_OR_DIR, cmd->argv[0]);
+	else
+		perror(cmd->argv[0]);
+	exit(EXIT_CMD_NOT_FOUND);
 }
 
 void	execute(t_data *data)

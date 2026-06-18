@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 13:11:04 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/17 14:55:33 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 11:27:36 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ void	set_path(t_data *data, t_cmd *cmd)
 {
 	t_env	*path_res;
 
+	if (!cmd->argv)
+	{
+		cmd->path = NULL;
+		return ;
+	}
 	if (ft_strchr(cmd->argv[0], '/'))
 	{
 		cmd->path = ft_strdup(cmd->argv[0]);
