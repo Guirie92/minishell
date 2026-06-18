@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 18:00:45 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 21:25:30 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,10 @@ static void process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])
 		if (cmd->next)
 			if (create_pipe(next_pipe) != E_SUCCESS)
 				break ;
+		if (handle_redirs(cmd, &read_fd, next_pipe) != E_SUCCESS)
+			break ;
 		if (fork_child_process(cmd, read_fd, next_pipe) != E_SUCCESS)
 			break ;
-
-		//printf("pid: %d\n", cmd->pid);
 		if (cmd->pid == 0)
 			process_cmd_in_child(data, cmd, read_fd, next_pipe);
 		handle_pipes(cmd, &read_fd, next_pipe);

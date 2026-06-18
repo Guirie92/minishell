@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 16:23:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 21:39:15 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,19 @@ void	print_error_arg(t_err_type err, char *arg)
 	ft_dprintf(STDERR_FILENO, ERROR_CLR ERR_MINISHELL_PREFIX);
 	ft_dprintf(STDERR_FILENO, err_msg, arg);
 	ft_dprintf(STDERR_FILENO, "\n" CLR_RST);
+}
+
+void	print_sys_error(void)
+{
+	const int	saved_errno = errno;
+	char		*sys_err;
+
+	if (saved_errno != 0)
+	{
+		sys_err = strerror(saved_errno);
+		ft_dprintf(STDERR_FILENO, ERROR_CLR ERR_MINISHELL_PREFIX
+			"%s\n" CLR_RST, sys_err);
+	}
 }
 
 void	exit_with_error(t_data *data)

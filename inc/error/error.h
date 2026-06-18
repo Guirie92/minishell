@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:35:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 16:22:49 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/18 21:36:26 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		exit_with_error(t_data *data);
 void		print_warning(t_err_type err_code);
 void		print_warning_arg(t_err_type err_code, char *arg);
 void		print_error(t_err_type err_code);
+void		print_sys_error(void);
 void		print_error_arg(t_err_type err_code, char *arg);
 
 #endif /* ERROR_H */
