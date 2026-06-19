@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 11:02:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 13:42:39 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 14:19:56 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	handle_pipes(cmd, read_fd, next_pipe);
-	handle_redirs(data, cmd, read_fd, next_pipe);
+	handle_redirs(data, cmd);
 	execute_command(data, cmd);
 	if (errno == EACCES)
 	{

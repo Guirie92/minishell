@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 19:32:55 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 13:45:07 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 14:19:38 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,19 @@
 #include <fcntl.h>
 #include "parser/parser.h"
 
-static void	handle_redir_in(t_data *data, t_redir *redir, int read_fd)
+static void	handle_redir_in(t_data *data, t_redir *redir)
 {
-	read_fd = open(redir->target, O_RDONLY);
-	if (read_fd < 0)
+	int	fd;
+
+	fd = open(redir->target, O_RDONLY);
+	if (fd < 0)
 	{
 		print_error_arg(ERR_OPEN, redir->target);
 		clear_data(data);
 		exit(EXIT_FAILURE);
 	}
-	dup2(read_fd, STDIN_FILENO);
-	close (read_fd);
+	dup2(fd, STDIN_FILENO);
+	close (fd);
 }
 
 /*
@@ -72,40 +74,43 @@ static void	handle_redir_in(t_data *data, t_redir *redir, int read_fd)
  * - group:  4 --> r--
  * - others: 4 --> r--
  */
-static void	handle_redir_out(t_data *data, t_redir *redir, int next_pipe[2])
+static void	handle_redir_out(t_data *data, t_redir *redir)
 {
-	next_pipe[1] = open(redir->target, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (next_pipe[1] < 0)
+	int	fd;
+
+	fd = open(redir->target, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
 	{
 		print_error_arg(ERR_OPEN, redir->target);
 		clear_data(data);
 		exit(EXIT_FAILURE);
 	}
-	dup2(next_pipe[1], STDOUT_FILENO);
-	close(next_pipe[1]);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
 }
 
-static void	handle_redir_append(t_data *data, t_redir *redir, int next_pipe[2])
+static void	handle_redir_append(t_data *data, t_redir *redir)
 {
-	next_pipe[1] = open(redir->target, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (next_pipe[1] < 0)
+	int	fd;
+
+	fd = open(redir->target, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd < 0)
 	{
 		print_error_arg(ERR_OPEN, redir->target);
 		clear_data(data);
 		exit(EXIT_FAILURE);
 	}
-	dup2(next_pipe[1], STDOUT_FILENO);
-	close(next_pipe[1]);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
 }
 
-static void	handle_redir_heredoc(t_redir *redir, int read_fd, int next_pipe[2])
+static void	handle_redir_heredoc(t_data *data, t_redir *redir)
 {
+	(void)data;
 	(void)redir;
-	(void)read_fd;
-	(void)next_pipe;
 }
 
-void	handle_redirs(t_data *data, t_cmd *cmd, int read_fd, int next_pipe[2])
+void	handle_redirs(t_data *data, t_cmd *cmd)
 {
 	t_redir	*redir;
 
@@ -113,13 +118,13 @@ void	handle_redirs(t_data *data, t_cmd *cmd, int read_fd, int next_pipe[2])
 	while (redir)
 	{
 		if (redir->type == REDIR_IN)
-			handle_redir_in(data, redir, read_fd);
+			handle_redir_in(data, redir);
 		else if (redir->type == REDIR_OUT)
-			handle_redir_out(data, redir, next_pipe);
+			handle_redir_out(data, redir);
 		else if (redir->type == APPEND)
-			handle_redir_append(data, redir, next_pipe);
+			handle_redir_append(data, redir);
 		else if (redir->type == HEREDOC)
-			handle_redir_heredoc(redir, read_fd, next_pipe);
+			handle_redir_heredoc(data, redir);
 		redir = redir->next;
 	}
 }
