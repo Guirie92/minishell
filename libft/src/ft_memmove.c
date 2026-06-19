@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 19:25:07 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 17:58:15 by guillsan         ###   ########.fr       */
+/*   Created: 2025/10/01 16:43:25 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/19 18:06:22 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "env/env.h"
-#include "builtins/builtins.h"
+#include "libft.h"
 
-void	reset_data(t_data *data)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	data->line = NULL;
-	data->tokens = NULL;
-	data->pipeline = NULL;
-	data->exit_status = 0;
-}
+	const unsigned char	*s;
+	unsigned char		*d;
 
-void	init_data(t_data *data, char **envp)
-{
-	data->line = NULL;
-	data->tokens = NULL;
-	data->pipeline = NULL;
-	data->env = NULL;
-	data->exit_status = 0;
-	envp_to_env(data, envp);
-	builtins_init(data);
+	s = (const unsigned char *)src;
+	d = (unsigned char *)dest;
+	if (s == d || n == 0)
+		return (dest);
+	if (s > d)
+		return (ft_memcpy(dest, src, n));
+	else
+	{
+		d += n - 1;
+		s += n - 1;
+		while (n--)
+			*d-- = *s--;
+	}
+	return (dest);
 }

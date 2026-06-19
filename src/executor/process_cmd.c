@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 11:02:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 17:46:39 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 18:11:38 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "parser/parser.h"
 #include "env/env.h"
+#include "builtins/builtins.h"
 #include "executor/executor_internal.h"
 
 static void	handle_pipes(t_cmd *cmd, int read_fd, int next_pipe[2])
@@ -31,34 +32,19 @@ static void	handle_pipes(t_cmd *cmd, int read_fd, int next_pipe[2])
 	}
 }
 
-typedef void	(*t_builtin_func)(t_data *, t_cmd *);
-
-static void	process_echo(t_data *data, t_cmd *cmd)
-{
-	// TODO
-}
-
-
 static int	process_builtin(t_data *data, t_cmd *cmd)
 {
-	const char				*builtins[7] = {
-		"echo", "cd", "pwd", "export", "unset", "env", "exit"
-	};
-	const t_builtin_func	builtins_func[7] = {
-		&process_echo, &process_cd, &process_pwd, &process_export, 
-		&process_unset, &process_env, &process_exit
-	};
-	int						i;
-	size_t					len;
+	size_t	len;
+	int		i;
 
-	i = 0;
 	len = ft_strlen(cmd->argv[0]);
+	i = 0;
 	while (i < 7)
 	{
-		if (len == ft_strlen(builtins[i])
-			&& ft_strcmp(cmd->argv[0], builtins[i]) == 0)
+		if (len == data->builtins->len[i]
+			&& ft_strcmp(cmd->argv[0], data->builtins->names[i]) == 0)
 		{
-			builtins_func[i](data, cmd);
+			data->builtins->funcs[i](data, cmd);
 			return (1);
 		}
 		i++;
