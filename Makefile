@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/19 11:03:03 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/19 17:46:00 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ EXPANDER_PATH = $(SRC_PATH)/expander
 EXECUTOR_PATH = $(SRC_PATH)/executor
 ERROR_PATH = $(SRC_PATH)/error
 SIGNAL_PATH = $(SRC_PATH)/signal
+BUILTINS_PATH = $(SRC_PATH)/builtins
 SB_PATH = $(SRC_PATH)/string_builder
 CLEANUP_PATH = $(SRC_PATH)/clear_resources
 
@@ -70,6 +71,8 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		executor.c                     \
 		hc_utils.c                     \
 		heredoc.c)                     \
+		$(addprefix $(BUILTINS_PATH)/, \
+		builtins.c)                    \
 		$(addprefix $(ERROR_PATH)/,    \
 		warning.c                      \
 		error.c)                       \

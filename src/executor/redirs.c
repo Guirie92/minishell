@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 19:32:55 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 14:19:38 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 14:33:52 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,15 @@ static void	handle_redir_append(t_data *data, t_redir *redir)
 
 static void	handle_redir_heredoc(t_data *data, t_redir *redir)
 {
-	(void)data;
-	(void)redir;
+	if (redir->heredoc_fd < 0)
+	{
+		print_error_arg(ERR_OPEN, "heredoc");
+		clear_data(data);
+		exit(EXIT_FAILURE);
+	}
+	dup2(redir->heredoc_fd, STDIN_FILENO);
+	close(redir->heredoc_fd);
+	redir->heredoc_fd = -1;
 }
 
 void	handle_redirs(t_data *data, t_cmd *cmd)

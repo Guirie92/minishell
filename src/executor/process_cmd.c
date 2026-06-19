@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 11:02:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 14:19:56 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 17:46:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,41 @@ static void	handle_pipes(t_cmd *cmd, int read_fd, int next_pipe[2])
 	}
 }
 
+typedef void	(*t_builtin_func)(t_data *, t_cmd *);
+
+static void	process_echo(t_data *data, t_cmd *cmd)
+{
+	// TODO
+}
+
+
+static int	process_builtin(t_data *data, t_cmd *cmd)
+{
+	const char				*builtins[7] = {
+		"echo", "cd", "pwd", "export", "unset", "env", "exit"
+	};
+	const t_builtin_func	builtins_func[7] = {
+		&process_echo, &process_cd, &process_pwd, &process_export, 
+		&process_unset, &process_env, &process_exit
+	};
+	int						i;
+	size_t					len;
+
+	i = 0;
+	len = ft_strlen(cmd->argv[0]);
+	while (i < 7)
+	{
+		if (len == ft_strlen(builtins[i])
+			&& ft_strcmp(cmd->argv[0], builtins[i]) == 0)
+		{
+			builtins_func[i](data, cmd);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 /*
  * If there's no argv[0], or if it's an empty string, such as in only
  * redirections, it just exits without calling execve
@@ -41,6 +76,12 @@ static void	execute_command(t_data *data, t_cmd *cmd)
 
 	if (!cmd->argv || !cmd->argv[0])
 	{
+		clear_data(data);
+		exit(EXIT_SUCCESS);
+	}
+	if (process_builtin(data, cmd) == 1)
+	{
+		printf("\nIS_BUILT-IN\n\n");
 		clear_data(data);
 		exit(EXIT_SUCCESS);
 	}
