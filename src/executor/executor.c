@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 21:43:03 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 23:18:37 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,18 @@ static void	handle_pipes(t_cmd *cmd, int *read_fd, int next_pipe[2])
 
 static void	process_parent_builtin(t_data *data, t_cmd *cmd)
 {
-	int	saved_stdin;
-	int	saved_stdout;
-
-	saved_stdin = dup(STDIN_FILENO);
-	saved_stdout = dup(STDOUT_FILENO);
+	data->saved_fd[0] = dup(STDIN_FILENO);
+	data->saved_fd[1] = dup(STDOUT_FILENO);
 	if (handle_redirs(data, cmd) != E_SUCCESS)
 		data->exit_status = 1;
 	else
 		process_builtin(data, cmd);
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdin);
-	close(saved_stdout);
+	dup2(data->saved_fd[0], STDIN_FILENO);
+	dup2(data->saved_fd[1], STDOUT_FILENO);
+	close(data->saved_fd[0]);
+	close(data->saved_fd[1]);
+	data->saved_fd[0] = -1;
+	data->saved_fd[1] = -1;
 }
 
 static void process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])

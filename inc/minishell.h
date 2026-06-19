@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 18:31:32 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 23:18:37 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_data
 	t_prompt	*prompt;
 	t_env		*env;
 	t_builtins	builtins[BUILTIN_COUNT];
+	int			saved_fd[2];
 	size_t		exit_status;
 }	t_data;
 

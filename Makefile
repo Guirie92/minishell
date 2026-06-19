@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/19 18:57:59 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/19 23:31:10 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		builtins.c)                    \
 		$(addprefix $(ERROR_PATH)/,    \
 		warning.c                      \
+		error_exit.c                   \
 		error.c)                       \
 		$(addprefix $(SIGNAL_PATH)/,   \
 		signal.c                       \
