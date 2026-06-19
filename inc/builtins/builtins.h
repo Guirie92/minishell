@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:42:40 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 18:09:11 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 18:29:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ typedef void	(*t_builtin_func)(t_data *, t_cmd *);
 
 typedef struct s_builtins
 {
-	t_builtin_func	funcs[BUILTIN_COUNT];
-	char			*names[BUILTIN_COUNT];
-	size_t			len[BUILTIN_COUNT];
+	const char		*name;
+	size_t			len;
+	t_builtin_func	func;
 }	t_builtins;
+
+typedef struct s_builtins2
+{
+	t_builtins	table[BUILTIN_COUNT];
+}	t_builtins2;
 
 /* init */
 void	builtins_init(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 11:02:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 18:11:38 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 18:31:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static int	process_builtin(t_data *data, t_cmd *cmd)
 	i = 0;
 	while (i < 7)
 	{
-		if (len == data->builtins->len[i]
-			&& ft_strcmp(cmd->argv[0], data->builtins->names[i]) == 0)
+		if (len == data->builtins[i].len
+			&& ft_strcmp(cmd->argv[0], data->builtins[i].name) == 0)
 		{
-			data->builtins->funcs[i](data, cmd);
+			data->builtins[i].func(data, cmd);
 			return (1);
 		}
 		i++;

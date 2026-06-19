@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 17:44:47 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 18:31:32 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "clear_resources/clear_resources.h"
+# include "builtins/builtins.h"
 # include "error/error.h"
 # include <stddef.h>
 # include <stdlib.h>
@@ -44,7 +45,6 @@ typedef struct s_pipeline		t_pipeline;
 typedef struct s_token			t_token;
 typedef struct s_prompt			t_prompt;
 typedef struct s_env			t_env;
-typedef struct s_builtins		t_builtins;
 
 typedef struct s_data
 {
@@ -53,7 +53,7 @@ typedef struct s_data
 	t_pipeline	*pipeline;
 	t_prompt	*prompt;
 	t_env		*env;
-	t_builtins	*builtins;
+	t_builtins	builtins[BUILTIN_COUNT];
 	size_t		exit_status;
 }	t_data;
 

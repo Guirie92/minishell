@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:45:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 18:13:53 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 18:35:16 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 
 void	builtins_init(t_data *data)
 {
-	const char				*builtins[BUILTIN_COUNT] = {
-		BUILTIN_N1, BUILTIN_N2, BUILTIN_N3,BUILTIN_N4, BUILTIN_N5, 
+	const char				*names[BUILTIN_COUNT] = {
+		BUILTIN_N1, BUILTIN_N2, BUILTIN_N3, BUILTIN_N4, BUILTIN_N5,
 		BUILTIN_N6, BUILTIN_N7
 	};
-	const t_builtin_func	builtins_func[BUILTIN_COUNT] = {
-		BUILTIN_F1, BUILTIN_F2, BUILTIN_F3, BUILTIN_F4, 
+	const t_builtin_func	funcs[BUILTIN_COUNT] = {
+		BUILTIN_F1, BUILTIN_F2, BUILTIN_F3, BUILTIN_F4,
 		BUILTIN_F5, BUILTIN_F6, BUILTIN_F7
 	};
 	size_t					i;
 
 	i = 0;
-	ft_memmove(data->builtins->names, builtins, sizeof(builtins));
-	ft_memmove(data->builtins->funcs, builtins_func, sizeof(builtins_func));
-	while (i < 7)
+	while (i < BUILTIN_COUNT)
 	{
-		data->builtins->len[i] = ft_strlen(builtins[i]);
+		data->builtins[i].name = names[i];
+		data->builtins[i].func = funcs[i];
+		data->builtins[i].len = ft_strlen(names[i]);
 		i++;
 	}
 }
@@ -43,8 +43,6 @@ void	process_echo(t_data *data, t_cmd *cmd)
 	(void)cmd;
 	// TODO
 }
-
-// ...
 
 void	process_cd(t_data *data, t_cmd *cmd)
 {
