@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/19 17:46:00 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/19 18:37:12 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		hc_utils.c                     \
 		heredoc.c)                     \
 		$(addprefix $(BUILTINS_PATH)/, \
+		echo.c                         \
 		builtins.c)                    \
 		$(addprefix $(ERROR_PATH)/,    \
 		warning.c                      \

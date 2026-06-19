@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 11:02:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 18:31:03 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 18:45:33 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	process_builtin(t_data *data, t_cmd *cmd)
 
 	len = ft_strlen(cmd->argv[0]);
 	i = 0;
-	while (i < 7)
+	while (i < BUILTIN_COUNT)
 	{
 		if (len == data->builtins[i].len
 			&& ft_strcmp(cmd->argv[0], data->builtins[i].name) == 0)
@@ -67,7 +67,6 @@ static void	execute_command(t_data *data, t_cmd *cmd)
 	}
 	if (process_builtin(data, cmd) == 1)
 	{
-		printf("\nIS_BUILT-IN\n\n");
 		clear_data(data);
 		exit(EXIT_SUCCESS);
 	}

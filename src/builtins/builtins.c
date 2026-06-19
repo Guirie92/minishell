@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:45:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 18:35:16 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 18:36:21 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,6 @@ void	builtins_init(t_data *data)
 		data->builtins[i].len = ft_strlen(names[i]);
 		i++;
 	}
-}
-
-void	process_echo(t_data *data, t_cmd *cmd)
-{
-	(void)data;
-	(void)cmd;
-	// TODO
 }
 
 void	process_cd(t_data *data, t_cmd *cmd)
