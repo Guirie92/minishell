@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 21:25:30 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 11:03:24 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,63 +71,6 @@ static int fork_child_process(t_cmd *cmd, int read_fd, int next_fd[2])
 	return (E_SUCCESS);
 }
 
-/*
- * If there's no argv[0], or if it's an empty string, such as in only
- * redirections, it just exits without calling execve
- */
-static void	execute_command(t_data *data, t_cmd *cmd)
-{
-	char	**envp;
-
-	if (!cmd->argv || !cmd->argv[0])
-	{
-		clear_data(data);
-		exit(EXIT_SUCCESS);
-	}
-	set_path(data, cmd);
-	if (!cmd->path)
-	{
-		if (ft_strchr(cmd->argv[0], '/'))
-			print_error_arg(ERR_NO_FILE_OR_DIR, cmd->argv[0]);
-		else
-			print_error_arg(ERR_CMD_NOT_FOUND, cmd->argv[0]);
-		clear_data(data);
-		exit(EXIT_CMD_NOT_FOUND);
-	}
-	envp = env_to_envp(data);
-	execve(cmd->path, cmd->argv, envp);
-	free_envp(envp);
-}
-
-static void process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
-	int next_fd[2])
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	if (read_fd != STDIN_FILENO)
-	{
-		dup2(read_fd, STDIN_FILENO);
-		close(read_fd);
-	}
-	if (cmd->next)
-	{
-		close(next_fd[0]);
-		dup2(next_fd[1], STDOUT_FILENO);
-		close(next_fd[1]);
-	}
-	execute_command(data, cmd);
-	if (errno == EACCES)
-	{
-		print_error_arg(ERR_PERMISSION_DENIED, cmd->argv[0]);
-		exit(EXIT_PERMISSION_DENIED);
-	}
-	else if (errno == ENOENT)
-		print_error_arg(ERR_NO_FILE_OR_DIR, cmd->argv[0]);
-	else
-		perror(cmd->argv[0]);
-	exit(EXIT_CMD_NOT_FOUND);
-}
-
 static void	handle_pipes(t_cmd *cmd, int *read_fd, int next_pipe[2])
 {
 	if (*read_fd != STDIN_FILENO)
@@ -149,8 +92,6 @@ static void process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])
 		if (cmd->next)
 			if (create_pipe(next_pipe) != E_SUCCESS)
 				break ;
-		if (handle_redirs(cmd, &read_fd, next_pipe) != E_SUCCESS)
-			break ;
 		if (fork_child_process(cmd, read_fd, next_pipe) != E_SUCCESS)
 			break ;
 		if (cmd->pid == 0)

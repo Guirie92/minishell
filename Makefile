@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/18 19:33:21 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/19 11:03:03 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRCS = $(addprefix $(SRC_PATH)/,       \
 		exp_env_token.c                \
 		expander.c)                    \
 		$(addprefix $(EXECUTOR_PATH)/, \
+		process_cmd.c                  \
 		redirs.c                       \
 		path.c                         \
 		executor.c                     \

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:35:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 21:36:26 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 12:11:57 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_err_type
 	ERR_CMD_NOT_FOUND,
 	ERR_NO_FILE_OR_DIR,
 	ERR_PERMISSION_DENIED,
+	ERR_OPEN,
 	ERR_PIPE,
 	ERR_FORK,
 	ERR_COUNT

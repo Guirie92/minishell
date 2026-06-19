@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 21:39:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 12:12:28 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ const char	*errmsg(t_err_type id)
 	[ERR_CMD_NOT_FOUND] = "command not found: %s",
 	[ERR_NO_FILE_OR_DIR] = "no such file or directory: %s",
 	[ERR_PERMISSION_DENIED] = "permission denied: %s",
+	[ERR_OPEN] = "no such file or directory: %s",
 	[ERR_PIPE] = "pipe failed",
 	[ERR_FORK] = "fork failed",
 	};

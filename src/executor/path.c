@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 13:11:04 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/18 11:29:50 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 12:42:09 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	free_path_exit(t_data *data, char **str_arr)
 	exit_with_error(data);
 }
 
-/* The ft_strlen + 2 is:
+/*  
+ * The ft_strlen + 2 is:
  * 1 for '/' to join the dir and the command, and
  * 1 for the null terminator
  */
