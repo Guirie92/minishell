@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 20:50:11 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/19 18:05:58 by guillsan         ###   ########.fr        #
+#    Updated: 2026/06/19 22:12:47 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_PF_FLAGS_PATH = src/printf/utils/flags
 INC_PATH = inc
 
 SRCS = 	$(addprefix $(SRC_PATH)/,           \
+		ft_atoi.c                          \
 		ft_bzero.c                          \
 		ft_itoa_buffer.c                    \
 		ft_isalpha.c                        \

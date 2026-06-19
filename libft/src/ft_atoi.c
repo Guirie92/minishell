@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/19 18:36:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 21:47:22 by guillsan         ###   ########.fr       */
+/*   Created: 2025/10/08 14:38:22 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/19 22:12:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "libft.h"
-#include "parser/parser.h"
-
-void	process_echo(t_data *data, t_cmd *cmd)
+int	ft_atoi(const char *nptr)
 {
-	size_t	i;
-	int		b_n;
+	unsigned long	i;
+	int				sign;
+	int				result;
 
-	(void)data;
-	if (!cmd->argv[1])
-		return ;
-	i = 1;
-	b_n = 0;
-	if (ft_strlen(cmd->argv[1]) == 2 && ft_strcmp(cmd->argv[1], "-n") == 0)
+	i = 0;
+	sign = 1;
+	result = 0;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		b_n = 1;
+		if (nptr[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	while (cmd->argv[i])
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		ft_printf("%s", cmd->argv[i]);
-		if (cmd->argv[i + 1])
-			ft_printf(" ");
-		else if (!b_n)
-			ft_printf("\n");
+		result = result * 10 + (nptr[i] - '0');
 		i++;
 	}
+	return (result * sign);
 }

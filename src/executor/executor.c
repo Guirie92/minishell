@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 11:03:24 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:43:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,33 @@ static void	handle_pipes(t_cmd *cmd, int *read_fd, int next_pipe[2])
 	}
 }
 
+static void	process_parent_builtin(t_data *data, t_cmd *cmd)
+{
+	int	saved_stdin;
+	int	saved_stdout;
+
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	if (handle_redirs(data, cmd) != E_SUCCESS)
+		data->exit_status = 1;
+	else
+		process_builtin(data, cmd);
+	dup2(saved_stdin, STDIN_FILENO);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
+}
+
 static void process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])
 {
 	int	read_fd;
 
 	read_fd = STDIN_FILENO;
+	if (!cmd->next && is_builtin(data, cmd->argv[0]))
+	{
+		process_parent_builtin(data, cmd);
+		return ;
+	}
 	while (cmd)
 	{
 		if (cmd->next)

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 19:32:55 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 14:33:52 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 20:57:19 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #include <fcntl.h>
 #include "parser/parser.h"
 
-static void	handle_redir_in(t_data *data, t_redir *redir)
+static int	handle_redir_in(t_data *data, t_redir *redir)
 {
 	int	fd;
 
@@ -37,10 +37,11 @@ static void	handle_redir_in(t_data *data, t_redir *redir)
 	{
 		print_error_arg(ERR_OPEN, redir->target);
 		clear_data(data);
-		exit(EXIT_FAILURE);
+		return (E_FAILURE);
 	}
 	dup2(fd, STDIN_FILENO);
 	close (fd);
+	return (E_SUCCESS);
 }
 
 /*
@@ -74,7 +75,7 @@ static void	handle_redir_in(t_data *data, t_redir *redir)
  * - group:  4 --> r--
  * - others: 4 --> r--
  */
-static void	handle_redir_out(t_data *data, t_redir *redir)
+static int	handle_redir_out(t_data *data, t_redir *redir)
 {
 	int	fd;
 
@@ -83,13 +84,14 @@ static void	handle_redir_out(t_data *data, t_redir *redir)
 	{
 		print_error_arg(ERR_OPEN, redir->target);
 		clear_data(data);
-		exit(EXIT_FAILURE);
+		return (E_FAILURE);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
+	return (E_SUCCESS);
 }
 
-static void	handle_redir_append(t_data *data, t_redir *redir)
+static int	handle_redir_append(t_data *data, t_redir *redir)
 {
 	int	fd;
 
@@ -98,40 +100,47 @@ static void	handle_redir_append(t_data *data, t_redir *redir)
 	{
 		print_error_arg(ERR_OPEN, redir->target);
 		clear_data(data);
-		exit(EXIT_FAILURE);
+		return (E_FAILURE);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
+	return (E_SUCCESS);
 }
 
-static void	handle_redir_heredoc(t_data *data, t_redir *redir)
+static int	handle_redir_heredoc(t_data *data, t_redir *redir)
 {
 	if (redir->heredoc_fd < 0)
 	{
 		print_error_arg(ERR_OPEN, "heredoc");
 		clear_data(data);
-		exit(EXIT_FAILURE);
+		return (E_FAILURE);
 	}
 	dup2(redir->heredoc_fd, STDIN_FILENO);
 	close(redir->heredoc_fd);
 	redir->heredoc_fd = -1;
+	return (E_SUCCESS);
 }
 
-void	handle_redirs(t_data *data, t_cmd *cmd)
+int	handle_redirs(t_data *data, t_cmd *cmd)
 {
 	t_redir	*redir;
+	int		ret_code;
 
 	redir = cmd->redirs;
+	ret_code = E_SUCCESS;
 	while (redir)
 	{
 		if (redir->type == REDIR_IN)
-			handle_redir_in(data, redir);
+			ret_code = handle_redir_in(data, redir);
 		else if (redir->type == REDIR_OUT)
-			handle_redir_out(data, redir);
+			ret_code = handle_redir_out(data, redir);
 		else if (redir->type == APPEND)
-			handle_redir_append(data, redir);
+			ret_code = handle_redir_append(data, redir);
 		else if (redir->type == HEREDOC)
-			handle_redir_heredoc(data, redir);
+			ret_code = handle_redir_heredoc(data, redir);
+		if (ret_code != E_SUCCESS)
+			return (ret_code);
 		redir = redir->next;
 	}
+	return (E_SUCCESS);
 }

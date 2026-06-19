@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:45:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 18:36:21 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 20:40:50 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,43 @@ void	builtins_init(t_data *data)
 		data->builtins[i].len = ft_strlen(names[i]);
 		i++;
 	}
+}
+
+int		is_builtin(t_data *data, char *cmd)
+{
+	size_t	len;
+	int		i;
+
+	len = ft_strlen(cmd);
+	i = 0;
+	while (i < BUILTIN_COUNT)
+	{
+		if (len == data->builtins[i].len
+			&& ft_strcmp(cmd, data->builtins[i].name) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	process_builtin(t_data *data, t_cmd *cmd)
+{
+	size_t	len;
+	int		i;
+
+	len = ft_strlen(cmd->argv[0]);
+	i = 0;
+	while (i < BUILTIN_COUNT)
+	{
+		if (len == data->builtins[i].len
+			&& ft_strcmp(cmd->argv[0], data->builtins[i].name) == 0)
+		{
+			data->builtins[i].func(data, cmd);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 void	process_cd(t_data *data, t_cmd *cmd)
@@ -66,13 +103,6 @@ void	process_unset(t_data *data, t_cmd *cmd)
 }
 
 void	process_env(t_data *data, t_cmd *cmd)
-{
-	(void)data;
-	(void)cmd;
-	// TODO
-}
-
-void	process_exit(t_data *data, t_cmd *cmd)
 {
 	(void)data;
 	(void)cmd;

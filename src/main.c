@@ -6,11 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 22:47:44 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 22:34:41 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 #include "init.h"
 #include "prompt/prompt.h"
 #include <readline/readline.h>
@@ -18,7 +19,7 @@
 
 static void	handle_control_d(t_data *data)
 {
-	write(1, "exit\n", 5);
+	ft_dprintf(STDOUT_FILENO, "exit\n");
 	clear_data(data);
 	exit(EXIT_SUCCESS);
 }

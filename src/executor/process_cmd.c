@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 11:02:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 18:45:33 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/19 21:44:11 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,6 @@ static void	handle_pipes(t_cmd *cmd, int read_fd, int next_pipe[2])
 	}
 }
 
-static int	process_builtin(t_data *data, t_cmd *cmd)
-{
-	size_t	len;
-	int		i;
-
-	len = ft_strlen(cmd->argv[0]);
-	i = 0;
-	while (i < BUILTIN_COUNT)
-	{
-		if (len == data->builtins[i].len
-			&& ft_strcmp(cmd->argv[0], data->builtins[i].name) == 0)
-		{
-			data->builtins[i].func(data, cmd);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
 /*
  * If there's no argv[0], or if it's an empty string, such as in only
  * redirections, it just exits without calling execve
@@ -68,7 +48,7 @@ static void	execute_command(t_data *data, t_cmd *cmd)
 	if (process_builtin(data, cmd) == 1)
 	{
 		clear_data(data);
-		exit(EXIT_SUCCESS);
+		exit(data->exit_status);
 	}
 	set_path(data, cmd);
 	if (!cmd->path)
@@ -91,7 +71,11 @@ void process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	handle_pipes(cmd, read_fd, next_pipe);
-	handle_redirs(data, cmd);
+	if (handle_redirs(data, cmd) != E_SUCCESS)
+	{
+		clear_data(data);
+		exit(EXIT_FAILURE);
+	}
 	execute_command(data, cmd);
 	if (errno == EACCES)
 	{
