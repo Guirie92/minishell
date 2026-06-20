@@ -6,13 +6,12 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:03 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/17 13:17:47 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 23:11:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "env/env.h"
-#include "env/env_internal.h"
 #include "libft.h"
 
 void	free_envp(char **envp)
@@ -30,48 +29,44 @@ void	free_envp(char **envp)
 	free(envp);
 }
 
-t_env	*find_env(t_data *data, char *entry, size_t len)
+static void	cleanup_exit(t_data *data, char **envp, size_t count)
 {
-	t_env	*node;
+	size_t	i;
 
-	node = data->env;
-	while (node)
+	if (!envp)
+		exit_with_error(data);
+	i = 0;
+	while (i < count)
 	{
-		if (ft_strlen(node->key) == len
-			&& ft_strncmp(node->key, entry, len) == 0)
-			return (node);
-		node = node->next;
+		free(envp[i]);
+		i++;
 	}
-	return (NULL);
+	free(envp);
+	exit_with_error(data);
 }
 
-static t_env	*create_env_node(t_data *data, char *entry)
+static void	fill_envp(t_data *data, char **envp, size_t size)
 {
-	t_env	*node;
-	int		equal_pos;
+	t_env	*env;
+	size_t	strlen;
+	size_t	i;
 
-	node = malloc(sizeof(*node));
-	if (!node)
-		exit_with_error(data);
-	equal_pos = ft_strchr_pos(entry, '=');
-	if (equal_pos != -1)
+	env = data->env;
+	i = 0;
+	while (env)
 	{
-		node->key = ft_strndup(entry, equal_pos);
-		if (!node->key)
-			exit_with_error(data);
-		node->value = ft_strdup(&entry[equal_pos + 1]);
-		if (!node->value)
-			exit_with_error(data);
+		strlen = ft_strlen(env->key) + 1;
+		strlen += ft_strlen(env->value);
+		envp[i] = malloc((strlen + 1) * sizeof(char));
+		if (!envp[i])
+			cleanup_exit(data, envp, i);
+		ft_strlcpy(envp[i], env->key, strlen + 1);
+		ft_strlcat(envp[i], "=", strlen + 1);
+		ft_strlcat(envp[i], env->value, strlen + 1);
+		env = env->next;
+		i++;
 	}
-	else
-	{
-		node->key = ft_strdup(entry);
-		if (!node->key)
-			exit_with_error(data);
-		node->value = NULL;
-	}
-	node->next = NULL;
-	return (node);
+	envp[size] = NULL;
 }
 
 void	envp_to_env(t_data *data, char **envp)

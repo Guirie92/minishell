@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 13:07:11 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/14 17:26:09 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 21:40:56 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	parse_env_key(t_data *data, char **src, char **dst)
 		(*src)++;
 	if (start == *src)
 		return ;
-	env_node = find_env(data, start, *src - start);
+	env_node = find_env_len(data, start, *src - start);
 	if (env_node)
 	{
 		val_len = ft_strlen(env_node->value);

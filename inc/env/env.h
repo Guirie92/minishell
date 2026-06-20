@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/16 16:26:14 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 23:11:11 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,17 @@ typedef struct s_env
 }	t_env;
 
 void	free_envp(char **envp);
-t_env	*find_env(t_data *data, char *entry, size_t len);
+
+/* env_utils.c */
+t_env	*find_env_len(t_data *data, char *entry, size_t len);
+t_env	*create_env_node(t_data *data, char *entry);
+void	take_env_val(t_env *env, char *alloc_val);
+
+/* env_funcs.c */
+t_env	*find_env(t_data *data, char *entry);
+void	update_env_val(t_data *data, t_env *env, const char *new_val);
+
+/* env.c */
 void	envp_to_env(t_data *data, char **envp);
 char	**env_to_envp(t_data *data);
 

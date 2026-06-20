@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_internal.h                                     :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/16 13:30:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/16 13:37:39 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/20 23:14:20 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/20 23:14:27 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_INTERNAL_H
-# define ENV_INTERNAL_H
+#include "minishell.h"
+#include "libft.h"
+#include "parser/parser.h"
 
-# include <stddef.h>
-
-typedef struct s_data	t_data;
- 
-void	fill_envp(t_data *data, char **envp, size_t size);
-
-#endif /* ENV_INTERNAL_H */
+void	process_unset(t_data *data, t_cmd *cmd)
+{
+	(void)data;
+	(void)cmd;
+	// TODO
+}

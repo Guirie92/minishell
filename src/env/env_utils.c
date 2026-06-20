@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 13:30:12 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/16 16:25:11 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 23:10:46 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,53 @@
 #include "env/env.h"
 #include "libft.h"
 
-static void	cleanup_exit(t_data *data, char **envp, size_t count)
+t_env	*find_env_len(t_data *data, char *entry, size_t len)
 {
-	size_t	i;
+	t_env	*node;
 
-	if (!envp)
-		exit_with_error(data);
-	i = 0;
-	while (i < count)
+	node = data->env;
+	while (node)
 	{
-		free(envp[i]);
-		i++;
+		if (ft_strlen(node->key) == len
+			&& ft_strncmp(node->key, entry, len) == 0)
+			return (node);
+		node = node->next;
 	}
-	free(envp);
-	exit_with_error(data);
+	return (NULL);
 }
 
-void	fill_envp(t_data *data, char **envp, size_t size)
+t_env	*create_env_node(t_data *data, char *entry)
 {
-	t_env	*env;
-	size_t	strlen;
-	size_t	i;
+	t_env	*node;
+	int		equal_pos;
 
-	env = data->env;
-	i = 0;
-	while (env)
+	node = malloc(sizeof(*node));
+	if (!node)
+		exit_with_error(data);
+	equal_pos = ft_strchr_pos(entry, '=');
+	if (equal_pos != -1)
 	{
-		strlen = ft_strlen(env->key) + 1;
-		strlen += ft_strlen(env->value);
-		envp[i] = malloc((strlen + 1) * sizeof(char));
-		if (!envp[i])
-			cleanup_exit(data, envp, i);
-		ft_strlcpy(envp[i], env->key, strlen + 1);
-		ft_strlcat(envp[i], "=", strlen + 1);
-		ft_strlcat(envp[i], env->value, strlen + 1);
-		env = env->next;
-		i++;
+		node->key = ft_strndup(entry, equal_pos);
+		if (!node->key)
+			exit_with_error(data);
+		node->value = ft_strdup(&entry[equal_pos + 1]);
+		if (!node->value)
+			exit_with_error(data);
 	}
-	envp[size] = NULL;
+	else
+	{
+		node->key = ft_strdup(entry);
+		if (!node->key)
+			exit_with_error(data);
+		node->value = NULL;
+	}
+	node->next = NULL;
+	return (node);
+}
+
+void	take_env_val(t_env *env, char *alloc_val)
+{
+	if (env->value)
+		free(env->value);
+	env->value = alloc_val;
 }

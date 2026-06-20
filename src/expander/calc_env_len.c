@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 13:06:15 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/14 13:17:35 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 21:40:56 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	calculate_env_len(t_data *data, char **line, size_t *len)
 	else
 		(*len)++;
 	if (var_len > 0)
-		env_node = find_env(data, str, var_len);
+		env_node = find_env_len(data, str, var_len);
 	if (env_node)
 		*len += ft_strlen(env_node->value);
 }
