@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 18:49:23 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/20 20:54:30 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/20 20:55:02 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
-#include "init.h"
-#include "prompt/prompt.h"
+#include "parser/parser.h"
 
-int	main(int argc, char **argv, char **envp)
+void	process_cd(t_data *data, t_cmd *cmd)
 {
-	t_data		data;
-	t_prompt	prompt;
-
-	(void)argc;
-	(void)argv;
-
-	data.prompt = &prompt;
-	init_data(&data, envp);
-	init_signals();
-
-	shell_loop(&data);
-
-	return (0);
+	(void)data;
+	(void)cmd;
+	// TODO
 }

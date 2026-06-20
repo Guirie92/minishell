@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:56:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 23:18:37 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 18:35:37 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef enum e_retcode
 }	t_retcode;
 
 /* shell_core.c */
+void	shell_loop(t_data *data);
 void	process_input(t_data *data);
 
 /* signal.c */

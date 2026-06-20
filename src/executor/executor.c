@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 23:18:37 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 18:55:53 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])
 	int	read_fd;
 
 	read_fd = STDIN_FILENO;
-	if (!cmd->next && is_builtin(data, cmd->argv[0]))
+	if (!cmd->next && cmd->argv && is_builtin(data, cmd->argv[0]))
 	{
 		process_parent_builtin(data, cmd);
 		return ;
@@ -127,6 +127,8 @@ void	execute(t_data *data)
 	t_cmd	*cmd;
 	int		next_pipe[2];
 
+	if (!data->pipeline->cmds)
+        return ;
 	cmd = data->pipeline->cmds;
 	next_pipe[0] = -1;
 	next_pipe[1] = -1;

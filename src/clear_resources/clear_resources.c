@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 17:35:53 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/17 14:43:37 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:32:23 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "env/env.h"
 #include "lexer/lexer.h"
 #include "clear_resources/clear_resources_internal.h"
+#include <readline/readline.h>
 
 static void	free_tokens(t_data *data)
 {
@@ -70,6 +71,7 @@ void	clear_data(t_data *data)
 	free_pipeline(data);
 	free_env(data);
 	reset_data(data);
+	rl_clear_history();
 }
 
 void	reset_command_state(t_data *data)

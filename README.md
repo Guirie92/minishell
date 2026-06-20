@@ -26,6 +26,12 @@ brew install readline
 
 # Resources:
 
+## chdir()
+- https://man7.org/linux/man-pages/man2/chdir.2.html
+## getcwd()
+- https://man7.org/linux/man-pages/man3/getcwd.3.html
+## getenv()
+- https://man7.org/linux/man-pages/man3/getenv.3.html
 ## open()
 - http://man7.org/linux/man-pages/man2/open.2.html
 - https://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html

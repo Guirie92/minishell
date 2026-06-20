@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:01:31 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 20:08:57 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:11:22 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
+int		ft_str_isspace(char *line);
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strchr_pos(const char *s, int c);
