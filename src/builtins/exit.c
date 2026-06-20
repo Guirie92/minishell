@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 18:55:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 23:59:30 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/20 12:00:36 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,24 @@ static int	validate_nbr(char *str)
 	return (process_digits(str, i, res, limit));
 }
 
+/*
+ * Quick note on Exit on "non-numeric" error:
+ * 
+ * In Bash version:
+ * GNU bash, version 5.1.16(1)-release (x86_64-pc-linux-gnu)
+ * 
+ * (and probably earlier versions) it appears to exit with exit-code "2",
+ * that's why it's hardcoded there on `ERR_EXIT_NUMERIC`. It doesn't make
+ * much sense, but we're trying to reproduce standard bash behavior.
+ * 
+ * However, in newer versions, like:
+ * GNU bash, version 5.3.9(1)-release (aarch64-unknown-linux-gnu)
+ * 
+ * I've been testing it and it no longer seems to exit with exit-code 2:
+ * It sets the exit_code to 2 (you can see it on echo $?), but it doesn't
+ * terminate the current session (doesn't really exit),
+ * so something to bear in mind (it looks more sensical to me)
+ */
 static	int	process_invalidations(t_data *data, t_cmd *cmd)
 {
 	if (!cmd->argv[1])
