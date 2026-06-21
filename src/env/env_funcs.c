@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 22:32:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 18:45:09 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 21:22:51 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,32 @@
 t_env	*find_env(t_data *data, char *entry)
 {
 	t_env	*node;
-	size_t	entry_len;
 
 	node = data->env;
-	entry_len = ft_strlen(entry);
 	while (node)
 	{
-		if (ft_strlen(node->key) == entry_len
-			&& ft_strncmp(node->key, entry, entry_len) == 0)
+		if (ft_strcmp(node->key, entry) == 0)
 			return (node);
 		node = node->next;
 	}
 	return (NULL);
 }
+// t_env	*find_env(t_data *data, char *entry)
+// {
+// 	t_env	*node;
+// 	size_t	entry_len;
+
+// 	node = data->env;
+// 	entry_len = ft_strlen(entry);
+// 	while (node)
+// 	{
+// 		if (ft_strlen(node->key) == entry_len
+// 			&& ft_strncmp(node->key, entry, entry_len) == 0)
+// 			return (node);
+// 		node = node->next;
+// 	}
+// 	return (NULL);
+// }
 
 void	update_env_val(t_data *data, t_env *env, const char *new_val)
 {

@@ -42,3 +42,12 @@ over that short period. Memory control and leak avoidance were a high priority.
 ## open()
 - http://man7.org/linux/man-pages/man2/open.2.html
 - https://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
+## readline()
+- https://man7.org/linux/man-pages/man3/readline.3.html
+### escape sequences (\001 & \002) for readline
+- readline.h --> line 871:
+```
+/* Definitions available for use by readline clients. */
+#define RL_PROMPT_START_IGNORE	'\001'
+#define RL_PROMPT_END_IGNORE	'\002'
+```

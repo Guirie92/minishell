@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 14:11:11 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 22:14:28 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ const char	*errmsg(t_err_type id)
 	[ERR_EXIT_ARGS] = "too many arguments: %s",
 	[ERR_EXIT_NUMERIC] = "numeric argument required: %s: %s",
 	[ERR_EXPORT_BAD_ID] = "export: not a valid identifier: %s",
+	[ERR_HOME_UNSET] = "HOME not set: %s",
 	[ERR_PIPE] = "pipe failed",
 	[ERR_FORK] = "fork failed",
 	};

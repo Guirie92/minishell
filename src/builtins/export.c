@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 23:13:46 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 17:03:54 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 21:14:17 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	process_existing_entry(t_data *data, t_env *env_node, char *arg,
 		exit_with_error(data);
 }
 
-static void	export_single_arg(t_data *data, char *arg)
+void	export_single_arg(t_data *data, char *arg)
 {
 	int		key_len;
 	t_env	*env_node;

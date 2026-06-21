@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 14:36:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 15:24:06 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 23:36:35 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	process_env(t_data *data, t_cmd *cmd)
 	{
 		if(node->value)
 			ft_printf("%s=%s\n", node->key, node->value);
-		else
-			ft_printf("%s\n", node->key);
 		node = node->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:42:40 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 18:01:00 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 21:14:47 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		process_builtin(t_data *data, t_cmd *cmd);
 
 /* builtin_utilities */
 char	*get_current_cwd(void);
+void	export_single_arg(t_data *data, char *arg);
 
 /* built-ins */
 void	process_echo(t_data *data, t_cmd *cmd);
