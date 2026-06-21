@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 19:15:59 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/12 20:49:25 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:00:20 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	count_digits(int n, int *sign, size_t *count)
 static void	print_int_min(char *tmp)
 {
 	const char	*int_min = "-2147483648";
+
 	while (*int_min)
 		*tmp++ = *int_min++;
 	*tmp = '\0';

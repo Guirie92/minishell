@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 17:49:06 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:08:17 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	process_parent_builtin(t_data *data, t_cmd *cmd)
 	data->saved_fd[1] = -1;
 }
 
-static void process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])
+static void	process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])
 {
 	int	read_fd;
 
@@ -90,7 +90,7 @@ void	execute(t_data *data)
 	int		next_pipe[2];
 
 	if (!data->pipeline->cmds)
-        return ;
+		return ;
 	cmd = data->pipeline->cmds;
 	next_pipe[0] = -1;
 	next_pipe[1] = -1;

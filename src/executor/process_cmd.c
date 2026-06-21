@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 11:02:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 18:45:12 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:09:13 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	execute_command(t_data *data, t_cmd *cmd)
 	free_envp(envp);
 }
 
-void process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
+void	process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
 	int next_pipe[2])
 {
 	signal(SIGINT, SIG_DFL);

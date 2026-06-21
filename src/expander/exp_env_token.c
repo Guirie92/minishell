@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 12:40:07 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/14 13:32:16 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:09:36 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ void	process_token_string(t_data *data, char *src, char *dst)
 		else if (state == QUOTE_CONTEXT_DOUBLE)
 			process_state_double_q(data, &src, &dst, &state);
 	}
-	*dst = '\0'; 
+	*dst = '\0';
 }

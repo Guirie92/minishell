@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 12:38:02 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 19:56:14 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:02:48 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static void	swap_env_nodes(t_env **a, t_env **b)
 {
 	t_env	*tmp;
+
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
@@ -103,7 +104,7 @@ static void	print_ordered_envp(t_env **envp, int count)
 	}
 }
 
-static void	populate_envp(t_data* data, t_env *node, t_env **envp)
+static void	populate_envp(t_data *data, t_env *node, t_env **envp)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 17:12:03 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:11:36 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@
 
 void	init_prompt(t_prompt *prompt)
 {
+	size_t	reserved_len;
+
 	prompt->buffer[0] = '\0';
 	prompt->len = 0;
 	prompt->max_len = PROMPT_SIZE;
 	prompt->prefix = CLR_BLUE "\n";
 	prompt->suffix = CLR_PURPLE TEXT_BOLD "\n> " TEXT_UNBOLD CLR_RESET;
-	prompt->reserved_len = ft_strlen(prompt->prefix)
+	reserved_len = ft_strlen(prompt->prefix)
 		+ ft_strlen(prompt->suffix);
-	prompt->usable_len = prompt->max_len - prompt->reserved_len - 1;
+	prompt->usable_len = prompt->max_len - reserved_len - 1;
 }
 
 static void	write_cwd(t_prompt *prompt, const char *cwd)

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 05:19:19 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 18:49:23 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:12:44 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-
 	data.prompt = &prompt;
 	init_data(&data, envp);
 	init_signals();
-
 	shell_loop(&data);
-
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 17:45:01 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 17:51:29 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/22 00:09:04 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	handle_pipes(t_cmd *cmd, int *read_fd, int next_pipe[2])
 	}
 }
 
-int create_pipe(int fd[2])
+int	create_pipe(int fd[2])
 {
 	if (pipe(fd) == -1)
 	{

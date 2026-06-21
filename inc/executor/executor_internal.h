@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 16:27:21 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 17:51:47 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 23:57:50 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	set_path(t_data *data, t_cmd *cmd);
 
 /* redirs */
 int		handle_redirs(t_data *data, t_cmd *cmd);
-	
+
 /* process_cmd */
 void	process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
-	int next_pipe[2]);
+			int next_pipe[2]);
 
 /* fork.c */
 int		fork_child_process(t_cmd *cmd, int read_fd, int next_fd[2]);

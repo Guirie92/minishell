@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:42:40 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 21:14:47 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 23:57:17 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@
 # define BUILTIN_N6 "env"
 # define BUILTIN_N7 "exit"
 
-# define BUILTIN_F1 &process_echo
-# define BUILTIN_F2 &process_cd
-# define BUILTIN_F3 &process_pwd
-# define BUILTIN_F4 &process_export
-# define BUILTIN_F5 &process_unset
-# define BUILTIN_F6 &process_env
-# define BUILTIN_F7 &process_exit
+# define BUILTIN_F1 process_echo
+# define BUILTIN_F2 process_cd
+# define BUILTIN_F3 process_pwd
+# define BUILTIN_F4 process_export
+# define BUILTIN_F5 process_unset
+# define BUILTIN_F6 process_env
+# define BUILTIN_F7 process_exit
 
 typedef struct s_data	t_data;
 typedef struct s_cmd	t_cmd;
-typedef void	(*t_builtin_func)(t_data *, t_cmd *);
+typedef void			(*t_builtin_func)(t_data *, t_cmd *);
 
 typedef struct s_builtins
 {

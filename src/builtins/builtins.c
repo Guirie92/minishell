@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:45:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 18:44:49 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 23:57:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	builtins_init(t_data *data)
 	}
 }
 
-int		is_builtin(t_data *data, char *cmd)
+int	is_builtin(t_data *data, char *cmd)
 {
 	size_t	len;
 	int		i;
