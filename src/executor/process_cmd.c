@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 11:02:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 21:44:11 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:45:12 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,7 @@
 #include "builtins/builtins.h"
 #include "executor/executor_internal.h"
 
-static void	handle_pipes(t_cmd *cmd, int read_fd, int next_pipe[2])
-{
-	if (read_fd != STDIN_FILENO)
-	{
-		dup2(read_fd, STDIN_FILENO);
-		close(read_fd);
-	}
-	if (cmd->next)
-	{
-		close(next_pipe[0]);
-		dup2(next_pipe[1], STDOUT_FILENO);
-		close(next_pipe[1]);
-	}
-}
-
-/*
+/**
  * If there's no argv[0], or if it's an empty string, such as in only
  * redirections, it just exits without calling execve
  */
@@ -70,7 +55,7 @@ void process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	handle_pipes(cmd, read_fd, next_pipe);
+	handle_pipes_child(cmd, read_fd, next_pipe);
 	if (handle_redirs(data, cmd) != E_SUCCESS)
 	{
 		clear_data(data);

@@ -6,11 +6,11 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/18 19:32:55 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 20:57:19 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:45:18 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
+/**
  * https://man7.org/linux/man-pages/man2/open.2.html
  * https://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
  * 
@@ -44,7 +44,7 @@ static int	handle_redir_in(t_data *data, t_redir *redir)
 	return (E_SUCCESS);
 }
 
-/*
+/**
  * https://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
  * 
  * The signature of open is:

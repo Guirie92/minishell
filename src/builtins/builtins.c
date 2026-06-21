@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:45:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 14:37:59 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:44:49 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,26 @@ int	process_builtin(t_data *data, t_cmd *cmd)
 		i++;
 	}
 	return (0);
+}
+
+/**
+ * In the manual:
+ * https://man7.org/linux/man-pages/man3/getcwd.3.html
+ * 
+ * In the 3rd paragraph, it says:
+ * 
+ *   "As an extension to the POSIX.1-2001 standard, glibc's getcwd()
+ *   allocates the buffer dynamically using malloc(3) if buf is NULL."
+ * 
+ * This is perfect, because we don't know the length of the current dir, so
+ * we let it allocate whatever's necessary and pass it to the PWD env node.
+ */
+char	*get_current_cwd(void)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (NULL);
+	return (cwd);
 }

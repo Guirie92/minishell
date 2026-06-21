@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 16:08:10 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/14 21:29:11 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:45:47 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "parser/parser.h"
 #include "expander/expander.h"
 
-/*
+/**
  * It calculates the expansion in a heredoc line, one at a time
  * (doesn't need quote context)
  */
@@ -40,7 +40,7 @@ size_t	calculate_expanded_len(t_data *data, char *line, int *b_has_expanded)
 	return (len);
 }
 
-/*
+/**
  * It performs 2 actions in 3 steps: it expands env variables and strips quotes
  * 
  * #1 - It calculates the new len, taking into account (1) quote removal
@@ -75,7 +75,7 @@ static void	expand_strip_redirs(t_data *data, t_redir *redir)
 	}
 }
 
-/*
+/**
  * Array Shift (similar to move zeroes from leetcode):
  * https://leetcode.com/problems/move-zeroes/
  * solutions/6743967/video-two-pointer-solution-by-niits-m0fp/
@@ -130,7 +130,7 @@ static void	arrange_argv_array(t_cmd *cmd)
 	cmd->argc = wr_i;
 }
 
-/*
+/**
  * It performs 3 actions: it expands env variables, strips quotes, and removes
  * empty tokens IF there's no quotes and the expansion results in an empty str
  * 

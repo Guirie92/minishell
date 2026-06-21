@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 11:20:45 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:14:15 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:44:28 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	check_specifier(char const **fmt, t_pf_data *data, va_list *args)
 	return (EINVALID);
 }
 
-/*
+/**
  * Flag syntax:
  * %[argument$][flags][width][.precision][length modifier]conversion
  * Linux Manual:

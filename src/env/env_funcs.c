@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 22:32:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 12:05:25 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:45:09 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	add_env_entry(t_data *data, t_env *env)
 	env->next = NULL;
 }
 
-/*
+/**
  * Edge case to bear in mind:
  * - Removing the head (first or single element) --> prev == NULL
  */

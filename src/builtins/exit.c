@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 18:55:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 12:00:36 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:45:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "parser/parser.h"
 
-/*
+/**
  * This checks for overflow without actually triggering it. 
  * Instead of (res * 10 + digit > MAX), which would wrap around,
  * we check if (res > (MAX - digit) / 10). 
@@ -63,7 +63,7 @@ static int	validate_nbr(char *str)
 	return (process_digits(str, i, res, limit));
 }
 
-/*
+/**
  * Quick note on Exit on "non-numeric" error:
  * 
  * In Bash version:
@@ -109,7 +109,7 @@ static	int	process_invalidations(t_data *data, t_cmd *cmd)
 	return (E_SUCCESS);
 }
 
-/*
+/**
  * Only prints when it's a single-command pipeline. This is, if `cmd->next`
  * is null, that means it is being called from the parent and we can print exit.
  */

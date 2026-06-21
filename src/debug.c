@@ -84,7 +84,7 @@ static void	debug_lexer(t_data *data)
 	}
 }
 
-/*
+/**
  * G = GREEN
  * P = PURPLE
  * C = CYAN

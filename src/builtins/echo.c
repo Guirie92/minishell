@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 18:36:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 11:12:14 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:44:53 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "parser/parser.h"
 
-/*
+/**
  * Apparently, bash handles the following type of input for -n:
  *
  *   echo -n hello           --> (a single -n argument)

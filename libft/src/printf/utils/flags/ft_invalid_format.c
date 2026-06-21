@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 21:59:20 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:14:34 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:44:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	print_width(ssize_t width, t_pf_data *data);
 static void	handle_precision(t_pf_data *data);
 static void	print_precision(ssize_t precision, t_pf_data *data);
 
-/*
+/**
  * INVALID FORMAT:
  * 
  * (1) Flags computed first, then FMW (width), then precision, then 

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:30:31 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/11 21:14:41 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:44:35 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	determine_prefix(int spcfr, t_pf_data *data, va_list *args)
 	va_end(args_tmp);
 }
 
-/*
+/**
  * Total width is: total - (format length + prefix + sign)
  * 
  * total_width at start holds the value for prefix + sign.

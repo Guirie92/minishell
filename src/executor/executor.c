@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 18:55:53 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 17:49:06 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,44 +42,6 @@ static void	wait_for_child_processes(t_data *data)
 	}
 	if (b_signaled)
 		write(1, "\n", 1);
-}
-
-static int create_pipe(int fd[2])
-{
-	if (pipe(fd) == -1)
-	{
-		print_error(ERR_PIPE);
-		return (E_FAILURE);
-	}
-	return (E_SUCCESS);
-}
-
-static int fork_child_process(t_cmd *cmd, int read_fd, int next_fd[2])
-{
-	cmd->pid = fork();
-	if (cmd->pid == -1)
-	{
-		print_error(ERR_FORK);
-		if (next_fd[0] != -1)
-			close(next_fd[0]);
-		if (next_fd[1] != -1)
-			close(next_fd[1]);
-		if (read_fd != STDIN_FILENO)
-			close(read_fd);
-		return (E_FAILURE);
-	}
-	return (E_SUCCESS);
-}
-
-static void	handle_pipes(t_cmd *cmd, int *read_fd, int next_pipe[2])
-{
-	if (*read_fd != STDIN_FILENO)
-		close(*read_fd);
-	if (cmd->next)
-	{
-		close(next_pipe[1]);
-		*read_fd = next_pipe[0];
-	}
 }
 
 static void	process_parent_builtin(t_data *data, t_cmd *cmd)

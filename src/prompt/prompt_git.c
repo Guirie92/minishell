@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 09:23:14 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/13 16:00:57 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:45:55 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	append_branch(t_prompt *prompt, char *buffer, int i)
 	prompt->len = j;
 }
 
-/*
+/**
  * opens the file at .git/HEAD, which reports the refernce and it's
  * saved to buffer.
  * 
@@ -68,7 +68,7 @@ static void	print_git_branch(t_prompt *prompt, char *git_root)
 	append_branch(prompt, buffer, i);
 }
 
-/*
+/**
  * It skips git_root from cwd
  *
  * For example ->
@@ -112,7 +112,7 @@ static int	has_git_dir(char *path)
 	return (access(test, F_OK) == 0);
 }
 
-/*
+/**
  * This finds the full path until it reaches the current git repo.
  * 
  * The git root is saved in the prompt->buffer, but it's passed around as

@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/14 13:07:11 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 21:40:56 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 18:45:22 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	fill_env_key(t_data *data, char **src, char **dst)
 	parse_env_key(data, src, dst);
 }
 
-/*
+/**
  * It expands the heredoc line, one at a time (doesn't need quote context)
  */
 void	fill_expanded_line(t_data *data, char *line, char *expanded_line)
