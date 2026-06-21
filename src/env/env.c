@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:03 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 23:11:39 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 12:10:57 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ static void	fill_envp(t_data *data, char **envp, size_t size)
 	i = 0;
 	while (env)
 	{
+		if (!env->value)
+		{
+			env = env->next;
+			continue ;
+		}
 		strlen = ft_strlen(env->key) + 1;
 		strlen += ft_strlen(env->value);
 		envp[i] = malloc((strlen + 1) * sizeof(char));
@@ -96,7 +101,8 @@ char	**env_to_envp(t_data *data)
 	size = 0;
 	while (env)
 	{
-		size++;
+		if (env->value)
+			size++;
 		env = env->next;
 	}
 	envp = malloc((size + 1) * sizeof(*envp));

@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_exit.c                                       :+:      :+:    :+:   */
+/*   env_alpha.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/19 23:30:40 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 13:40:18 by guillsan         ###   ########.fr       */
+/*   Created: 2026/06/21 12:38:02 by guillsan          #+#    #+#             */
+/*   Updated: 2026/06/21 12:41:39 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "env/env.h"
 #include "libft.h"
-#include "clear_resources/clear_resources.h"
-#include "error/error.h"
-#include <string.h>
-#include <errno.h>
-#include <unistd.h>
 
-void	exit_with_error(t_data *data)
+void	print_env_alpha_order(t_data *data)
 {
-	const int	saved_errno = errno;
-	char		*sys_err;
-
-	if (saved_errno != 0)
-	{
-		sys_err = strerror(saved_errno);
-		ft_dprintf(STDERR_FILENO, ERROR_CLR ERR_MINISHELL_PREFIX
-			"%s\n" CLR_RST, sys_err);
-	}
-	clear_data(data);
-	exit(EXIT_FAILURE);
+	// TODO
+	(void)data;
 }

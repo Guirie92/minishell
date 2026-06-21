@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:35:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 23:30:10 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 14:08:46 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_err_type
 	ERR_OPEN,
 	ERR_EXIT_ARGS,
 	ERR_EXIT_NUMERIC,
+	ERR_EXPORT_BAD_ID,
 	ERR_PIPE,
 	ERR_FORK,
 	ERR_COUNT

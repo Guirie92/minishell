@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 18:32:43 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/19 23:33:31 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 14:08:27 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ const char	*errmsg(t_err_type id)
 	[ERR_OPEN] = "no such file or directory: %s",
 	[ERR_EXIT_ARGS] = "too many arguments: %s",
 	[ERR_EXIT_NUMERIC] = "numeric argument required: %s: %s",
+	[ERR_EXPORT_BAD_ID] = "export: not a valid identifier %s",
 	[ERR_PIPE] = "pipe failed",
 	[ERR_FORK] = "fork failed",
 	};
