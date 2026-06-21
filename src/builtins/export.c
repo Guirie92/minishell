@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 23:13:46 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 16:59:44 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 17:03:54 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include "env/env.h"
 #include "parser/parser.h"
-
 
 static int	is_valid_id(char *s)
 {
@@ -48,35 +47,6 @@ static void	process_existing_entry(t_data *data, t_env *env_node, char *arg,
 	if (!env_node->value)
 		exit_with_error(data);
 }
-// static void	process_existing_entry(t_data *data, t_env *env_node, char *arg,
-// 	int key_len)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	b_same_val;
-
-// 	i = key_len;
-// 	b_same_val = 0;
-// 	if (arg[i++] != '=')
-// 		return ;
-// 	j = 0;
-// 	while (env_node->value && arg[i] && env_node->value[j])
-// 	{
-// 		if (arg[i++] == env_node->value[j++])
-// 			b_same_val = 1;
-// 		else
-// 		{
-// 			b_same_val = 0;
-// 			break ;
-// 		}
-// 	}
-// 	if (b_same_val == 1 && (i - key_len == j))
-// 		return ;
-// 	free(env_node->value);
-// 	env_node->value = ft_strdup(arg + key_len + 1);
-// 	if (!env_node->value)
-// 		exit_with_error(data);
-// }
 
 static void	export_single_arg(t_data *data, char *arg)
 {
@@ -94,18 +64,17 @@ static void	export_single_arg(t_data *data, char *arg)
 		add_env_entry(data, new_node);
 	}
 	else
-		process_existing_entry(data, env_node, arg, key_len);	
+		process_existing_entry(data, env_node, arg, key_len);
 }
 
 static void	loop_argv_export(t_data *data, char **argv)
 {
 	int	i;
-	int	key_len;
 
 	i = 1;
 	while (argv[i])
 	{
-		if(!is_valid_id(argv[i]))
+		if (!is_valid_id(argv[i]))
 		{
 			print_error_arg(ERR_EXPORT_BAD_ID, argv[i]);
 			data->exit_status = 1;
