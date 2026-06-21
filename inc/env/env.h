@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 12:42:34 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 16:15:37 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	take_env_val(t_env *env, char *alloc_val);
 /* env_funcs.c */
 t_env	*find_env(t_data *data, char *entry);
 void	update_env_val(t_data *data, t_env *env, const char *new_val);
+void	add_env_entry(t_data *data, t_env *env);
+void	remove_env_entry(t_data *data, char *entry);
 
 /* env.c */
 void	free_envp(char **envp);

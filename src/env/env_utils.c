@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 13:30:12 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 23:10:46 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 14:33:11 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ t_env	*find_env_len(t_data *data, char *entry, size_t len)
 t_env	*create_env_node(t_data *data, char *entry)
 {
 	t_env	*node;
-	int		equal_pos;
+	int		key_len;
 
 	node = malloc(sizeof(*node));
 	if (!node)
 		exit_with_error(data);
-	equal_pos = ft_strchr_pos(entry, '=');
-	if (equal_pos != -1)
+	key_len = ft_strchr_pos(entry, '=');
+	if (key_len != -1)
 	{
-		node->key = ft_strndup(entry, equal_pos);
+		node->key = ft_strndup(entry, key_len);
 		if (!node->key)
 			exit_with_error(data);
-		node->value = ft_strdup(&entry[equal_pos + 1]);
+		node->value = ft_strdup(&entry[key_len + 1]);
 		if (!node->value)
 			exit_with_error(data);
 	}

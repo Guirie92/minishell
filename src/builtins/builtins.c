@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 17:45:17 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/20 23:14:11 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/21 14:37:59 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,4 @@ int	process_builtin(t_data *data, t_cmd *cmd)
 		i++;
 	}
 	return (0);
-}
-
-void	process_pwd(t_data *data, t_cmd *cmd)
-{
-	(void)data;
-	(void)cmd;
-	// TODO
-}
-
-void	process_env(t_data *data, t_cmd *cmd)
-{
-	(void)data;
-	(void)cmd;
-	// TODO
 }
