@@ -8,5 +8,7 @@ out.txt
 out
 test
 test/*
+obj
+obj/
 minishell
 output
