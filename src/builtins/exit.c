@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 18:55:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 18:45:03 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/28 18:41:36 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,72 @@
 #include "parser/parser.h"
 
 /**
- * This checks for overflow without actually triggering it. 
- * Instead of (res * 10 + digit > MAX), which would wrap around,
- * we check if (res > (MAX - digit) / 10). 
- * Basically, it's asking "am I already too big to add another 
- * digit safely?" before doing the math.
+ * The idea of this check is to prevent computing res first (which could
+ * overflow) and then compare it against LLONG_MAX and/or LLONG_MIN
+ * 
+ * So, to avoid 2 separate functions (as I had before), if we simply do
+ * LLONG_MIN, which also comprises LLONG_MAX, we can build our res as a
+ * negative number so that we can go to that very last digit because of the
+ * extra +1 (that extra bit) the negative has since it doesn't have to count
+ * the 0 as the positive realm does. Of course, this requires invalidating
+ * the result if we happen to be working with a possitive number (determined
+ * by the passed in "sign") and the result is == LLONG_MIN (it will never
+ * be greater 'cause we invalidate them).
+ * 
+ * The idea is quite simple, with a double check:
+ * 
+ * (1) res can never be greater than LLONG_MIN / 10, or else it will immediately
+ *     overflow as we multiply by 10.
+ * 
+ * (2) If it's not greater, then we check if it's equal, because if it's less,
+ *     no matter how much you multiply it by ten and you add any digit (0-9) to
+ *     it, it will never overflow. So, in this case, if it's equal, then we
+ *     check if the digit we have at hand is greater than the very last digit
+ *     of LLONG_MIN. For example, say we have this simplified case:
+ *     
+ *          - LLONG_MIN  = -1321
+ *          - our number = -1320
+ *          
+ *          then, as we are approaching the last iter (-132), we check if it's
+ *          greater than -1321 / 10 (-132), and since it's not, then we move
+ *          on to the next check: -132 == -1321 / 10 (-132) --> Yep,
+ *          so the last digit matters. Our current digit here is 0, and the
+ *          last digit og our fake LLONG_MIN is 1, so: 0 > 1? --> Nope,
+ *          so we can safely multiply our current res (-132) by 10 and we can
+ *          also safely add the current digit to it (-1321) without causing a
+ *          nasty overflow.
  */
-static int	process_digits(char *str, int i, unsigned long long res,
-	unsigned long long limit)
+static int	process_digits(char *str, int i, int sign)
 {
+	long long	res;
+	int 		digit;
+
+	res = 0;
+	digit = 0;
 	while (str[i])
 	{
+		digit = str[i] - '0';
 		if (!ft_isdigit(str[i]))
 			return (E_FAILURE);
-		if (res > (limit - (str[i] - '0')) / 10)
+		if (res < LLONG_MIN / 10)
 			return (E_FAILURE);
-		res = (res * 10) + (str[i] - '0');
+		if (res == LLONG_MIN / 10 && digit > ft_abs(LLONG_MIN % 10))
+			return (E_FAILURE);
+		res = (res * 10) - digit;
 		i++;
 	}
+	if (sign > 0 && res == LLONG_MIN)
+		return (E_FAILURE);
 	return (E_SUCCESS);
 }
 
 static int	validate_nbr(char *str)
 {
-	int					i;
-	int					sign;
-	unsigned long long	res;
-	unsigned long long	limit;
+	size_t	i;
+	int		sign;
 
 	i = 0;
 	sign = 1;
-	res = 0;
 	if (!str[0])
 		return (E_FAILURE);
 	if (str[i] == '-' || str[i] == '+')
@@ -56,11 +91,7 @@ static int	validate_nbr(char *str)
 	}
 	if (!str[i])
 		return (E_FAILURE);
-	if (sign == 1)
-		limit = LLONG_MAX;
-	else
-		limit = LLONG_MIN;
-	return (process_digits(str, i, res, limit));
+	return (process_digits(str, i, sign));
 }
 
 /**

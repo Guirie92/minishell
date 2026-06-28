@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 18:36:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 18:44:53 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/24 20:04:33 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
  */
 static int	is_n(char *s)
 {
-	int	i;
+	size_t	i;
 
 	if (!*s)
 		return (0);
