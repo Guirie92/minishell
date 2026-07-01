@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:26:34 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/22 00:08:17 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 11:32:29 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	process_parent_builtin(t_data *data, t_cmd *cmd)
 {
 	data->saved_fd[0] = dup(STDIN_FILENO);
 	data->saved_fd[1] = dup(STDOUT_FILENO);
-	if (handle_redirs(data, cmd) != E_SUCCESS)
+	if (handle_redirs(cmd) != E_SUCCESS)
 		data->exit_status = 1;
 	else
 		process_builtin(data, cmd);
@@ -65,7 +65,8 @@ static void	process_commands(t_data *data, t_cmd *cmd, int next_pipe[2])
 	int	read_fd;
 
 	read_fd = STDIN_FILENO;
-	if (!cmd->next && cmd->argv && is_builtin(data, cmd->argv[0]))
+	if (!cmd->next && cmd->argv && cmd->argv[0]
+		&& is_builtin(data, cmd->argv[0]))
 	{
 		process_parent_builtin(data, cmd);
 		return ;

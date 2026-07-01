@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:24 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 16:15:37 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 13:54:42 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,15 @@ typedef struct s_env
 /* env_alpha.c */
 void	print_env_alpha_order(t_data *data);
 
+/* env_essentials.c */
+void	create_oldpwd(t_data *data);
+void	create_pwd(t_data *data);
+void	ensure_essentials_env(t_data *data);
+
 /* env_utils.c */
 t_env	*find_env_len(t_data *data, char *entry, size_t len);
 t_env	*create_env_node(t_data *data, char *entry);
+t_env	*create_env_key_val(t_data *data, char *key, char *value);
 void	take_env_val(t_env *env, char *alloc_val);
 
 /* env_funcs.c */

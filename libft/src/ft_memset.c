@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/27 20:03:46 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/28 22:50:08 by guillsan         ###   ########.fr       */
+/*   Created: 2025/09/30 17:29:38 by guillsan          #+#    #+#             */
+/*   Updated: 2026/07/01 11:38:12 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long	ft_abs(long long x)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	if (x < 0)
-		return (-x);
-	return (x);
+	void	*ptr;
+
+	ptr = s;
+	while (n--)
+	{
+		*(unsigned char *)ptr = c;
+		ptr++;
+	}
+	return (s);
 }

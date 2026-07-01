@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 17:07:58 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/22 00:13:01 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 14:00:17 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	shell_loop(t_data *data)
 {
 	while (1)
 	{
-		generate_prompt(data->prompt);
+		generate_prompt(data, data->prompt);
 		data->line = readline(data->prompt->buffer);
 		check_sigint(data);
 		if (!data->line)

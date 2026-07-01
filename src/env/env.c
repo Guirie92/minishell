@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:14:03 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 12:10:57 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 13:35:14 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void	envp_to_env(t_data *data, char **envp)
 	t_env	*tail;
 
 	if (!envp || !*envp)
+	{
+		ensure_essentials_env(data);
 		return ;
+	}
 	tail = create_env_node(data, *envp);
 	data->env = tail;
 	envp++;
@@ -89,6 +92,7 @@ void	envp_to_env(t_data *data, char **envp)
 		tail = tail->next;
 		envp++;
 	}
+	ensure_essentials_env(data);
 }
 
 char	**env_to_envp(t_data *data)

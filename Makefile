@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/05/28 05:06:50 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/28 20:56:05 by guillsan         ###   ########.fr        #
+#    Updated: 2026/07/01 13:41:17 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS = $(addprefix $(SRC_DIR)/,        \
 		shell_core.c                   \
 		main.c)                        \
 		$(addprefix $(ENV_DIR)/,       \
+		env_essentials.c               \
 		env_alpha.c                    \
 		env_funcs.c                    \
 		env_utils.c                    \

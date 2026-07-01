@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/07 16:27:21 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 23:57:50 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 11:32:09 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef enum e_heredoc_status
 void	set_path(t_data *data, t_cmd *cmd);
 
 /* redirs */
-int		handle_redirs(t_data *data, t_cmd *cmd);
+int		handle_redirs(t_cmd *cmd);
 
 /* process_cmd */
 void	process_cmd_in_child(t_data *data, t_cmd *cmd, int read_fd,

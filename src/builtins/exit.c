@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 18:55:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/28 18:41:36 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/06/28 22:43:13 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 static int	process_digits(char *str, int i, int sign)
 {
 	long long	res;
-	int 		digit;
+	int			digit;
 
 	res = 0;
 	digit = 0;

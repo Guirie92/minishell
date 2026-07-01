@@ -6,7 +6,7 @@
 #    By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 20:50:11 by guillsan          #+#    #+#              #
-#    Updated: 2026/06/28 20:56:38 by guillsan         ###   ########.fr        #
+#    Updated: 2026/07/01 11:39:16 by guillsan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,10 @@ SRCS = 	$(addprefix $(SRC_DIR)/,            \
 		ft_strlen.c                         \
 		ft_strdup.c                         \
 		ft_strndup.c                        \
+		ft_strjoin.c                        \
 		ft_count_digits.c                   \
 		ft_split.c                          \
+		ft_memset.c                         \
 		ft_memmove.c                        \
 		ft_calloc.c                         \
 		ft_str_isspace.c                    \

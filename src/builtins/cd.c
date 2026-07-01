@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 20:54:30 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/21 23:55:07 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 13:55:15 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,6 @@
 #include "parser/parser.h"
 #include "env/env.h"
 #include "builtins/builtins.h"
-
-static t_env	*create_pwd(t_data *data, char *key, char *value)
-{
-	char	*full_env;
-	size_t	key_len;
-	size_t	val_len;
-	size_t	full_len;
-
-	if (!key)
-		return (NULL);
-	if (!value)
-	{
-		export_single_arg(data, key);
-		return (find_env(data, key));
-	}
-	key_len = ft_strlen(key);
-	val_len = ft_strlen(value);
-	full_len = key_len + val_len + 2;
-	full_env = malloc(full_len * sizeof(char));
-	if (!full_env)
-		exit_with_error(data);
-	ft_strlcpy(full_env, key, full_len);
-	ft_strlcat(full_env, "=", full_len);
-	ft_strlcat(full_env, value, full_len);
-	export_single_arg(data, full_env);
-	free(full_env);
-	return (find_env(data, key));
-}
 
 static void	update_cd_envs(t_data *data)
 {
@@ -56,14 +28,14 @@ static void	update_cd_envs(t_data *data)
 	pwd = find_env(data, "PWD");
 	oldpwd = find_env(data, "OLDPWD");
 	if (!oldpwd)
-		oldpwd = create_pwd(data, "OLDPWD", NULL);
+		oldpwd = create_env_key_val(data, "OLDPWD", NULL);
 	if (!pwd || !pwd->value)
 		update_env_val(data, oldpwd, NULL);
 	else
 		update_env_val(data, oldpwd, pwd->value);
 	if (!pwd)
 	{
-		pwd = create_pwd(data, "PWD", cwd);
+		pwd = create_env_key_val(data, "PWD", cwd);
 		free(cwd);
 		return ;
 	}

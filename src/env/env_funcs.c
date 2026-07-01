@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 22:32:23 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/22 00:03:16 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 14:22:03 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	update_env_val(t_data *data, t_env *env, const char *new_val)
 {
 	size_t	len;
 
+	if (!new_val)
+		return ;
 	len = ft_strlen(new_val);
 	if (env->value)
 		free(env->value);

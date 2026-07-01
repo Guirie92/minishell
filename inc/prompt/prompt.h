@@ -6,7 +6,7 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 14:49:48 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/22 00:11:59 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 14:00:08 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ typedef struct s_prompt
 }	t_prompt;
 
 void	init_prompt(t_prompt *prompt);
-void	generate_prompt(t_prompt *prompt);
+void	generate_prompt(t_data *data, t_prompt *prompt);
 
 #endif /* PROMPT_H */

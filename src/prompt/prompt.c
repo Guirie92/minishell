@@ -6,12 +6,13 @@
 /*   By: guillsan <guillsan@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 11:38:56 by guillsan          #+#    #+#             */
-/*   Updated: 2026/06/22 00:11:36 by guillsan         ###   ########.fr       */
+/*   Updated: 2026/07/01 14:00:20 by guillsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+#include "env/env.h"
 #include "prompt/prompt.h"
 #include "prompt/prompt_internal.h"
 #include "string_builder/string_builder.h"
@@ -37,16 +38,19 @@ static void	write_cwd(t_prompt *prompt, const char *cwd)
 	prompt->len = ft_strlen(prompt->buffer);
 }
 
-static void	replace_home(t_prompt *prompt, const char *cwd)
+static void	replace_home(t_data *data, t_prompt *prompt, const char *cwd)
 {
 	size_t			home_len;
-	const char		*home = getenv("HOME");
+	const char		*home;
+	t_env			*home_node;
 
-	if (!home)
+	home_node = find_env(data, "HOME");
+	if (!home_node || !home_node->value)
 	{
 		write_cwd(prompt, cwd);
 		return ;
 	}
+	home = home_node->value;
 	home_len = ft_strlen(home);
 	if (ft_strncmp(cwd, home, home_len) == 0)
 	{
@@ -65,7 +69,7 @@ static void	build_prompt(t_prompt *prompt, t_prompt *tmp)
 	prompt->len = ft_strlen(prompt->buffer);
 }
 
-void	generate_prompt(t_prompt *prompt)
+void	generate_prompt(t_data *data, t_prompt *prompt)
 {
 	t_prompt	tmp;
 	char		cwd[PATH_MAX];
@@ -81,7 +85,7 @@ void	generate_prompt(t_prompt *prompt)
 	if (find_git_root(git_root, cwd) == E_SUCCESS)
 		write_git_path(&tmp, cwd, git_root);
 	else
-		replace_home(&tmp, cwd);
+		replace_home(data, &tmp, cwd);
 	build_prompt(prompt, &tmp);
 	ft_strlcat(prompt->buffer, prompt->suffix, prompt->max_len);
 	prompt->len = ft_strlen(prompt->buffer);
