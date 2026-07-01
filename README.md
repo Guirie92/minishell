@@ -1,5 +1,7 @@
 *This project has been created as part of the 42 curriculum by guillsan*
 
+# Minishell
+
 # Disclaimer:
 I made this project solo from scratch in about a month. I tried to keep the
 project modular and organized, but due to time constraints, I believe there
@@ -8,6 +10,18 @@ could've been modularized. That said, if time allows it, I'll be improving it
 overtime, though I think it's interesting to have a snapshot of what was done
 over that short period, even with its limitations. Memory control and leak avoidance
 were a high priority.
+
+---
+
+## Description
+
+Minishell is a simplified UNIX shell developed as part of the 42 curriculum.
+
+The goal of this project is to understand how a command interpreter works internally by recreating the essential behavior of Bash. It introduces concepts such as tokenizing, parsing, process management, pipes, redirections, environment variables, signals, and file descriptor manipulation.
+
+This implementation focuses exclusively on the features required by the subject.
+
+---
 
 # AI use
 - Explore and discuss topics
@@ -19,8 +33,9 @@ were a high priority.
 - Suggesting code fixes here and there
 
 ## (AI use-disclaimer):
-- DONTs: It was never used to let it write code for me, rather, it provided fix-
-  suggestions or some naming advice here and there.
+It was never used to let it write code for me, rather, it provided fix-suggestions or some naming advice here and there.
+
+---
 
 # Resources:
 
@@ -49,6 +64,8 @@ were a high priority.
 #define RL_PROMPT_START_IGNORE	'\001'
 #define RL_PROMPT_END_IGNORE	'\002'
 ```
+
+---
 
 ## Project Structure
 
@@ -91,6 +108,8 @@ builtin execution or execve() (with path resolve)
 waitpid()
 ```
 
+---
+
 ## Instructions
 
 ### Requirements
@@ -121,7 +140,9 @@ make re
 ./minishell
 ```
 
-## Authors
+---
+
+## Author
 
 **guillsan**
 
